@@ -1,0 +1,813 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0488F0"><title>Рядом — для курьеров</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--b:#0CB1DF;--d:#0488F0;--c:#EB4A37;--bg:#F2F7FB;--card:#ffffffd9;--solid:#fff;--t:#13212b;--m:#5d6e7a;--line:#0c3b4a14;--sh:0 14px 40px -18px #0a4a7055;--spring:cubic-bezier(.34,1.56,.64,1)}
+@media(prefers-color-scheme:dark){:root{--bg:#081118;--card:#122029d9;--solid:#122029;--t:#e9f3f8;--m:#9db1bf;--line:#ffffff12;--sh:0 14px 40px -18px #000c}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}
+body{margin:0;font-family:Manrope,system-ui,sans-serif;background:var(--bg);color:var(--t);font-size:18px;line-height:1.55;overflow-x:hidden}
+svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#prog{position:fixed;top:0;left:0;height:4px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--b),var(--d),var(--c));z-index:50}
+/* HERO */
+.hero{position:relative;overflow:hidden;color:#fff;padding:54px 22px 96px;background:linear-gradient(120deg,#0CB1DF,#0488F0,#0566d6,#0CB1DF);background-size:300% 300%;animation:grad 14s ease infinite}
+@keyframes grad{50%{background-position:100% 50%}}
+.blob{position:absolute;border-radius:50%;filter:blur(50px);opacity:.55;animation:float 12s ease-in-out infinite}
+.b1{width:260px;height:260px;background:#EB4A37;right:-90px;bottom:-60px}.b2{width:220px;height:220px;background:#7fe3ff;left:-80px;top:-60px;animation-delay:-4s}.b3{width:160px;height:160px;background:#ff9a7a;left:40%;top:30%;opacity:.3;animation-delay:-8s}
+@keyframes float{50%{transform:translate(30px,-25px) scale(1.12)}}
+#parts{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero>:not(.blob):not(#parts):not(.wave){position:relative;z-index:2}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#ffffff22;border:1px solid #ffffff55;padding:7px 14px;border-radius:30px;font-size:14px;font-weight:800;backdrop-filter:blur(8px)}
+.badge .pulse{width:8px;height:8px;border-radius:50%;background:#7CFFB2;box-shadow:0 0 0 0 #7CFFB2;animation:pl 2s infinite}@keyframes pl{70%{box-shadow:0 0 0 10px #7CFFB200}}
+.hero h1{font-family:Unbounded,Manrope,sans-serif;font-weight:800;font-size:clamp(36px,10vw,64px);line-height:1.05;margin:18px 0 6px;letter-spacing:-.02em}
+.hero h1 .ch{display:inline-block;opacity:0;transform:translateY(40px) rotate(8deg);animation:ch .7s var(--spring) forwards}
+.hero h1 .accent .ch{color:#FFD9D1;text-shadow:0 4px 24px #EB4A3799}
+@keyframes ch{to{opacity:1;transform:none}}
+.sub{opacity:.9;margin:0 0 18px;font-weight:600}
+.road{height:46px;position:relative;margin:4px 0 18px;border-bottom:2px dashed #ffffff66}
+.scooter{position:absolute;bottom:-2px;left:-70px;width:64px;height:44px;animation:drive 7s linear infinite;color:#fff}
+.scooter .wh{transform-box:fill-box;transform-origin:center;animation:spin .6s linear infinite}
+@keyframes drive{to{left:calc(100% + 20px)}}@keyframes spin{to{transform:rotate(360deg)}}
+.pre{background:#ffffff1c;border:1px solid #ffffff44;border-radius:24px;padding:18px 20px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);max-width:660px;font-size:17px;box-shadow:0 20px 50px -20px #0005;opacity:0;animation:up .9s 1.1s ease forwards}
+.pre b{color:#fff;display:flex;align-items:center;gap:8px;font-family:Unbounded,sans-serif;font-size:14px;letter-spacing:.08em;margin-bottom:8px}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;opacity:0;animation:up .8s 1.4s ease forwards}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--d);font-weight:800;font-size:14px;padding:7px 12px;border-radius:14px}.chip b{font-family:Unbounded,sans-serif}
+.wave{position:absolute;bottom:-1px;left:0;width:100%;height:60px;z-index:3;color:var(--bg)}
+/* NAV */
+nav{position:sticky;top:0;z-index:20;padding:10px 14px;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(18px) saturate(1.8);-webkit-backdrop-filter:blur(18px) saturate(1.8);border-bottom:1px solid var(--line)}
+.sw{position:relative}.sw svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--b);font-size:20px}
+#q{width:100%;padding:14px 16px 14px 46px;font:inherit;font-size:17px;border:0;border-radius:18px;background:var(--solid);color:var(--t);box-shadow:var(--sh);outline:none;transition:box-shadow .3s}#q:focus{box-shadow:0 0 0 3px #0CB1DF66,var(--sh)}
+.tabs{display:flex;gap:8px;overflow-x:auto;margin-top:10px;scrollbar-width:none;padding:2px}.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--t);background:var(--solid);border-radius:30px;padding:8px 14px;font-size:14px;font-weight:800;box-shadow:var(--sh);transition:all .3s var(--spring);position:relative;overflow:hidden}
+.tabs a svg{color:var(--b);font-size:16px}.tabs a.act{background:linear-gradient(135deg,var(--b),var(--d));color:#fff;transform:scale(1.05)}.tabs a.act svg{color:#fff}
+/* CARDS */
+main{padding:10px 14px 30px;max-width:780px;margin:auto}
+details{position:relative;background:var(--card);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:26px;margin:0 0 18px;box-shadow:var(--sh);overflow:hidden;scroll-margin-top:140px;transition:transform .25s ease,box-shadow .3s;transform-style:preserve-3d}
+details:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(300px circle at var(--mx,50%) var(--my,0%),#0CB1DF22,transparent 60%);opacity:0;transition:opacity .3s}details:hover:before{opacity:1}
+summary{position:relative;overflow:hidden;padding:18px;font-family:Unbounded,Manrope,sans-serif;font-size:17px;font-weight:700;cursor:pointer;list-style:none;display:flex;align-items:center;gap:14px}summary::-webkit-details-marker{display:none}
+.ic{flex:none;width:48px;height:48px;border-radius:16px;display:grid;place-items:center;font-size:24px;color:#fff;background:linear-gradient(135deg,var(--b),var(--d));box-shadow:0 10px 20px -8px #0488F0aa;transition:transform .5s var(--spring)}
+details[open] .ic{transform:rotate(-8deg) scale(1.06)}.ic.coral{background:linear-gradient(135deg,#ff7a5c,var(--c));box-shadow:0 10px 20px -8px #EB4A37aa}
+.st{flex:1}.chev{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#0CB1DF1c;color:var(--b);transition:transform .5s var(--spring)}details[open] .chev{transform:rotate(180deg)}
+.cnt{display:block;font-family:Manrope,sans-serif;font-size:13px;font-weight:800;color:var(--m);margin-top:2px}
+.body{overflow:hidden;transition:height .55s var(--spring)}.in{padding:0 18px 20px}
+ol{padding:0;margin:0;list-style:none}ol li{position:relative;display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line);opacity:0;transform:translateX(-14px);transition:opacity .45s,transform .5s var(--spring)}ol li:first-child{border:0}
+details[open] ol li{opacity:1;transform:none}
+.ri{flex:none;position:relative;width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:#0CB1DF1a;color:var(--b);font-size:20px}
+.ri em{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;border-radius:10px;background:var(--c);color:#fff;font:800 11px/20px Manrope,sans-serif;text-align:center;font-style:normal;box-shadow:0 0 0 2px var(--solid)}
+b{color:var(--b)}
+/* timeline */
+.tl{position:relative;padding-left:44px}.tl .rail,.tl .fill{position:absolute;left:19px;top:6px;bottom:30px;width:4px;border-radius:4px;background:#0CB1DF26}.tl .fill{background:linear-gradient(var(--b),var(--d),var(--c));transform-origin:top;transform:scaleY(0);transition:transform .2s linear}
+.stage{position:relative;padding-bottom:22px}.stage .dot{position:absolute;left:-44px;top:-4px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:20px;color:#fff;background:linear-gradient(135deg,var(--b),var(--d));box-shadow:0 0 0 6px var(--bg);transform:scale(.6);opacity:.4;transition:all .6s var(--spring)}.stage.on .dot{transform:scale(1);opacity:1}
+.stage h3{margin:4px 0 10px;font-size:17px;font-family:Unbounded,sans-serif;font-weight:700}.stage h3 small{display:block;font:800 12px Manrope,sans-serif;letter-spacing:.12em;color:var(--c)}
+.stage ol li{padding-left:0}
+.say{position:relative;background:linear-gradient(135deg,#EB4A371a,#EB4A3708);border-radius:20px;padding:18px 18px 16px 52px;margin:12px 0;font-style:italic;border:1px solid #EB4A3730}
+.say .q{position:absolute;left:14px;top:14px;font-size:26px;color:var(--c)}.say small{display:flex;align-items:center;gap:6px;font-style:normal;color:var(--c);font-weight:800;font-size:12px;letter-spacing:.1em;margin-bottom:4px}
+.smile{display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;font-family:Unbounded,sans-serif;font-size:16px;color:#fff;padding:20px;border-radius:22px;background:linear-gradient(120deg,var(--c),#ff8a63,var(--c));background-size:200% 100%;animation:grad 6s ease infinite;margin-top:6px}
+.smile svg{font-size:30px;flex:none;animation:bob 2s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-4px) rotate(10deg)}}
+.soon{position:relative;overflow:hidden;display:inline-block;background:var(--c);color:#fff;font:800 11px Manrope,sans-serif;padding:3px 10px;border-radius:12px;margin-left:6px;vertical-align:middle;letter-spacing:.05em}
+.soon:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,#fff9 50%,transparent 70%);transform:translateX(-100%);animation:sh 2.4s infinite}@keyframes sh{60%,100%{transform:translateX(100%)}}
+
+.reveal{opacity:0;transform:translateY(34px) scale(.97);transition:opacity .7s ease,transform .8s var(--spring)}.reveal.on{opacity:1;transform:none}
+.rip{position:absolute;border-radius:50%;background:#0CB1DF44;transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none}@keyframes rip{to{transform:scale(4);opacity:0}}
+#top{position:fixed;right:18px;bottom:22px;width:54px;height:54px;border:0;border-radius:18px;color:#fff;font-size:24px;display:grid;place-items:center;background:linear-gradient(135deg,var(--c),#ff7a5c);box-shadow:0 14px 30px -10px #EB4A37cc;z-index:30;transform:translateY(120px);transition:transform .5s var(--spring);cursor:pointer}#top.show{transform:none}
+footer{text-align:center;color:var(--m);font-size:14px;padding:10px 20px 40px}#none{display:none;text-align:center;color:var(--m);padding:20px}
+@media(min-width:900px){.hero{padding:80px 8vw 120px}main{margin-top:10px}details:hover{box-shadow:0 24px 60px -24px #0488F088}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.hero h1 .ch,.pre,.chips,.reveal,ol li{opacity:1!important;transform:none!important}.scooter{left:10px}#parts{display:none}}
+.vsw{position:relative;margin:0 0 14px}.vsw svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--b)}#vq{width:100%;padding:12px 14px 12px 42px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:16px;background:var(--solid);color:var(--t);outline:none}#vq:focus{box-shadow:0 0 0 3px #0CB1DF55}
+.vlist{display:grid;gap:10px}.ven{border:1px solid var(--line);border-radius:20px;background:var(--solid);overflow:hidden;transition:box-shadow .3s,transform .3s var(--spring)}.ven.open{box-shadow:0 14px 34px -16px #0488F088}
+.vh{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;padding:12px;cursor:pointer;width:100%;border:0;background:none;color:inherit;font:inherit;text-align:left}
+.vl{flex:none;width:52px;height:52px;border-radius:14px;object-fit:cover;background:linear-gradient(135deg,var(--b),var(--d));display:grid;place-items:center;color:#fff;font:700 20px Unbounded,sans-serif;box-shadow:0 6px 14px -8px #0008}
+.vn{flex:1;min-width:0}.vn strong{display:block;font-size:16px;line-height:1.25}.vn span{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--m)}.vn span svg{color:var(--c)}
+.ven .chev{width:30px;height:30px}.ven.open .chev{transform:rotate(180deg)}
+.vb{height:0;overflow:hidden;transition:height .5s var(--spring)}.vin{padding:0 12px 14px}
+.ph{aspect-ratio:4/3;border-radius:16px;overflow:hidden;position:relative;background:linear-gradient(135deg,#0CB1DF22,#0488F022);display:grid;place-items:center;text-align:center;color:var(--b);font-weight:800}
+.ph img{width:100%;height:100%;object-fit:cover}.ph .phi{display:grid;gap:8px;place-items:center}.ph .phi svg{font-size:40px;animation:bob 2.4s ease-in-out infinite}
+.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,#ffffff55 50%,transparent 70%);transform:translateX(-100%);animation:sh 3s infinite}.ph.has:after{display:none}
+.hint{display:flex;gap:10px;margin:12px 0;padding:12px 14px;border-radius:16px;background:#EB4A3712;border:1px dashed #EB4A3755;font-size:15px}.hint svg{flex:none;color:var(--c);font-size:20px;margin-top:2px}.hint.empty{color:var(--m);font-style:italic}
+.gis{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:16px;text-decoration:none;color:#fff;font-weight:800;background:linear-gradient(135deg,#2FB94A,#1a9a3a);box-shadow:0 10px 22px -10px #1a9a3acc;position:relative;overflow:hidden}
+.vnone{display:none;text-align:center;color:var(--m)}
+.gal{position:relative;border-radius:16px;overflow:hidden;background:#0001}.gtrack{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.gtrack::-webkit-scrollbar{display:none}
+.gs{flex:0 0 100%;margin:0;scroll-snap-align:center;position:relative;aspect-ratio:4/3;cursor:zoom-in}.gs img,.gs video{width:100%;height:100%;object-fit:cover;display:block}.gv{cursor:default;background:#000}.gv video{object-fit:contain}.gv figcaption{bottom:auto;top:10px}.lbt video{max-width:100%;max-height:calc(100% - 40px);border-radius:12px;background:#000}
+.gs figcaption{position:absolute;left:10px;bottom:10px;background:#000a;color:#fff;font-size:13px;font-weight:800;padding:5px 10px;border-radius:10px}
+.zoom{position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:#fffd;color:var(--d);font-size:18px}
+.gdots{position:absolute;bottom:12px;right:12px;display:flex;gap:6px}.gdots span{width:7px;height:7px;border-radius:4px;background:#fff8;transition:all .3s var(--spring)}.gdots span.on{width:20px;background:#fff}
+.gcount{position:absolute;top:10px;left:10px;background:#000a;color:#fff;font-size:12px;font-weight:800;padding:4px 9px;border-radius:10px}
+#lb{position:fixed;inset:0;z-index:100;background:#000e;opacity:0;pointer-events:none;transition:opacity .3s}#lb.show{opacity:1;pointer-events:auto}
+.lbt{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;height:100%}.lbt::-webkit-scrollbar{display:none}
+.lbt figure{flex:0 0 100%;margin:0;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:70px 8px 30px}.lbt img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;transform:scale(.94);transition:transform .4s var(--spring)}#lb.show .lbt img{transform:none}
+.lbt figcaption{color:#fff;font-weight:800;margin-top:10px}.lbx{position:absolute;top:14px;right:14px;z-index:2;width:46px;height:46px;border:0;border-radius:50%;background:#fff3;color:#fff;font-size:20px;cursor:pointer}.lbc{position:absolute;top:26px;left:20px;color:#fff;font-weight:800}
+</style></head><body>
+<div id="prog"></div>
+<header class="hero"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><canvas id="parts"></canvas>
+<span class="badge"><span class="pulse"></span>Рядом · Южно-Сахалинск</span>
+<h1 id="title" data-t="Курьерам|«Рядом»">Курьерам «Рядом»</h1>
+<p class="sub">Справочник курьера: всё в одном месте</p>
+<div class="road"><svg class="scooter" viewBox="0 0 64 44" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="18" height="16" rx="4" fill="#EB4A37" stroke="#fff"/><path d="M20 30h18l6-14h6M44 16l-4-8h-5"/><path d="M12 30c0-4 4-6 8-6"/><g class="wh"><circle cx="13" cy="34" r="6"/><path d="M13 28v12M7 34h12"/></g><g class="wh"><circle cx="51" cy="34" r="6"/><path d="M51 28v12M45 34h12"/></g></svg></div>
+<div class="pre"><b><i data-i="heart"></i>ПРЕДИСЛОВИЕ</b>Добро пожаловать в команду «Рядом» в Южно-Сахалинске! Курьер — это лицо нашего сервиса: именно вас клиент видит, когда получает заказ. Здесь собрано всё, что нужно для спокойной и уверенной работы. Главное для нас — аккуратность и вежливость: целый заказ и доброе слово запоминаются надолго. Спасибо, что вы с нами!</div>
+<div class="chips"><span class="chip"><i data-i="route"></i><b class="num" data-n="3">0</b> этапа заказа</span><span class="chip"><i data-i="list"></i><b class="num" data-n="11">0</b> правил</span><span class="chip"><i data-i="store"></i><b class="num" data-n="63">0</b> заведения</span><span class="chip"><i data-i="bag"></i><b class="num" data-n="10">0</b> про термосумку</span></div>
+<svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 30c240 30 480 30 720 0s480-30 720 0v30H0z"/></svg>
+</header>
+<nav><div class="sw"><i data-i="search"></i><input id="q" type="search" placeholder="Поиск по правилам…" aria-label="Поиск"></div><div class="tabs"><a href="#how"><i data-i="scooter"></i>Заказ</a><a href="#rules"><i data-i="list"></i>Правила</a><a href="#bag"><i data-i="bag"></i>Термосумка</a><a href="#look"><i data-i="shirt"></i>Внешний вид</a><a href="#venues"><i data-i="store"></i>Заведения</a></div></nav>
+<main>
+<details id="how" class="reveal" open><summary><span class="ic"><i data-i="scooter"></i></span><span class="st">Как работает заказ<span class="cnt">3 этапа</span></span><span class="chev"><i data-i="down"></i></span></summary><div class="body"><div class="in"><div class="tl"><div class="rail"></div><div class="fill"></div>
+<div class="stage"><span class="dot"><i data-i="store"></i></span><h3><small>ЭТАП 1</small>Принимаем и забираем заказ</h3><ol><li><span class="ri"><i data-i="zap"></i></span><span>Приняли заказ в приложении, <b>сразу едем в заведение</b>.</span></li><li><span class="ri"><i data-i="check"></i></span><span>Когда заведение отдаёт заказ (вы уже на месте), проверяем полноту по списку в приложении: <b>приборы, позиции, соусы</b>.</span></li><li><span class="ri"><i data-i="phoneapp"></i></span><span>Отмечаем заказ в приложении и следим, чтобы заведение тоже отметило его у себя.</span></li></ol></div>
+<div class="stage"><span class="dot"><i data-i="route"></i></span><h3><small>ЭТАП 2</small>Везём заказ клиенту</h3><ol><li><span class="ri"><i data-i="shield"></i></span><span><b>Аккуратность важнее всего.</b> Лучше довезти блюдо целым, чем быстро. Скорость важна, но качество еды важнее.</span></li><li><span class="ri"><i data-i="phone"></i></span><span><b>Будьте вежливы.</b> Не можете найти дорогу? Звоните клиенту: поздоровайтесь и назовите, кто вы и зачем звоните.</span></li></ol>
+<div class="say"><i class="q" data-i="quote"></i><small><i data-i="phone"></i>ПРИМЕР ЗВОНКА</small>«Здравствуйте, курьер „Рядом“. Подскажите, пожалуйста, какой у вас этаж?»</div></div>
+<div class="stage"><span class="dot"><i data-i="hand"></i></span><h3><small>ЭТАП 3</small>Отдаём заказ</h3><div class="say"><i class="q" data-i="quote"></i><small><i data-i="msg"></i>ЧТО СКАЗАТЬ</small>«Доброе утро», «Добрый день», «Добрый вечер» или просто «Здравствуйте». «Вот ваш заказ, приятного аппетита!»</div><ol><li><span class="ri"><i data-i="phoneapp"></i></span><span>После того как отдали заказ, заходим в приложение и отмечаем его.</span></li></ol></div>
+</div><div class="smile"><i data-i="smile"></i>Вы доставляете не только еду, но и радость людям. Улыбайтесь :)</div></div></div></details>
+<details id="rules" class="reveal"><summary><span class="ic"><i data-i="list"></i></span><span class="st">Правила работы с заказом<span class="cnt">11 правил</span></span><span class="chev"><i data-i="down"></i></span></summary><div class="body"><div class="in"><ol>
+<li><span class="ri"><i data-i="shield"></i><em>1</em></span><span><b>Принял заказ, значит взял ответственность.</b> Не принимай заказ, если не успеваешь забрать его вовремя.</span></li>
+<li><span class="ri"><i data-i="store"></i><em>2</em></span><span><b>Ждём заказ в заведении.</b> К моменту готовности курьер уже на месте, чтобы забрать еду сразу горячей.</span></li>
+<li><span class="ri"><i data-i="check"></i><em>3</em></span><span><b>Сверяем заказ при получении:</b> номер, количество позиций, напитки, соусы, приборы. Если чего-то не хватает, решаем на месте.</span></li>
+<li><span class="ri"><i data-i="lock"></i><em>4</em></span><span><b>Пакеты закрыты.</b> Упаковку не открываем.</span></li>
+<li><span class="ri"><i data-i="route"></i><em>5</em></span><span><b>Едем сразу к клиенту,</b> без личных остановок.</span></li>
+<li><span class="ri"><i data-i="clock"></i><em>6</em></span><span><b>Задерживаешься больше чем на 10 минут?</b> Предупреди клиента и менеджера.</span></li>
+<li><span class="ri"><i data-i="pin"></i><em>7</em></span><span><b>Адрес непонятен, звони клиенту.</b> Подъезд, этаж и домофон уточняем заранее.</span></li>
+<li><span class="ri"><i data-i="smile"></i><em>8</em></span><span><b>Вручаем вежливо:</b> здороваемся, называем «Рядом», благодарим. Без грубости и споров.</span></li>
+<li><span class="ri"><i data-i="phoneoff"></i><em>9</em></span><span><b>Клиент не отвечает:</b> звоним 2–3 раза, ждём 10 минут, пишем менеджеру. Сам заказ не отменяем.</span></li>
+<li><span class="ri"><i data-i="alert"></i><em>10</em></span><span><b>Заметил проблему до вручения</b> (пролилось, помялось, не хватает позиции): сразу связываемся с поддержкой и ждём решения. Клиенту не грубим и ничего не обещаем от себя.</span></li>
+<li><span class="ri"><i data-i="phoneapp"></i><em>11</em></span><span><b>Закрываем заказ в приложении</b> только после вручения в руки.</span></li></ol></div></div></details>
+<details id="bag" class="reveal"><summary><span class="ic coral"><i data-i="bag"></i></span><span class="st">Термосумка<span class="cnt">10 правил</span></span><span class="chev"><i data-i="down"></i></span></summary><div class="body"><div class="in"><ol>
+<li><span class="ri"><i data-i="flame"></i><em>1</em></span><span><b>Горячее отдельно от холодного.</b></span></li>
+<li><span class="ri"><i data-i="layers"></i><em>2</em></span><span><b>Тяжёлое вниз, лёгкое наверх.</b> Пиццу кладём плашмя.</span></li>
+<li><span class="ri"><i data-i="cup"></i><em>3</em></span><span><b>Напитки стоят вертикально.</b> Проверяем крышки.</span></li>
+<li><span class="ri"><i data-i="soup"></i><em>4</em></span><span><b>Супы и соусы</b> держим вертикально, в отдельном пакете.</span></li>
+<li><span class="ri"><i data-i="lock"></i><em>5</em></span><span><b>Сумку закрываем сразу</b> и не открываем зря.</span></li>
+<li><span class="ri"><i data-i="package"></i><em>6</em></span><span><b>В сумке только заказы:</b> без личных вещей, еды курьера и сигарет.</span></li>
+<li><span class="ri"><i data-i="drop"></i><em>7</em></span><span><b>Чистота:</b> протираем после смены, пролитое моем сразу.</span></li>
+<li><span class="ri"><i data-i="wrench"></i><em>8</em></span><span><b>Сумка целая.</b> О поломках сразу сообщаем менеджеру.</span></li>
+<li><span class="ri"><i data-i="snow"></i><em>9</em></span><span><b>Зимой</b> не оставляем сумку открытой на морозе.</span></li>
+<li><span class="ri"><i data-i="check"></i><em>10</em></span><span><b>Перед выдачей</b> проверяем, что упаковка целая.</span></li></ol></div></div></details>
+<details id="look" class="reveal"><summary><span class="ic"><i data-i="shirt"></i></span><span class="st">Внешний вид<span class="cnt">2 правила</span></span><span class="chev"><i data-i="down"></i></span></summary><div class="body"><div class="in"><ol>
+<li><span class="ri"><i data-i="shirt"></i></span><span><b>Спецодежда обязательна:</b> куртка, кепка, футболка.</span></li>
+<li><span class="ri"><i data-i="bag"></i></span><span><b>Сумка всегда с вами:</b> и когда забираете еду, и когда отдаёте клиенту.</span></li></ol></div></div></details>
+<details id="venues" class="reveal"><summary><span class="ic coral"><i data-i="store"></i></span><span class="st">Заведения<span class="cnt">63 заведения · фото входа и подсказки</span></span><span class="chev"><i data-i="down"></i></span></summary><div class="body"><div class="in"><div class="vsw"><i data-i="search"></i><input id="vq" type="search" placeholder="Найти заведение или адрес…" aria-label="Поиск заведения"></div><div class="vlist" id="vlist"></div><p class="vnone" id="vnone">Заведение не найдено</p></div></div></details>
+<p id="none">Ничего не найдено</p></main>
+<footer>© Рядом · ryadom.co</footer>
+<button id="top" aria-label="Наверх"><i data-i="up"></i></button>
+<script>
+/* ===== ДАННЫЕ ЗАВЕДЕНИЙ =====
+  name    — название заведения
+  address — адрес
+  logo    — файл логотипа (img/logos/<slug>.webp)
+  photo   — фото входа/маршрута, файлы кладём в папку img/venues/. Можно:
+            • одну строку: "img/venues/<slug>.jpg"
+            • массив из нескольких: ["img/venues/<slug>.jpg", "img/venues/<slug>-2.jpg"]
+            • фото с подписью: {"src": "img/venues/<slug>-map.jpg", "caption": "Схема: 5 этаж"}
+            Пусто ("") — покажется заглушка «Фото входа скоро».
+  hint    — подсказка «Как пройти» (пусто — «Подсказка скоро появится»)
+  slug    — короткое латинское имя для файлов */
+const VENUES=[
+ {
+  "name": "DoБлин",
+  "address": "Сахалинская улица, 89",
+  "logo": "img/logos/doblin.webp",
+  "photo": [
+   "img/venues/doblin.jpg",
+   {
+    "src": "img/venues/doblin-map.jpg",
+    "caption": "Схема: 5 этаж"
+   }
+  ],
+  "hint": "Заходите через ТЦ «МегаБерёзка» и поднимайтесь на 5 этаж. От эскалатора поверните налево, пройдите мимо «Гуд Фуд» и идите прямо вдоль левой стены мимо «Сеньор Денёр» и Burger station. Заведение будет впереди, рядом с фудкортом (отмечено на схеме).",
+  "slug": "doblin"
+ },
+ {
+  "name": "Homura",
+  "address": "Улица Ленина, 573",
+  "logo": "img/logos/homura.webp",
+  "photo": "img/venues/homura.jpg",
+  "hint": "Отдельный вход с улицы, под вывеской с большим красным крабом.",
+  "slug": "homura"
+ },
+ {
+  "name": "K.LAB",
+  "address": "Проспект мира, 231",
+  "logo": "img/logos/k-lab.webp",
+  "photo": [
+   "img/venues/k-lab.jpg",
+   {
+    "src": "img/venues/k-lab-map.jpg",
+    "caption": "Схема"
+   }
+  ],
+  "hint": "Проспект Мира, 231. Небольшой отдельный павильон прямо на парковке, ближе к дороге со стороны улицы Емельянова. Вход по центру фасада, под козырьком, окна в красный горошек.",
+  "slug": "k-lab"
+ },
+ {
+  "name": "Ma'schike",
+  "address": "Мира, 2/3 литер Д",
+  "logo": "img/logos/ma-schike.webp",
+  "photo": [
+   "img/venues/ma-schike.jpg",
+   {
+    "src": "img/venues/ma-schike-map.jpg",
+    "caption": "Где находится"
+   }
+  ],
+  "hint": "Проспект Мира, 2/3, литера Д. Территория закрыта шлагбаумом, заезжайте через него во двор. Здание длинное, серое, трёхэтажное, похоже на склад с погрузочными воротами. Нужный вход в дальнем левом конце (отмечен на фото): коричневая дверь под небольшим тёмным козырьком.",
+  "slug": "ma-schike"
+ },
+ {
+  "name": "Parade Allee",
+  "address": "Зимы, 79",
+  "logo": "img/logos/parade-allee.webp",
+  "photo": "img/venues/parade-allee.jpg",
+  "hint": "ТЦ «Холмы», улица Зимы, 79. Заходите через главный вход по центру фасада, между двумя круглыми стеклянными башнями: поднимитесь по ступенькам к автоматическим дверям (отмечено на фото).",
+  "slug": "parade-allee"
+ },
+ {
+  "name": "Subway",
+  "address": "Космонавта Поповича, 65",
+  "logo": "img/logos/subway.webp",
+  "photo": "img/venues/subway.jpg",
+  "hint": "ТК «Славянский», улица имени Космонавта Поповича, 65. Отдельное коричневое здание с большой вывеской SUBWAY на крыше. Вход слева: поднимитесь по ступенькам к деревянной двери под зелёным козырьком.",
+  "slug": "subway"
+ },
+ {
+  "name": "YUME SUSHI",
+  "address": "Горького Алексея Максимовича, 32",
+  "logo": "img/logos/yume-sushi.webp",
+  "photo": [
+   "img/venues/yume-sushi.jpg",
+   {
+    "src": "img/venues/yume-sushi-inside.jpg",
+    "caption": "Стойка внутри"
+   }
+  ],
+  "hint": "ТЦ «Реми Сити», улица Горького, 32. Заходите через главный вход и держитесь левой стороны. Ищите яркую стойку с фиолетовыми неоновыми вывесками YUME.",
+  "slug": "yume-sushi"
+ },
+ {
+  "name": "Автогриль",
+  "address": "Ленина, 441А/4",
+  "logo": "img/logos/avtogril.webp",
+  "photo": "img/venues/avtogril.jpg",
+  "hint": "Жилой массив Большая Елань. Небольшой отдельный павильон с крупной вывеской «#АВТО ГРИЛЬ 24/7» жёлто-красными буквами и нарисованной едой на окнах. Работает круглосуточно.",
+  "slug": "avtogril"
+ },
+ {
+  "name": "Белый Барашка | Жарим Варим",
+  "address": "Мира, 482",
+  "logo": "img/logos/belyy-barashka-zharim-varim.webp",
+  "photo": "img/venues/belyy-barashka-zharim-varim.jpg",
+  "hint": "ТРК «Сити Молл», проспект Мира, 482. Поднимайтесь на 4 этаж в фуд-корт «Жарим Варим». «Белый Барашка» сразу перед лифтом.",
+  "slug": "belyy-barashka-zharim-varim"
+ },
+ {
+  "name": "Белый Барашка | Фуд Холл",
+  "address": "Горнолыжная улица, 1а",
+  "logo": "img/logos/belyy-barashka-fud-holl.webp",
+  "photo": [
+   {
+    "src": "img/venues/belyy-barashka-fud-holl.jpg",
+    "caption": "Вход"
+   },
+   {
+    "src": "img/venues/belyy-barashka-fud-holl-counter.jpg",
+    "caption": "Стойка"
+   }
+  ],
+  "hint": "Горнолыжная улица, 1а, здание «Рассвет». Заходите со стороны парковки через главный вход, внутри фуд-холл, стойка «Белый Барашка» с синей вывеской.",
+  "slug": "belyy-barashka-fud-holl"
+ },
+ {
+  "name": "БК Корона",
+  "address": "Ленина, 441а/2",
+  "logo": "img/logos/bk-korona.webp",
+  "photo": [
+   {
+    "video": "img/venues/bk-korona.mp4",
+    "poster": "img/venues/bk-korona-poster.jpg",
+    "caption": "Видео: как пройти"
+   }
+  ],
+  "hint": "улица Ленина, 441а/2. Заходите так же, как в «Гиперавто»: здание сквозное, вход с двух сторон. По центру дверной проём, за ним лестница на 2 этаж.",
+  "slug": "bk-korona"
+ },
+ {
+  "name": "Бриошь",
+  "address": "Мира, 108",
+  "logo": "img/logos/briosh.webp",
+  "photo": "img/venues/briosh.jpg",
+  "hint": "Проспект Мира, 108, 1 этаж. Заходите через главный вход и идите по коридору прямо до самого конца. Там стойка с белой вывеской BRIOCHE.",
+  "slug": "briosh"
+ },
+ {
+  "name": "Бункер",
+  "address": "Космонавта Поповича, 100",
+  "logo": "img/logos/bunker.webp",
+  "photo": "img/venues/bunker.jpg",
+  "hint": "Улица Космонавта Поповича, 100, цокольный этаж, напротив ТК «Славянский». Отдельный чёрный вход-тамбур под вывеской «БУНКЕР гастробар & караоке»: заходите в стеклянную дверь и спускайтесь вниз в подвал.",
+  "slug": "bunker"
+ },
+ {
+  "name": "Бургерная №1",
+  "address": "Емельянова, 14а",
+  "logo": "img/logos/burgernaya-1.webp",
+  "photo": "img/venues/burgernaya-1-2gis.jpg",
+  "hint": "Улица Емельянова, 14а, отдельное здание с вывеской «БУРГЕРНАЯ #1», работает круглосуточно.",
+  "slug": "burgernaya-1"
+ },
+ {
+  "name": "Бууза Бум",
+  "address": "Сахалинская 89, ТЦ МегаБерёзка",
+  "logo": "img/logos/buuza-bum.webp",
+  "photo": {
+   "src": "img/venues/buuza-bum-map.jpg",
+   "caption": "Схема"
+  },
+  "hint": "ТРЦ «МегаБерёзка», Сахалинская, 89, 5 этаж. От эскалатора поверните налево, обойдите «Миринэ» и идите к ряду точек сразу за ним, «Бууза Бум» там (маршрут на схеме).",
+  "slug": "buuza-bum"
+ },
+ {
+  "name": "Гранат",
+  "address": "Хабаровская, 43",
+  "logo": "",
+  "photo": "img/venues/granat.jpg",
+  "hint": "Хабаровская улица, 43, цокольный этаж. Вход в пристройке между подъездами жилого дома: красный полукруглый козырёк с вывеской «ГРАНАТ кафе», белая дверь. Заходите и спускайтесь вниз в подвал.",
+  "slug": "granat"
+ },
+ {
+  "name": "Гриль Хаус",
+  "address": "Фархутдинова, 3",
+  "logo": "img/logos/gril-haus.webp",
+  "photo": "",
+  "hint": "ТРЦ «Аллея», улица Фархутдинова, 3, 1 этаж. Точка между «Мама Карри» и «Каннам Чикен».",
+  "slug": "gril-haus"
+ },
+ {
+  "name": "Гуд Фуд",
+  "address": "2-я Центральная, 1-Б",
+  "logo": "img/logos/gud-fud.webp",
+  "photo": "",
+  "hint": "ТРК «Сити Молл», 2-я Центральная улица, 1Б. Поднимайтесь на 3 этаж, бургерная «Гуд Фуд», место 330.",
+  "slug": "gud-fud"
+ },
+ {
+  "name": "Дастан",
+  "address": "Крайняя, 26а",
+  "logo": "img/logos/dastan.webp",
+  "photo": "img/venues/dastan-2gis.jpg",
+  "hint": "Улица Крайняя, 26а, 1 этаж. Вход под полукруглым коричневым козырьком: за открытой металлической дверью белая пластиковая дверь (отмечено на фото).",
+  "slug": "dastan"
+ },
+ {
+  "name": "Дудук",
+  "address": "Мира, 108",
+  "logo": "img/logos/duduk.webp",
+  "photo": [
+   {
+    "src": "img/venues/duduk-2gis.jpg",
+    "caption": "Вход"
+   },
+   {
+    "src": "img/venues/duduk-counter.jpg",
+    "caption": "Стойка"
+   }
+  ],
+  "hint": "Проспект Мира, 108, 1 этаж. Стойка «Дудук» в коридоре здания: зелёная стена и витрина с напитками (на фото).",
+  "slug": "duduk"
+ },
+ {
+  "name": "Дюрюм-Дюрюм",
+  "address": "Мира, 231/8",
+  "logo": "img/logos/dyuryum-dyuryum.webp",
+  "photo": "img/venues/dyuryum-dyuryum-2gis.jpg",
+  "hint": "Проспект Мира, 231/8. Точка с большой светящейся вывеской DURUM-DURUM «24 часа» и красным круглым логотипом над витринами. Работает круглосуточно.",
+  "slug": "dyuryum-dyuryum"
+ },
+ {
+  "name": "Империал суши",
+  "address": "Проспект Мира, 422",
+  "logo": "img/logos/imperial-sushi.webp",
+  "photo": "img/venues/imperial-sushi-2gis.jpg",
+  "hint": "Проспект Мира, 422, 1 этаж, «Империал суши».",
+  "slug": "imperial-sushi"
+ },
+ {
+  "name": "Иначе",
+  "address": "Комсомольская, 198",
+  "logo": "img/logos/inache.webp",
+  "photo": "img/venues/inache-2gis.jpg",
+  "hint": "Улица Комсомольская, 198, двухэтажное круглое угловое здание с вывеской «ИНАЧЕ», вход по ступенькам.",
+  "slug": "inache"
+ },
+ {
+  "name": "Кефир бистро",
+  "address": "Горького, 25а",
+  "logo": "img/logos/kefir-bistro.webp",
+  "photo": "img/venues/kefir-bistro-2gis.jpg",
+  "hint": "Улица Горького, 25а, 1 этаж. Бистро под бирюзовой вывеской «КЕФИР» на тёмной части фасада.",
+  "slug": "kefir-bistro"
+ },
+ {
+  "name": "Кипарис",
+  "address": "Ленина, 230",
+  "logo": "img/logos/kiparis.webp",
+  "photo": "img/venues/kiparis-2gis.jpg",
+  "hint": "Улица Ленина, 230, 1 этаж. Серое здание с колоннами на углу. Вход слева, по ступенькам под светящейся вывеской «КИПАРИС» (отмечено на фото).",
+  "slug": "kiparis"
+ },
+ {
+  "name": "Лиса Буншик",
+  "address": "Проспект Мира, 482",
+  "logo": "img/logos/lisa-bunshik.webp",
+  "photo": "",
+  "hint": "",
+  "slug": "lisa-bunshik"
+ },
+ {
+  "name": "ЛоГо СНЕК",
+  "address": "Проспект Мира, 108",
+  "logo": "img/logos/logo-snek.webp",
+  "photo": "img/venues/logo-snek.jpg",
+  "hint": "Проспект Мира, 108. Поднимитесь на эскалаторе на 2 этаж и сразу поверните направо. Ищите стойку с неоновой вывеской «ЛоГо Снек» и усами под надписью.",
+  "slug": "logo-snek"
+ },
+ {
+  "name": "Манго",
+  "address": "Больничная, 2/1",
+  "logo": "img/logos/mango.webp",
+  "photo": "img/venues/mango-2gis.jpg",
+  "hint": "",
+  "slug": "mango"
+ },
+ {
+  "name": "Марико",
+  "address": "Емельянова, 36",
+  "logo": "img/logos/mariko.webp",
+  "photo": "img/venues/mariko-2gis.jpg",
+  "hint": "ТЦ «Рояль», улица Емельянова, 36. Вход с западной стороны здания, у небольшой парковки: стеклянная дверь, за ней лестница вниз, «Марико» сразу слева.",
+  "slug": "mariko"
+ },
+ {
+  "name": "Маруся",
+  "address": "Ленина, 219",
+  "logo": "img/logos/marusya.webp",
+  "photo": "img/venues/marusya-2gis.jpg",
+  "hint": "Улица Ленина, 219, 1 этаж жилого дома. Тёмный кирпичный фасад с большой вывеской «МАРУСЯ русская кухня» и матрёшкой.",
+  "slug": "marusya"
+ },
+ {
+  "name": "Местные",
+  "address": "Курильская, 41А",
+  "logo": "img/logos/mestnye.webp",
+  "photo": "",
+  "hint": "Курильская улица, 41а, кафе корейской кухни «Местные».",
+  "slug": "mestnye"
+ },
+ {
+  "name": "Мистикал Чикен",
+  "address": "Анивская 70/1",
+  "logo": "img/logos/mistikal-chiken.webp",
+  "photo": "img/venues/mistikal-chiken-2gis.jpg",
+  "hint": "Анивская улица, 70/1. Одноэтажный тёмный павильон с вывеской «КАФЕ МИСТИКАЛ ЧИКЕН». Вход через стеклянную дверь слева (отмечено на фото).",
+  "slug": "mistikal-chiken"
+ },
+ {
+  "name": "Мясо в тесте",
+  "address": "Ленина, 294",
+  "logo": "img/logos/myaso-v-teste.webp",
+  "photo": "img/venues/myaso-v-teste-2gis.jpg",
+  "hint": "Улица Ленина, 294, 1 этаж. Вход с улицы: поднимитесь по ступенькам с перилами к двери под бежевым козырьком с вывеской «Мясо в тесте» (отмечено на фото).",
+  "slug": "myaso-v-teste"
+ },
+ {
+  "name": "На Абордаж!",
+  "address": "Милицейская улица, 7в",
+  "logo": "img/logos/na-abordazh.webp",
+  "photo": "",
+  "hint": "Гостиница «Командор», Милицейская улица, 7в. Пиратский бар «На Абордаж!» в цокольном этаже.",
+  "slug": "na-abordazh"
+ },
+ {
+  "name": "Островная Фрикаделька",
+  "address": "Железнодорожная, 88",
+  "logo": "img/logos/ostrovnaya-frikadelka.webp",
+  "photo": "",
+  "hint": "",
+  "slug": "ostrovnaya-frikadelka"
+ },
+ {
+  "name": "Пельмень Бар",
+  "address": "Фархутдинова, 3",
+  "logo": "img/logos/pelmen-bar.webp",
+  "photo": "",
+  "hint": "ТРЦ «Аллея», улица Фархутдинова, 3, 1 этаж. По центру, в небольшом проходе напротив «Чебуреки».",
+  "slug": "pelmen-bar"
+ },
+ {
+  "name": "Перчини",
+  "address": "проспект Победы, 9Б",
+  "logo": "img/logos/perchini.webp",
+  "photo": "img/venues/perchini-2gis.jpg",
+  "hint": "Проспект Победы, 9Б, 1 этаж, вход с угла здания под вывеской «Перчини».",
+  "slug": "perchini"
+ },
+ {
+  "name": "Пир на весь мир",
+  "address": "Колодезная, 8/2",
+  "logo": "img/logos/pir-na-ves-mir.webp",
+  "photo": "img/venues/pir-na-ves-mir-2gis.jpg",
+  "hint": "",
+  "slug": "pir-na-ves-mir"
+ },
+ {
+  "name": "Пироги от Марины",
+  "address": "Железнодорожная, 88",
+  "logo": "img/logos/pirogi-ot-mariny.webp",
+  "photo": "img/venues/pirogi-ot-mariny-2gis.jpg",
+  "hint": "Железнодорожная улица, 88, 2 этаж. Здание обшито коричневым сайдингом, вход через белую пластиковую дверь со стеклом (на фото).",
+  "slug": "pirogi-ot-mariny"
+ },
+ {
+  "name": "Пицца Марио",
+  "address": "Сахалинская 88а",
+  "logo": "img/logos/pitstsa-mario.webp",
+  "photo": "img/venues/pitstsa-mario-2gis.jpg",
+  "hint": "Сахалинская улица, 88а, служба доставки «Марио».",
+  "slug": "pitstsa-mario"
+ },
+ {
+  "name": "Пицца Мокта | Жарим Варим",
+  "address": "Проспект Мира, 482",
+  "logo": "img/logos/pitstsa-mokta-zharim-varim.webp",
+  "photo": "",
+  "hint": "ТРК «Сити Молл», проспект Мира, 482, фуд-корт «Жарим Варим», пиццерия «Пицца Мокта».",
+  "slug": "pitstsa-mokta-zharim-varim"
+ },
+ {
+  "name": "Пицца Мокта | На Смирнова",
+  "address": "Николая Смирнова, 3",
+  "logo": "img/logos/pitstsa-mokta-na-smirnova.webp",
+  "photo": [
+   {
+    "src": "img/venues/pitstsa-mokta-na-smirnova-2gis.jpg",
+    "caption": "Вход"
+   },
+   {
+    "src": "img/venues/pitstsa-mokta-na-smirnova-counter.jpg",
+    "caption": "Зал"
+   }
+  ],
+  "hint": "Улица Николая Смирнова, 3, 1 этаж, пиццерия «Пицца Мокта».",
+  "slug": "pitstsa-mokta-na-smirnova"
+ },
+ {
+  "name": "Поке Боул | Жарим Варим",
+  "address": "пр. Мира 482",
+  "logo": "img/logos/poke-boul-zharim-varim.webp",
+  "photo": "",
+  "hint": "ТРК «Сити Молл», проспект Мира, 482, корпус С, 4 этаж, фуд-корт «Жарим Варим». Пройдите по коридору и сразу поверните направо, Poke bowl на углу.",
+  "slug": "poke-boul-zharim-varim"
+ },
+ {
+  "name": "Поке Боул | Фуд Холл",
+  "address": "Горнолыжная улица, 1а",
+  "logo": "img/logos/poke-boul-fud-holl.webp",
+  "photo": {
+   "src": "img/venues/poke-boul-fud-holl-counter.jpg",
+   "caption": "Стойка"
+  },
+  "hint": "Горнолыжная улица, 1а, здание «Рассвет». Заходите со стороны парковки через главный вход, внутри фуд-холл, стойка с вывеской «ПОКЕ боул».",
+  "slug": "poke-boul-fud-holl"
+ },
+ {
+  "name": "Поке Хаус Кокос",
+  "address": "Фархутдинова, 3",
+  "logo": "img/logos/poke-haus-kokos.webp",
+  "photo": "",
+  "hint": "ТРЦ «Аллея», улица Фархутдинова, 3, 1 этаж. В одном ряду с Subway, напротив «Миринэ».",
+  "slug": "poke-haus-kokos"
+ },
+ {
+  "name": "Русская Трапеза",
+  "address": "Мира, 108",
+  "logo": "img/logos/russkaya-trapeza.webp",
+  "photo": "img/venues/russkaya-trapeza.jpg",
+  "hint": "Проспект Мира, 108, 2 этаж. Поднимитесь на эскалаторе на второй этаж. Ищите стойку с большой белой светящейся вывеской «Русская трапеза» и экранами меню.",
+  "slug": "russkaya-trapeza"
+ },
+ {
+  "name": "Рыба без трусов",
+  "address": "пр. Мира 482",
+  "logo": "img/logos/ryba-bez-trusov.webp",
+  "photo": "",
+  "hint": "",
+  "slug": "ryba-bez-trusov"
+ },
+ {
+  "name": "Рыбный Мир",
+  "address": "Шлакоблочная, 34, офис 201/4",
+  "logo": "img/logos/rybnyy-mir.webp",
+  "photo": "img/venues/rybnyy-mir.jpg",
+  "hint": "Шлакоблочная улица, 34. Заходите через центральный вход по ступенькам (отмечено на фото) и поднимайтесь на 2 этаж, офис 201/4.",
+  "slug": "rybnyy-mir"
+ },
+ {
+  "name": "София",
+  "address": "Горького, 110д",
+  "logo": "img/logos/sofiya.webp",
+  "photo": "img/venues/sofiya-2gis.jpg",
+  "hint": "Улица Горького, 110д, 1 этаж. Вход через тёмно-серую металлическую дверь с табличкой режима работы (на фото). По этому же адресу есть детский сад «София», не перепутайте.",
+  "slug": "sofiya"
+ },
+ {
+  "name": "Столовая Ложка",
+  "address": "Фархутдинова, 3",
+  "logo": "img/logos/stolovaya-lozhka.webp",
+  "photo": "",
+  "hint": "",
+  "slug": "stolovaya-lozhka"
+ },
+ {
+  "name": "Суши Прайм",
+  "address": "Амурская, 62",
+  "logo": "img/logos/sushi-praym.webp",
+  "photo": "img/venues/sushi-praym.jpg",
+  "hint": "Амурская улица, 62, цокольный этаж. Вход со стороны дороги, под оранжевым полукруглым козырьком с вывеской «ГУРМАНИЯ» (это и есть «Суши Прайм»). Проходите через деревянную арку и спускайтесь вниз в подвал.",
+  "slug": "sushi-praym"
+ },
+ {
+  "name": "Тадж Махал",
+  "address": "им. Антона Буюклы, 38",
+  "logo": "img/logos/tadzh-mahal.webp",
+  "photo": "img/venues/tadzh-mahal-2gis.jpg",
+  "hint": "Улица Антона Буюклы, 38, 1 этаж. Вход в бежевой пристройке: поднимитесь по гранитным ступенькам к серой стеклянной двери под вывеской «Тадж Махал» (отмечено на фото).",
+  "slug": "tadzh-mahal"
+ },
+ {
+  "name": "Токио",
+  "address": "Сахалинская улица, 89",
+  "logo": "img/logos/tokio.webp",
+  "photo": {
+   "src": "img/venues/tokio-map.jpg",
+   "caption": "Схема"
+  },
+  "hint": "ТРЦ «МегаБерёзка», Сахалинская, 89, 5 этаж. От эскалатора поверните налево и идите вдоль левой стороны этажа до самого конца, «Токио» в дальнем левом углу фуд-корта (маршрут на схеме).",
+  "slug": "tokio"
+ },
+ {
+  "name": "Точно Сочно | Горный воздух",
+  "address": "Горнолыжная улица 3 (Внутренняя площадка за зданием 46.95361, 142.763368)",
+  "logo": "img/logos/tochno-sochno-gornyy-vozduh.webp",
+  "photo": "img/venues/tochno-sochno-gornyy-vozduh-2gis.jpg",
+  "hint": "Фудтрак «Точно Сочно» с красной вывеской.",
+  "slug": "tochno-sochno-gornyy-vozduh"
+ },
+ {
+  "name": "Точно Сочно | ЖД Вокзал",
+  "address": "Вокзальная улица, 52",
+  "logo": "img/logos/tochno-sochno-zhd-vokzal.webp",
+  "photo": "img/venues/tochno-sochno-zhd-vokzal-2gis.jpg",
+  "hint": "Фудтрак «Точно Сочно» у ЖД вокзала, чёрно-красный прицеп.",
+  "slug": "tochno-sochno-zhd-vokzal"
+ },
+ {
+  "name": "Троицкий",
+  "address": "ДСУ-1, 9 (Оздоровительный комплекс \"Троицкий\")",
+  "logo": "img/logos/troitskiy.webp",
+  "photo": "img/venues/troitskiy-2gis.jpg",
+  "hint": "Улица ДСУ-1, 9, оздоровительный комплекс «Троицкий». Главный вход в двухэтажное здание через стеклянный тамбур под тёмным козырьком с флагом, рядом лавочки (отмечено на фото).",
+  "slug": "troitskiy"
+ },
+ {
+  "name": "Уголь",
+  "address": "Мира, 482 \"Жарим Варим\"",
+  "logo": "img/logos/ugol.webp",
+  "photo": "",
+  "hint": "ТРК «Сити Молл», проспект Мира, 482. Поднимайтесь на 5 этаж, корейское барбекю «Уголь».",
+  "slug": "ugol"
+ },
+ {
+  "name": "Уминаки",
+  "address": "Улица Пуркаева, 61а",
+  "logo": "img/logos/uminaki.webp",
+  "photo": "img/venues/uminaki-2gis.jpg",
+  "hint": "Улица Пуркаева, 61а, 1 этаж, «Уминаки».",
+  "slug": "uminaki"
+ },
+ {
+  "name": "Фишка Суши",
+  "address": "Пуркаева, 114",
+  "logo": "img/logos/fishka-sushi.webp",
+  "photo": "img/venues/fishka-sushi-2gis.jpg",
+  "hint": "Улица Пуркаева, 114, 1 этаж. Внутри здания ищите стеклянную перегородку с красной вывеской fishka «суши • роллы», вход через стеклянную дверь (отмечено на фото).",
+  "slug": "fishka-sushi"
+ },
+ {
+  "name": "Ханами",
+  "address": "Комсомольская, 287Б",
+  "logo": "img/logos/hanami.webp",
+  "photo": "img/venues/hanami-2gis.jpg",
+  "hint": "Улица Комсомольская, 287Б, вход через стеклянный тамбур.",
+  "slug": "hanami"
+ },
+ {
+  "name": "ЧебурекМи",
+  "address": "Ленина, 252а",
+  "logo": "img/logos/cheburekmi.webp",
+  "photo": "img/venues/cheburekmi-2gis.jpg",
+  "hint": "Улица Ленина, 252а, правое крыло здания. Кирпичный павильон с чёрной вывеской «те самые чебуреки». Вход слева: коричневая дверь под кованым козырьком (отмечено на фото).",
+  "slug": "cheburekmi"
+ },
+ {
+  "name": "ШаурмLike",
+  "address": "19-й микрорайон",
+  "logo": "img/logos/shaurmlike.webp",
+  "photo": "img/venues/shaurmlike-2gis.jpg",
+  "hint": "19-й микрорайон, киоск с вывеской «ШАУРМLIKE».",
+  "slug": "shaurmlike"
+ },
+ {
+  "name": "Шафран",
+  "address": "Ленина, 120",
+  "logo": "img/logos/shafran.webp",
+  "photo": "img/venues/shafran-2gis.jpg",
+  "hint": "Улица Ленина, 120а, кафе «Шафран».",
+  "slug": "shafran"
+ }
+];
+const P={zoom:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/>',camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/>',heart:'<path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/>',
+route:'<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>',
+list:'<path d="M9 6h11M9 12h11M9 18h11"/><path d="m3 6 1 1 2-2M3 12l1 1 2-2M3 18l1 1 2-2"/>',
+bag:'<path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M8 14h8"/>',
+search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+scooter:'<circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h2l3 11.5M9 17.5h6l2-7H8a3 3 0 0 0-3 3"/>',
+shirt:'<path d="M20.4 6.6 16 4a4 4 0 0 1-8 0L3.6 6.6a1 1 0 0 0-.4 1.3l1.3 2.6a1 1 0 0 0 1.3.4L7 10v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V10l1.2.9a1 1 0 0 0 1.3-.4l1.3-2.6a1 1 0 0 0-.4-1.3z"/>',
+map:'<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/>',
+phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+phoneoff:'<path d="M10.7 13.3a16 16 0 0 0 3.4 2.6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-3.3-2.7M5.2 13.1A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9"/><path d="M22 2 2 22"/>',
+down:'<path d="m6 9 6 6 6-6"/>',up:'<path d="m18 15-6-6-6 6"/>',
+store:'<path d="M3 9 4.5 4h15L21 9M3 9v11h18V9M3 9h18"/><path d="M9 20v-6h6v6"/>',
+zap:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',check:'<circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/>',
+phoneapp:'<rect x="5" y="2" width="14" height="20" rx="2"/><path d="m9 12 2 2 4-4M11 18h2"/>',
+shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+hand:'<path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-6-2.4l-3.6-3.6a2 2 0 0 1 2.8-2.8L7 15"/>',
+quote:'<path d="M3 21c3 0 7-1 7-8V5c0-1.3-.8-2-2-2H4c-1.3 0-2 .8-2 2v6c0 1.3.8 2 2 2h3c0 3-1 4-4 5zM15 21c3 0 7-1 7-8V5c0-1.3-.8-2-2-2h-4c-1.3 0-2 .8-2 2v6c0 1.3.8 2 2 2h3c0 3-1 4-4 5z"/>',
+msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+smile:'<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>',
+lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+pin:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+alert:'<path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3z"/><path d="M12 9v4M12 17h.01"/>',
+flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3.3.3 1.3 1 2.3 2.5 2.8z"/>',
+layers:'<path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/>',
+cup:'<path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/>',
+soup:'<path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9zM7 21h10"/><path d="M19.5 12 22 6M16 8c.6-.6.6-1.4 0-2-.6-.6-.6-1.4 0-2M11 8c.6-.6.6-1.4 0-2-.6-.6-.6-1.4 0-2"/>',
+package:'<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
+drop:'<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5S12.5 5.5 12 3c-.5 2.5-2 4.9-4 6.5S5 13 5 15a7 7 0 0 0 7 7z"/>',
+wrench:'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/>',
+snow:'<path d="M2 12h20M12 2v20M20 16l-4-4 4-4M4 8l4 4-4 4M16 4l-4 4-4-4M8 20l4-4 4 4"/>',};
+(()=>{const L=document.getElementById('vlist'),esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const phs=v=>(Array.isArray(v.photo)?v.photo:v.photo?[v.photo]:[]).map(p=>typeof p==='string'?{src:p,caption:''}:p.video?{video:p.video,poster:p.poster||'',caption:p.caption||''}:{src:p.src,caption:p.caption||''});
+const gal=v=>{const a=phs(v);if(!a.length)return '<div class="ph"><span class="phi"><i data-i="camera"></i>Фото входа скоро</span></div>';
+return '<div class="gal"><div class="gtrack">'+a.map(p=>p.video?'<figure class="gs gv" data-cap="'+esc(p.caption)+'"><video controls playsinline muted preload="none" poster="'+esc(p.poster)+'" src="'+esc(p.video)+'"></video>'+(p.caption?'<figcaption>'+esc(p.caption)+'</figcaption>':'')+'</figure>':'<figure class="gs"><img loading="lazy" src="'+esc(p.src)+'" alt="'+esc(v.name+(p.caption?': '+p.caption:''))+'" data-cap="'+esc(p.caption)+'">'+(p.caption?'<figcaption>'+esc(p.caption)+'</figcaption>':'')+'<span class="zoom"><i data-i="zoom"></i></span></figure>').join('')+'</div>'+(a.length>1?'<div class="gdots">'+a.map((_,k)=>'<span'+(k?'':' class="on"')+'></span>').join('')+'</div><span class="gcount">1/'+a.length+'</span>':'')+'</div>'};
+L.innerHTML=VENUES.map(v=>{const g='https://2gis.ru/yuzhnosakhalinsk/search/'+encodeURIComponent((v.name+' '+(v.address||'')).trim());
+return '<div class="ven" data-s="'+esc((v.name+' '+v.address).toLowerCase())+'"><button class="vh" type="button">'+(v.logo?'<img class="vl" loading="lazy" src="'+v.logo+'" alt="">':'<span class="vl">'+esc(v.name[0])+'</span>')+'<span class="vn"><strong>'+esc(v.name)+'</strong>'+(v.address?'<span><i data-i="pin"></i>'+esc(v.address)+'</span>':'<span>Адрес уточняется</span>')+'</span><span class="chev"><i data-i="down"></i></span></button><div class="vb"><div class="vin">'+gal(v)+'<div class="hint'+(v.hint?'':' empty')+'"><i data-i="route"></i><span><b>Как пройти:</b> '+(v.hint?esc(v.hint):'Подсказка скоро появится')+'</span></div><a class="gis" href="'+g+'" target="_blank" rel="noopener"><i data-i="map"></i>Открыть в 2ГИС</a></div></div></div>'}).join('');
+L.addEventListener('click',e=>{const h=e.target.closest('.vh');if(!h)return;const c=h.parentNode,b=c.querySelector('.vb');ripple(e,h);if(c.classList.toggle('open')){b.style.height=b.scrollHeight+'px';setTimeout(()=>{if(c.classList.contains('open'))b.style.height='auto'},520)}else{b.style.height=b.scrollHeight+'px';requestAnimationFrame(()=>requestAnimationFrame(()=>b.style.height='0px'))}});
+L.addEventListener('scroll',e=>{const t=e.target;if(!t.classList||!t.classList.contains('gtrack'))return;const k=Math.round(t.scrollLeft/t.clientWidth),g=t.parentNode;g.querySelectorAll('.gdots span').forEach((d,i)=>d.classList.toggle('on',i==k));const c=g.querySelector('.gcount');if(c)c.textContent=(k+1)+'/'+t.children.length},true);
+const LB=document.createElement('div');LB.id='lb';LB.innerHTML='<button class="lbx" aria-label="Закрыть">✕</button><div class="lbt"></div><div class="lbc"></div>';document.body.appendChild(LB);
+const lbt=LB.querySelector('.lbt'),lbc=LB.querySelector('.lbc');
+L.addEventListener('click',e=>{const im=e.target.closest('.gs');if(!im||e.target.closest('video'))return;const imgs=[...im.closest('.gtrack').children],k=imgs.indexOf(im);imgs.forEach(f=>{const x=f.querySelector('video');if(x)x.pause()});
+lbt.innerHTML=imgs.map(f=>{const x=f.querySelector('video'),i=f.querySelector('img'),c=x?f.dataset.cap:i.dataset.cap;return '<figure>'+(x?'<video controls playsinline muted preload="none" poster="'+x.getAttribute('poster')+'" src="'+x.getAttribute('src')+'"></video>':'<img src="'+i.getAttribute('src')+'" alt="">')+(c?'<figcaption>'+c+'</figcaption>':'')+'</figure>'}).join('');LB.classList.add('show');document.body.style.overflow='hidden';
+requestAnimationFrame(()=>{lbt.scrollLeft=k*lbt.clientWidth;lbc.textContent=imgs.length>1?(k+1)+'/'+imgs.length:''})});
+lbt.addEventListener('scroll',()=>{const n=lbt.children.length;if(n>1)lbc.textContent=(Math.round(lbt.scrollLeft/lbt.clientWidth)+1)+'/'+n});
+const lbClose=()=>{LB.querySelectorAll('video').forEach(x=>x.pause());LB.classList.remove('show');document.body.style.overflow=''};LB.querySelector('.lbx').onclick=lbClose;LB.addEventListener('click',e=>{if(e.target.tagName!=='IMG'&&e.target.tagName!=='VIDEO')lbClose()});addEventListener('keydown',e=>{if(e.key==='Escape')lbClose()});
+const vq=document.getElementById('vq');vq.oninput=()=>{const t=vq.value.trim().toLowerCase();let n=0;L.querySelectorAll('.ven').forEach(c=>{const m=!t||c.dataset.s.includes(t);c.style.display=m?'':'none';if(m)n++});document.getElementById('vnone').style.display=n?'none':'block'}})();
+document.querySelectorAll('i[data-i]').forEach(e=>{const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('class','i '+(e.className||''));s.innerHTML=P[e.dataset.i]||'';e.replaceWith(s)});
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// title letters
+(()=>{const h=document.getElementById('title'),[a,b]=h.dataset.t.split('|');let k=0;const w=(t,c)=>'<span class="'+(c||'')+'" style="white-space:nowrap">'+[...t].map(x=>'<span class="ch" style="animation-delay:'+(0.04*k++)+'s">'+x+'</span>').join('')+'</span>';h.innerHTML=w(a)+' '+w(b,'accent')})();
+// counters
+setTimeout(()=>document.querySelectorAll('.num').forEach(n=>{const t=+n.dataset.n;let i=0;const f=()=>{n.textContent=++i;if(i<t)setTimeout(f,RM?0:90)};f()}),RM?0:1500);
+// particles
+(()=>{if(RM)return;const c=document.getElementById('parts'),x=c.getContext('2d');let W,H,p=[];const r=()=>{W=c.width=c.offsetWidth;H=c.height=c.offsetHeight};r();addEventListener('resize',r);
+for(let i=0;i<28;i++)p.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2+.6,v:Math.random()*.4+.15,a:Math.random()*.5+.2});
+let vis=true;new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(c);
+(function l(){if(vis){x.clearRect(0,0,W,H);p.forEach(o=>{o.y-=o.v;if(o.y<-5){o.y=H+5;o.x=Math.random()*W}x.beginPath();x.arc(o.x,o.y,o.r,0,7);x.fillStyle='rgba(255,255,255,'+o.a+')';x.fill()})}requestAnimationFrame(l)})()})();
+// accordion with spring height + stagger
+const ds=[...document.querySelectorAll('main details')];
+ds.forEach(d=>{const b=d.querySelector('.body'),s=d.querySelector('summary');d.querySelectorAll('ol li').forEach((li,i)=>li.style.transitionDelay=(i*0.05)+'s');
+s.addEventListener('click',e=>{e.preventDefault();ripple(e,s);if(RM){d.open=!d.open;return}
+if(d.open){b.style.height=b.scrollHeight+'px';requestAnimationFrame(()=>{b.style.height='0px'});d.classList.add('closing');setTimeout(()=>{d.open=false;b.style.height='';d.classList.remove('closing')},450);d.querySelectorAll('ol li').forEach(li=>{li.style.opacity=0})}
+else{d.open=true;d.querySelectorAll('ol li').forEach(li=>li.style.opacity='');b.style.height='0px';requestAnimationFrame(()=>{b.style.height=b.scrollHeight+'px'});setTimeout(()=>b.style.height='',600)}})});
+function ripple(e,el){const r=el.getBoundingClientRect(),s=Math.max(r.width,r.height),sp=document.createElement('span');sp.className='rip';sp.style.cssText='width:'+s+'px;height:'+s+'px;left:'+(e.clientX-r.left-s/2)+'px;top:'+(e.clientY-r.top-s/2)+'px';el.appendChild(sp);setTimeout(()=>sp.remove(),650)}
+document.querySelectorAll('.tabs a').forEach(a=>a.addEventListener('click',e=>{ripple(e,a);const d=document.querySelector(a.getAttribute('href'));if(!d.open){d.open=true;d.querySelectorAll('ol li').forEach(li=>li.style.opacity='')}}));
+// tilt + glow
+if(matchMedia('(hover:hover)').matches&&!RM)ds.forEach(d=>{d.addEventListener('mousemove',e=>{const r=d.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;d.style.setProperty('--mx',px*100+'%');d.style.setProperty('--my',py*100+'%');if(r.height<400)d.style.transform='perspective(900px) rotateX('+((.5-py)*4)+'deg) rotateY('+((px-.5)*5)+'deg)'});d.addEventListener('mouseleave',()=>d.style.transform='')});
+// reveal + stages
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}}),{threshold:.06});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*0.07+'s';io.observe(el)});
+const so=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{rootMargin:'0px 0px -35% 0px'});document.querySelectorAll('.stage').forEach(s=>so.observe(s));
+// scroll: progress, timeline fill, back-to-top, active tab
+const prog=document.getElementById('prog'),btt=document.getElementById('top'),tl=document.querySelector('.tl'),fill=document.querySelector('.fill'),tabs=[...document.querySelectorAll('.tabs a')];let tk=false;
+function onS(){const h=document.documentElement,y=h.scrollTop;prog.style.transform='scaleX('+(y/(h.scrollHeight-innerHeight||1))+')';btt.classList.toggle('show',y>500);
+const r=tl.getBoundingClientRect();fill.style.transform='scaleY('+Math.min(1,Math.max(0,(innerHeight*.65-r.top)/r.height))+')';
+let cur=null;ds.forEach(d=>{if(d.style.display!=='none'&&d.getBoundingClientRect().top<180)cur=d.id});tabs.forEach(a=>{const on=a.getAttribute('href')==='#'+cur;if(on&&!a.classList.contains('act'))a.scrollIntoView({inline:'center',block:'nearest',behavior:RM?'auto':'smooth'});a.classList.toggle('act',on)});tk=false}
+addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(onS)}},{passive:true});onS();
+btt.onclick=e=>{ripple(e,btt);scrollTo({top:0,behavior:RM?'auto':'smooth'})};
+// search
+const q=document.getElementById('q'),init=ds.map(d=>d.open);
+q.oninput=()=>{const v=q.value.trim().toLowerCase();let n=0;ds.forEach((d,i)=>{const m=!v||d.textContent.toLowerCase().includes(v);d.style.display=m?'':'none';if(m){n++;d.classList.add('on')}d.open=v?m:init[i];d.querySelectorAll('ol li').forEach(li=>li.style.opacity='')});document.getElementById('none').style.display=n?'none':'block'};
+</script></body></html>
