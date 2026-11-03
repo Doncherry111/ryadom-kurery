@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0488F0"><title>Рядом — для курьеров</title>
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0CB1DF"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="img/icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Рядом"><title>Рядом — для курьеров</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <style>
@@ -194,6 +194,11 @@ html.vt .scr.on{animation:none}
 #lb.show{animation:fi .25s ease}.lbt img,.lbt video{width:auto;height:auto;max-width:min(100%,1400px);max-height:85vh;object-fit:contain}
 @media(min-width:900px){.hero .in{min-height:190px}.hero img{max-width:210px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important}.vc{opacity:1;transform:none}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+.tile.wide{grid-column:1/-1;min-height:120px}.sec .fx{color:var(--m);font-size:14.5px;line-height:1.45}.sec .fx b{color:var(--t)}
+.inst{margin-top:16px;background:linear-gradient(135deg,#0CB1DF,#0488F0);color:#fff;border-radius:22px;padding:14px 16px;display:flex;gap:12px;align-items:center;font-size:14px;animation:up .7s var(--ease) .55s both}
+.inst[hidden]{display:none}.inst .hb{font-size:24px}.inst b{display:block;font-size:16px}.inst div{flex:1}
+#instb{border:0;background:#fff;color:#0488F0;font:inherit;font-weight:800;border-radius:12px;padding:9px 12px;cursor:pointer}#instx{border:0;background:none;color:#fff;font-size:16px;cursor:pointer;opacity:.8}
+
 </style></head><body>
 <section class="scr" id="s-home">
 <div class="hero"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><div class="in"><span class="brand">Рядом · курьерам</span><h1>Привет, курьер!</h1><p>Всё для смены: правила, входы в заведения и карта</p><img src="img/otter.png" alt="Выдра Рядом"></div>
@@ -203,7 +208,9 @@ html.vt .scr.on{animation:none}
 <button style="--k:1" class="tile az" data-go="venues"><span class="ti"><i data-i="store"></i></span><b>Заведения</b><small>63 мест, фото входа</small></button>
 <button style="--k:2" class="tile az" data-go="bag"><span class="ti"><i data-i="bag"></i></span><b>Термосумка</b><small>Чистота и порядок</small></button>
 <button style="--k:3" class="tile co" data-go="map"><span class="ti"><i data-i="map"></i></span><b>Карта</b><small>Все точки рядом</small></button>
+<button style="--k:4" class="tile co wide" data-go="oops"><span class="ti">⚠️</span><b>Частые косяки</b><small>Ошибки и как их избежать</small></button>
 </div>
+<div class="inst" id="inst" hidden><span class="hb">📲</span><div><b>Установить на телефон</b><span id="insttx">Работает даже без интернета</span></div><button id="instb">Установить</button><button id="instx" aria-label="Скрыть">✕</button></div>
 <div class="homefoot"><span class="hb"><i data-i="heart"></i></span><div><b>Хорошей смены!</b>Не нашёл вход? Открой заведение, там фото и маршрут.</div></div>
 <footer>© Рядом · ryadom.co</footer></div>
 </section>
@@ -252,6 +259,27 @@ html.vt .scr.on{animation:none}
 <li><span class="ri"><i data-i="wrench"></i><em>8</em></span><span><b>Сумка целая.</b> О поломках сразу сообщаем менеджеру.</span></li>
 <li><span class="ri"><i data-i="snow"></i><em>9</em></span><span><b>Зимой</b> не оставляем сумку открытой на морозе.</span></li>
 <li><span class="ri"><i data-i="check"></i><em>10</em></span><span><b>Перед выдачей</b> проверяем, что упаковка целая.</span></li></ol></div>
+</div></section>
+<section class="scr" id="s-oops"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
+<h1 class="big">Частые косяки</h1><p class="sub">Типичные ошибки и как их избежать</p>
+<div class="sec" id="oops"><h2><span class="ic coral"><i data-i="list"></i></span>Как не надо<span class="cnt">15 ошибок</span></h2><ol>
+<li><span class="ri"><i data-i="list"></i><em>1</em></span><span><b>Забыл соусы или приборы.</b><br><span class="fx">Когда заведение отдаёт заказ, сверяем по списку в приложении: <b>приборы, позиции, соусы</b>.</span></span></li>
+<li><span class="ri"><i data-i="check"></i><em>2</em></span><span><b>Не проверил заказ при получении.</b><br><span class="fx">Сверяем номер, количество позиций, напитки, соусы и приборы. Если чего-то не хватает, <b>решаем на месте</b>, а не у клиента.</span></span></li>
+<li><span class="ri"><i data-i="check"></i><em>3</em></span><span><b>Не отметил заказ в приложении.</b><br><span class="fx">Отмечаем заказ в приложении и <b>следим, чтобы заведение тоже отметило его у себя</b>.</span></span></li>
+<li><span class="ri"><i data-i="scooter"></i><em>4</em></span><span><b>Приехал в заведение поздно.</b><br><span class="fx">Принял заказ — <b>сразу едем в заведение</b>. К моменту готовности курьер уже на месте, чтобы забрать еду горячей.</span></span></li>
+<li><span class="ri"><i data-i="scooter"></i><em>5</em></span><span><b>Торопился и пролил.</b><br><span class="fx"><b>Аккуратность важнее скорости.</b> Лучше довезти блюдо целым, чем быстро.</span></span></li>
+<li><span class="ri"><i data-i="scooter"></i><em>6</em></span><span><b>Заехал по своим делам.</b><br><span class="fx">Едем <b>сразу к клиенту</b>, без личных остановок.</span></span></li>
+<li><span class="ri"><i data-i="heart"></i><em>7</em></span><span><b>Позвонил и не представился.</b><br><span class="fx">Здороваемся и называем, кто мы и зачем звоним: <b>«Здравствуйте, курьер „Рядом“. Подскажите, пожалуйста, какой у вас этаж?»</b></span></span></li>
+<li><span class="ri"><i data-i="heart"></i><em>8</em></span><span><b>Не предупредил об опоздании.</b><br><span class="fx">Задерживаешься больше чем на 10 минут — <b>предупреди клиента и менеджера</b>.</span></span></li>
+<li><span class="ri"><i data-i="heart"></i><em>9</em></span><span><b>Отменил заказ сам, когда клиент не ответил.</b><br><span class="fx">Звоним 2–3 раза, ждём 10 минут, пишем менеджеру. <b>Сам заказ не отменяем.</b></span></span></li>
+<li><span class="ri"><i data-i="check"></i><em>10</em></span><span><b>Закрыл заказ раньше времени.</b><br><span class="fx">Закрываем заказ в приложении <b>только после вручения в руки</b>.</span></span></li>
+<li><span class="ri"><i data-i="heart"></i><em>11</em></span><span><b>Пообещал клиенту что-то от себя.</b><br><span class="fx">Пролилось, помялось или не хватает позиции — <b>сразу связываемся с поддержкой</b> и ждём решения. Клиенту не грубим и ничего не обещаем от себя.</span></span></li>
+<li><span class="ri"><i data-i="bag"></i><em>12</em></span><span><b>Горячее рядом с холодным, напитки лёжа.</b><br><span class="fx">Горячее отдельно от холодного, напитки вертикально с проверенными крышками, супы и соусы — <b>вертикально в отдельном пакете</b>.</span></span></li>
+<li><span class="ri"><i data-i="bag"></i><em>13</em></span><span><b>Открыл упаковку или сумку зря.</b><br><span class="fx">Пакеты закрыты, упаковку не открываем. Сумку <b>закрываем сразу</b>, зимой не оставляем открытой на морозе.</span></span></li>
+<li><span class="ri"><i data-i="bag"></i><em>14</em></span><span><b>Личные вещи в термосумке.</b><br><span class="fx">В сумке <b>только заказы</b>: без личных вещей, еды курьера и сигарет.</span></span></li>
+<li><span class="ri"><i data-i="bag"></i><em>15</em></span><span><b>Без спецодежды или без сумки.</b><br><span class="fx">Спецодежда обязательна: <b>куртка, кепка, футболка</b>. Сумка всегда с вами — и в заведении, и у клиента.</span></span></li>
+</ol></div>
+<div class="homefoot" style="opacity:1;animation:none"><span class="hb"><i data-i="heart"></i></span><div><b>Вы доставляете радость</b>Улыбайтесь :)</div></div>
 </div></section>
 <section class="scr" id="s-map"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
 <h1 class="big">Карта</h1><div id="map"></div><p class="mapnote" id="mapnote"></p></div></section>
@@ -1062,7 +1090,7 @@ const off=VENUES.length-pts.length;$('#mapnote').textContent='На карте '+
 /* routing */
 const go=h=>{location.hash=h};
 function routeNow(){const h=decodeURIComponent(location.hash.slice(1));let id='home';sheet.classList.remove('on');lbClose();
-if(h.startsWith('v/')){const v=VENUES.find(x=>x.slug==h.slice(2));if(v){detail(v);id='venue'}}else if(['rules','venues','bag','map'].includes(h))id=h;
+if(h.startsWith('v/')){const v=VENUES.find(x=>x.slug==h.slice(2));if(v){detail(v);id='venue'}}else if(['rules','venues','bag','map','oops'].includes(h))id=h;
 document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id=='s-'+id));
 if(id=='venues'&&route.y!=null&&route.last=='venue')scrollTo(0,route.y);else scrollTo(0,0);
 if(id=='map'){initMap();if(pend!=null){const p=pend;pend=null;setTimeout(()=>openSheet(p,true),80)}}route.last=id}
@@ -1071,8 +1099,8 @@ if(x=t.closest('[data-go]'))return go(x.dataset.go);
 if(x=t.closest('.back')){e.stopPropagation();if(history.length>1&&route.nav)history.back();else go('');return}
 if(x=t.closest('[data-onmap]')){pend=+x.dataset.onmap;return go('map')}
 if(x=t.closest('[data-v]')){lastCard=x;if(route.last=='venues')route.y=scrollY;return go('v/'+x.dataset.v)}});
-let lastCard=null,prevId='home';const ORDER={home:0,rules:1,venues:1,bag:1,map:1,venue:2};
-function route(){const h=decodeURIComponent(location.hash.slice(1)),nid=h.startsWith('v/')?'venue':(['rules','venues','bag','map'].includes(h)?h:'home'),back=(ORDER[nid]??0)<(ORDER[prevId]??0);
+let lastCard=null,prevId='home';const ORDER={home:0,rules:1,venues:1,bag:1,map:1,oops:1,venue:2};
+function route(){const h=decodeURIComponent(location.hash.slice(1)),nid=h.startsWith('v/')?'venue':(['rules','venues','bag','map','oops'].includes(h)?h:'home'),back=(ORDER[nid]??0)<(ORDER[prevId]??0);
 const fin=()=>{const s=document.querySelector('.scr.on');if(s)s.classList.toggle('bk',back);prevId=route.last;if(nid=='venues')setTimeout(moveInd,30)};
 const shared=(nid=='venue'&&prevId=='venues')||(nid=='venues'&&prevId=='venue');
 if(document.startViewTransition&&route.nav&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('vt');
@@ -1087,4 +1115,14 @@ if(nid=='venue')route.slug=h.slice(2)}
 addEventListener('hashchange',()=>{route.nav=1;route()});icons(document);route();
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer onload="if(document.getElementById('s-map').classList.contains('on'))initMap()"></script>
-</body></html>
+<script>
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js'));
+(()=>{const b=document.getElementById('inst'),tx=document.getElementById('insttx'),bt=document.getElementById('instb');let ev=null;
+const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone;if(sa||localStorage.instHide)return;
+const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+if(ios){tx.textContent='Нажми «Поделиться» → «На экран Домой»';bt.hidden=true;b.hidden=false}
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();ev=e;b.hidden=false});
+bt.onclick=async()=>{if(!ev)return;ev.prompt();await ev.userChoice;ev=null;b.hidden=true};
+document.getElementById('instx').onclick=()=>{b.hidden=true;localStorage.instHide=1};
+addEventListener('appinstalled',()=>b.hidden=true)})();
+</script></body></html>
