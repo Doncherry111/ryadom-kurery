@@ -280,6 +280,12 @@ h1,h2,.big,.tile b,.vc strong,.sec h2,.btn{font-family:"Space Grotesk",sans-seri
 .cf{position:fixed;top:-12px;z-index:99;width:8px;height:14px;pointer-events:none;animation:cf var(--t) cubic-bezier(.2,.6,.4,1) forwards}
 @keyframes cf{to{transform:translate3d(var(--x),110vh,0) rotate(var(--r));opacity:.9}}
 @media(prefers-reduced-motion:reduce){.hero::after,.tile::before,.hero img,.hero h1 .ch{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}.rv2{opacity:1;transform:none}.burst,.cf,.rp{display:none}}
+/* otter placement v2 */
+.hero::after{background-position:74% 50%}
+.hero img{position:relative!important;right:auto!important;bottom:auto!important;left:auto;display:block;width:92px!important;max-width:none;margin:18px 0 0;border-radius:50%;background:radial-gradient(circle at 50% 60%,#00E5A833,#00B3FF14 60%,transparent 72%);filter:drop-shadow(0 0 18px #00E5A866) drop-shadow(0 8px 14px #000a)!important;opacity:1}
+.hero .in{display:flex;flex-direction:column;align-items:flex-start}
+.hero h1,.hero p{max-width:60%}
+@media(min-width:760px){.hero{min-height:460px}.hero img{width:120px!important}.hero::after{background-position:70% 55%}}
 </style><script>{const m=location.search.match(/theme=(\d)/);if(m)document.documentElement.dataset.theme=m[1]}</script></head><body>
 <section class="scr" id="s-home">
 <div class="hero"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><div class="in"><span class="brand">Рядом · курьерам</span><h1>Привет, курьер!</h1><p>Всё для смены: правила, входы в заведения и карта</p><img src="img/otter.png" alt="Выдра Рядом"></div>
