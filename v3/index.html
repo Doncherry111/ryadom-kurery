@@ -199,7 +199,23 @@ html.vt .scr.on{animation:none}
 .inst[hidden]{display:none}.inst .hb{font-size:24px}.inst b{display:block;font-size:16px}.inst div{flex:1}
 #instb{border:0;background:#fff;color:#0488F0;font:inherit;font-weight:800;border-radius:12px;padding:9px 12px;cursor:pointer}#instx{border:0;background:none;color:#fff;font-size:16px;cursor:pointer;opacity:.8}
 
-</style></head><body>
+.fav{position:absolute;z-index:3;top:8px;right:8px;width:36px;height:36px;border-radius:50%;border:0;background:#00000040;backdrop-filter:blur(6px);color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center;transition:transform .3s var(--spring),background .2s}
+.vc{position:relative}.vc.isfav .fav{background:#FFC93C;color:#fff;box-shadow:0 4px 12px -4px #e0a000}.fav.pop{animation:fp .45s var(--spring)}@keyframes fp{40%{transform:scale(1.45) rotate(18deg)}}
+.rt{display:grid;grid-template-columns:auto 1fr 1fr;gap:8px;align-items:center;margin-top:10px}.rt .btn{margin:0;min-height:48px;font-size:13px}.rtl{font-weight:800;font-size:14px;color:var(--m)}
+.ck label{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line);cursor:pointer;font-size:16px}.ck label:first-child{border-top:0}.ck input{position:absolute;opacity:0}
+.bx{flex:none;width:26px;height:26px;border-radius:9px;border:2px solid var(--b);display:grid;place-items:center;transition:all .25s var(--spring)}.ck input:checked+.bx{background:var(--b);transform:scale(1.1)}.ck input:checked+.bx::after{content:"✓";color:#fff;font-weight:900;font-size:15px}.ck input:checked~span:last-child{color:var(--m);text-decoration:line-through}
+.ckp{display:flex;gap:12px;align-items:center;margin:4px 0 16px;font-weight:700;font-size:14px}.ckbar{flex:1;height:10px;border-radius:9px;background:var(--soft);overflow:hidden}#ckfill{display:block;height:100%;background:linear-gradient(90deg,var(--b),var(--c));transition:width .4s var(--ease)}#ckr{border:0;background:var(--csoft);color:var(--c);font:inherit;font-weight:700;border-radius:10px;padding:6px 10px;cursor:pointer}
+html[data-theme="2"]{--b:#10B981;--d:#059669;--bd:#059669;--c:#F97316;--bg:#F0FBF6;--soft:#10B9811f;--csoft:#F973161f}
+html[data-theme="2"] .hero{background:linear-gradient(120deg,#10B981,#059669,#F97316,#10B981);background-size:300% 300%}html[data-theme="2"] .tile.az{background:linear-gradient(150deg,#10B981,#059669);box-shadow:0 12px 26px -14px #059669cc}html[data-theme="2"] .tile.co{background:linear-gradient(150deg,#F97316,#F97316d0);box-shadow:0 12px 26px -14px #F97316cc}
+html[data-theme="3"]{--b:#F59E0B;--d:#EA580C;--bd:#EA580C;--c:#DB2777;--bg:#FFF7ED;--soft:#F59E0B1f;--csoft:#DB27771f}
+html[data-theme="3"] .hero{background:linear-gradient(120deg,#F59E0B,#EA580C,#DB2777,#F59E0B);background-size:300% 300%}html[data-theme="3"] .tile.az{background:linear-gradient(150deg,#F59E0B,#EA580C);box-shadow:0 12px 26px -14px #EA580Ccc}html[data-theme="3"] .tile.co{background:linear-gradient(150deg,#DB2777,#DB2777d0);box-shadow:0 12px 26px -14px #DB2777cc}
+html[data-theme="4"]{--b:#22D3EE;--d:#A855F7;--bd:#A855F7;--c:#F472B6;--bg:#0B0B1A;--soft:#22D3EE1f;--csoft:#F472B61f}
+html[data-theme="4"] .hero{background:linear-gradient(120deg,#22D3EE,#A855F7,#F472B6,#22D3EE);background-size:300% 300%}html[data-theme="4"] .tile.az{background:linear-gradient(150deg,#22D3EE,#A855F7);box-shadow:0 12px 26px -14px #A855F7cc}html[data-theme="4"] .tile.co{background:linear-gradient(150deg,#F472B6,#F472B6d0);box-shadow:0 12px 26px -14px #F472B6cc}
+html[data-theme="5"]{--b:#111827;--d:#111827;--bd:#111827;--c:#EF4444;--bg:#FAFAFA;--soft:#1118271f;--csoft:#EF44441f}
+html[data-theme="5"] .hero{background:linear-gradient(120deg,#111827,#111827,#111827,#111827);background-size:300% 300%}html[data-theme="5"] .tile.az{background:linear-gradient(150deg,#111827,#111827);box-shadow:0 12px 26px -14px #111827cc}html[data-theme="5"] .tile.co{background:linear-gradient(150deg,#EF4444,#EF4444d0);box-shadow:0 12px 26px -14px #EF4444cc}
+html[data-theme="4"]{--card:#151530;--t:#EDEBFF;--m:#A6A3C9;--line:#ffffff14;color-scheme:dark}html[data-theme="4"] .tile{box-shadow:0 0 24px -6px #A855F7aa}
+html[data-theme="5"]{--card:#fff;--t:#111827;--m:#6B7280;--line:#E5E7EB}html[data-theme="5"] .tile.az{background:#111827}html[data-theme="5"] .tile.co{background:#EF4444}html[data-theme="5"] .hero{background:#111827}
+</style><script>{const m=location.search.match(/theme=(\d)/);if(m)document.documentElement.dataset.theme=m[1]}</script></head><body>
 <section class="scr" id="s-home">
 <div class="hero"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><div class="in"><span class="brand">Рядом · курьерам</span><h1>Привет, курьер!</h1><p>Всё для смены: правила, входы в заведения и карта</p><img src="img/otter.png" alt="Выдра Рядом"></div>
 <svg class="wave" viewBox="0 0 780 46" preserveAspectRatio="none"><path class="w2" d="M0 20 C60 40 130 40 195 22 S330 4 390 20 C450 36 520 36 585 22 S720 4 780 20 V46 H0Z"/><path class="w1" d="M0 26 C65 44 130 44 195 26 S325 8 390 26 C455 44 520 44 585 26 S715 8 780 26 V46 H0Z"/></svg></div>
@@ -208,7 +224,8 @@ html.vt .scr.on{animation:none}
 <button style="--k:1" class="tile az" data-go="venues"><span class="ti"><i data-i="store"></i></span><b>Заведения</b><small>63 мест, фото входа</small></button>
 <button style="--k:2" class="tile az" data-go="bag"><span class="ti"><i data-i="bag"></i></span><b>Термосумка</b><small>Чистота и порядок</small></button>
 <button style="--k:3" class="tile co" data-go="map"><span class="ti"><i data-i="map"></i></span><b>Карта</b><small>Все точки рядом</small></button>
-<button style="--k:4" class="tile co wide" data-go="oops"><span class="ti">⚠️</span><b>Частые косяки</b><small>Ошибки и как их избежать</small></button>
+<button style="--k:4" class="tile az" data-go="check"><span class="ti">✅</span><b>Перед выездом</b><small>Чек-лист на смену</small></button>
+<button style="--k:5" class="tile co" data-go="oops"><span class="ti">⚠️</span><b>Частые косяки</b><small>Ошибки и как их избежать</small></button>
 </div>
 <div class="inst" id="inst" hidden><span class="hb">📲</span><div><b>Установить на телефон</b><span id="insttx">Работает даже без интернета</span></div><button id="instb">Установить</button><button id="instx" aria-label="Скрыть">✕</button></div>
 <div class="homefoot"><span class="hb"><i data-i="heart"></i></span><div><b>Хорошей смены!</b>Не нашёл вход? Открой заведение, там фото и маршрут.</div></div>
@@ -260,6 +277,10 @@ html.vt .scr.on{animation:none}
 <li><span class="ri"><i data-i="snow"></i><em>9</em></span><span><b>Зимой</b> не оставляем сумку открытой на морозе.</span></li>
 <li><span class="ri"><i data-i="check"></i><em>10</em></span><span><b>Перед выдачей</b> проверяем, что упаковка целая.</span></li></ol></div>
 </div></section>
+<section class="scr" id="s-check"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
+<h1 class="big">Перед выездом</h1><p class="sub">Отмечай пункты. Список сбрасывается каждый день</p>
+<div class="ckp"><div class="ckbar"><i id="ckfill"></i></div><span id="ckn"></span><button id="ckr">Сбросить</button></div>
+<div class="sec"><h2><span class="ic"><i data-i="check"></i></span>Перед сменой<span class="cnt">5</span></h2><div class="ck"><label><input type="checkbox" data-ck="0-0"><span class="bx"></span><span>Спецодежда: куртка, кепка, футболка</span></label><label><input type="checkbox" data-ck="0-1"><span class="bx"></span><span>Термосумка с собой</span></label><label><input type="checkbox" data-ck="0-2"><span class="bx"></span><span>Сумка чистая, после прошлой смены протёрта</span></label><label><input type="checkbox" data-ck="0-3"><span class="bx"></span><span>Сумка целая (о поломках сразу сообщаю менеджеру)</span></label><label><input type="checkbox" data-ck="0-4"><span class="bx"></span><span>В сумке только заказы: без личных вещей, еды и сигарет</span></label></div></div><div class="sec"><h2><span class="ic"><i data-i="check"></i></span>Когда забираю заказ<span class="cnt">7</span></h2><div class="ck"><label><input type="checkbox" data-ck="1-0"><span class="bx"></span><span>Приехал в заведение сразу после принятия заказа</span></label><label><input type="checkbox" data-ck="1-1"><span class="bx"></span><span>Сверил номер заказа и количество позиций</span></label><label><input type="checkbox" data-ck="1-2"><span class="bx"></span><span>Проверил приборы и соусы</span></label><label><input type="checkbox" data-ck="1-3"><span class="bx"></span><span>Напитки стоят вертикально, крышки проверены</span></label><label><input type="checkbox" data-ck="1-4"><span class="bx"></span><span>Супы и соусы вертикально, в отдельном пакете</span></label><label><input type="checkbox" data-ck="1-5"><span class="bx"></span><span>Горячее отдельно от холодного, тяжёлое вниз</span></label><label><input type="checkbox" data-ck="1-6"><span class="bx"></span><span>Отметил заказ в приложении, заведение тоже отметило</span></label></div></div></div></section>
 <section class="scr" id="s-oops"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
 <h1 class="big">Частые косяки</h1><p class="sub">Типичные ошибки и как их избежать</p>
 <div class="sec" id="oops"><h2><span class="ic coral"><i data-i="list"></i></span>Как не надо<span class="cnt">15 ошибок</span></h2><ol>
@@ -1039,6 +1060,9 @@ const $=s=>document.querySelector(s),esc=t=>String(t).replace(/[&<>"]/g,c=>({'&'
 const icons=r=>r.querySelectorAll('i[data-i]').forEach(e=>{const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('class','i');s.setAttribute('viewBox','0 0 24 24');s.innerHTML=P[e.dataset.i]||'';e.replaceWith(s)});
 const phs=v=>(Array.isArray(v.photo)?v.photo:v.photo?[v.photo]:[]).map(p=>typeof p==='string'?{src:p,caption:''}:p.video?{video:p.video,poster:p.poster||'',caption:p.caption||''}:{src:p.src,caption:p.caption||''});
 const cover=v=>{const a=phs(v),f=a.find(p=>p.src)||a.find(p=>p.poster);return f?(f.src||f.poster):''};
+const qa=v=>encodeURIComponent((v.name.replace(/\|/g,' ')+' '+(v.address||'')+' Южно-Сахалинск').replace(/\s+/g,' ').trim());
+const r2g=v=>v.lat!=null?'https://2gis.ru/yuzhnosakhalinsk/directions/points/%7C'+v.lng+'%2C'+v.lat:'https://2gis.ru/yuzhnosakhalinsk/search/'+qa(v);
+const rya=v=>v.lat!=null?'https://yandex.ru/maps/?rtext=~'+v.lat+'%2C'+v.lng+'&rtt=auto':'https://yandex.ru/maps/?text='+qa(v);
 const gis=v=>v.gis?'https://2gis.ru/yuzhnosakhalinsk/firm/'+v.gis:'https://2gis.ru/yuzhnosakhalinsk/search/'+encodeURIComponent((v.name.replace(/\|/g,' ')+' '+(v.address||'')).replace(/\s+/g,' ').trim());
 /* category + floor heuristics */
 const cat=v=>{const t=(v.name+' '+v.address+' '+(v.hint||'')).toLowerCase();
@@ -1055,8 +1079,12 @@ if(a.length<2&&a[0]&&a[0].includes(': '))a=a[0].split(/:\s+/).map((s,i,x)=>s.cha
 VENUES.forEach((v,i)=>{v.i=i;v.cat=cat(v);v.fl=floor(v)});
 const CATS=[['all','Все'],['mall','ТЦ'],['food','Фуд-корты'],['base','Подвалы'],['solo','Отдельные']];
 const nm=n=>n%10==1&&n%100!=11?'заведение':n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?'заведения':'заведений';
-const card=v=>{const c=cover(v);return '<article class="vc" data-v="'+v.slug+'" data-s="'+esc((v.name+' '+v.address).toLowerCase())+'" data-c="'+v.cat+'"><div class="im'+(c?' skel':'')+'">'+(c?'<img loading="lazy" onload="this.parentNode.classList.add(\'ld\')" src="'+esc(c)+'" alt="'+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'</div><div class="bd"><strong>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</strong><div class="meta">'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'<span class="pin'+(v.lat!=null?'':' off')+'"><i data-i="pin"></i></span></div></div></article>'};
+const card=v=>{const c=cover(v);return '<article class="vc" data-v="'+v.slug+'" data-s="'+esc((v.name+' '+v.address).toLowerCase())+'" data-c="'+v.cat+'"><div class="im'+(c?' skel':'')+'">'+(c?'<img loading="lazy" onload="this.parentNode.classList.add(\'ld\')" src="'+esc(c)+'" alt="'+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'</div><button class="fav" data-fav="'+v.slug+'" aria-label="В избранное">★</button><div class="bd"><strong>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</strong><div class="meta">'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'<span class="pin'+(v.lat!=null?'':' off')+'"><i data-i="pin"></i></span></div></div></article>'};
 const VL=$('#vlist');VL.innerHTML=VENUES.map(card).join('');
+const FAV=new Set(JSON.parse(localStorage.fav||'[]'));
+function favSort(){VL.querySelectorAll('.vc').forEach(c=>c.classList.toggle('isfav',FAV.has(c.dataset.v)));[...VL.children].sort((a,b)=>(FAV.has(b.dataset.v)-FAV.has(a.dataset.v))||(+a.dataset.o-+b.dataset.o)).forEach(c=>VL.appendChild(c))}
+[...VL.children].forEach((c,i)=>c.dataset.o=i);favSort();
+VL.addEventListener('click',e=>{const f=e.target.closest('[data-fav]');if(!f)return;e.stopPropagation();e.preventDefault();const s=f.dataset.fav;FAV.has(s)?FAV.delete(s):FAV.add(s);localStorage.fav=JSON.stringify([...FAV]);f.classList.remove('pop');void f.offsetWidth;f.classList.add('pop');setTimeout(favSort,350)},true);
 $('#chips').innerHTML=CATS.map(([k,l],j)=>'<button class="chip'+(j?'':' on')+'" data-f="'+k+'">'+l+'<span>'+(k=='all'?VENUES.length:VENUES.filter(v=>v.cat==k).length)+'</span></button>').join('');
 let F='all';const vq=$('#vq');
 const apply=()=>{const t=vq.value.trim().toLowerCase();let n=0;let k=0;VL.querySelectorAll('.vc').forEach(c=>{const m=(!t||c.dataset.s.includes(t))&&(F=='all'||c.dataset.c==F);if(m){n++;if(c.style.display=='none'||c.classList.contains('out')){clearTimeout(c._t);c.classList.remove('out','sin');c.style.display='';c.style.setProperty('--k',k++);void c.offsetWidth;c.classList.add('sin','rv')}}else if(c.style.display!='none'&&!c.classList.contains('out')){c.classList.add('out');c._t=setTimeout(()=>{c.style.display='none';c.classList.remove('out')},180)}});$('#vnone').style.display=n?'none':'block';$('#vcount').textContent=(t||F!='all'?'Нашлось ':'')+n+' '+nm(n)};
@@ -1071,7 +1099,7 @@ if(matchMedia('(hover:hover)').matches)document.querySelectorAll('.tile').forEac
 function detail(v){const a=phs(v),c=cover(v),st=steps(v.hint);
 $('#s-venue').innerHTML='<div class="dh" id="dh"><button class="back" aria-label="Назад"><i data-i="back"></i></button>'+(a.length>1?'<span class="cnt"><i data-i="camera"></i>'+a.length+'</span>':'')+(c?'<img style="view-transition-name:hero" src="'+esc(c)+'" alt="Вход: '+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'<div class="ov">'+(v.fl?'<span class="badge" style="--k:0">'+v.fl+'</span>':'')+'<h1 style="--k:1">'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</h1><p style="--k:2"><i data-i="pin"></i>'+(v.address?esc(v.address):'Адрес уточняется')+'</p></div></div>'+
 '<div class="dbody"><h2>Как пройти</h2><ol class="steps'+(st.length?'':' empty')+'">'+(st.length?st.map((s,k)=>'<li style="--k:'+k+'"><span class="n">'+(k+1)+'</span><span>'+esc(s)+'</span></li>').join(''):'<li style="--k:0"><span class="n">?</span><span>Подсказка скоро появится. Пока ориентируйся по 2ГИС.</span></li>')+'</ol>'+
-'<a class="btn gis" href="'+gis(v)+'" target="_blank" rel="noopener"><i data-i="map"></i>Открыть в 2ГИС</a>'+(v.lat!=null?'<button class="btn ghost" data-onmap="'+v.i+'"><i data-i="pin"></i>На карте</button>':'')+'</div>';
+'<a class="btn gis" href="'+gis(v)+'" target="_blank" rel="noopener"><i data-i="map"></i>Открыть в 2ГИС</a><div class="rt"><span class="rtl">Маршрут</span><a class="btn ghost" href="'+r2g(v)+'" target="_blank" rel="noopener">2ГИС</a><a class="btn ghost" href="'+rya(v)+'" target="_blank" rel="noopener">Яндекс Карты</a></div>'+(v.lat!=null?'<button class="btn ghost" data-onmap="'+v.i+'"><i data-i="pin"></i>На карте</button>':'')+'</div>';
 icons($('#s-venue'));if(a.length)$('#dh').onclick=e=>{if(!e.target.closest('.back'))openLB(a,0)}}
 /* lightbox */
 const LB=$('#lb'),lbt=LB.querySelector('.lbt'),lbc=LB.querySelector('.lbc');
@@ -1090,7 +1118,7 @@ const off=VENUES.length-pts.length;$('#mapnote').textContent='На карте '+
 /* routing */
 const go=h=>{location.hash=h};
 function routeNow(){const h=decodeURIComponent(location.hash.slice(1));let id='home';sheet.classList.remove('on');lbClose();
-if(h.startsWith('v/')){const v=VENUES.find(x=>x.slug==h.slice(2));if(v){detail(v);id='venue'}}else if(['rules','venues','bag','map','oops'].includes(h))id=h;
+if(h.startsWith('v/')){const v=VENUES.find(x=>x.slug==h.slice(2));if(v){detail(v);id='venue'}}else if(['rules','venues','bag','map','oops','check'].includes(h))id=h;
 document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id=='s-'+id));
 if(id=='venues'&&route.y!=null&&route.last=='venue')scrollTo(0,route.y);else scrollTo(0,0);
 if(id=='map'){initMap();if(pend!=null){const p=pend;pend=null;setTimeout(()=>openSheet(p,true),80)}}route.last=id}
@@ -1099,8 +1127,8 @@ if(x=t.closest('[data-go]'))return go(x.dataset.go);
 if(x=t.closest('.back')){e.stopPropagation();if(history.length>1&&route.nav)history.back();else go('');return}
 if(x=t.closest('[data-onmap]')){pend=+x.dataset.onmap;return go('map')}
 if(x=t.closest('[data-v]')){lastCard=x;if(route.last=='venues')route.y=scrollY;return go('v/'+x.dataset.v)}});
-let lastCard=null,prevId='home';const ORDER={home:0,rules:1,venues:1,bag:1,map:1,oops:1,venue:2};
-function route(){const h=decodeURIComponent(location.hash.slice(1)),nid=h.startsWith('v/')?'venue':(['rules','venues','bag','map','oops'].includes(h)?h:'home'),back=(ORDER[nid]??0)<(ORDER[prevId]??0);
+let lastCard=null,prevId='home';const ORDER={home:0,rules:1,venues:1,bag:1,map:1,oops:1,check:1,venue:2};
+function route(){const h=decodeURIComponent(location.hash.slice(1)),nid=h.startsWith('v/')?'venue':(['rules','venues','bag','map','oops','check'].includes(h)?h:'home'),back=(ORDER[nid]??0)<(ORDER[prevId]??0);
 const fin=()=>{const s=document.querySelector('.scr.on');if(s)s.classList.toggle('bk',back);prevId=route.last;if(nid=='venues')setTimeout(moveInd,30)};
 const shared=(nid=='venue'&&prevId=='venues')||(nid=='venues'&&prevId=='venue');
 if(document.startViewTransition&&route.nav&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('vt');
@@ -1116,6 +1144,9 @@ addEventListener('hashchange',()=>{route.nav=1;route()});icons(document);route()
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer onload="if(document.getElementById('s-map').classList.contains('on'))initMap()"></script>
 <script>
+(()=>{const d=new Date().toLocaleDateString('ru');let S=JSON.parse(localStorage.ck||'{}');if(S.d!=d)S={d,v:{}};const bx=[...document.querySelectorAll('[data-ck]')];
+const upd=()=>{const n=bx.filter(b=>b.checked).length;document.getElementById('ckn').textContent=n+' из '+bx.length+(n==bx.length?' · можно ехать!':'');document.getElementById('ckfill').style.width=(100*n/bx.length)+'%';localStorage.ck=JSON.stringify(S)};
+bx.forEach(b=>{b.checked=!!S.v[b.dataset.ck];b.onchange=()=>{S.v[b.dataset.ck]=b.checked;upd()}});document.getElementById('ckr').onclick=()=>{S.v={};bx.forEach(b=>b.checked=false);upd()};upd()})();
 if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js'));
 (()=>{const b=document.getElementById('inst'),tx=document.getElementById('insttx'),bt=document.getElementById('instb');let ev=null;
 const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone;if(sa||localStorage.instHide)return;
