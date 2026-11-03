@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0CB1DF"><title>Рядом — для курьеров</title>
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0488F0"><title>Рядом — для курьеров</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <style>
 :root{--b:#0CB1DF;--bd:#0796c4;--c:#EB4A37;--cd:#d23a28;--bg:#F5F8FA;--card:#fff;--t:#14202a;--m:#5f6f7b;--line:#e6ecf0;--soft:#eaf7fc;--csoft:#fdeeec;--sh:0 6px 22px -10px rgba(20,40,60,.22),0 1px 3px rgba(20,40,60,.06)}
@@ -98,15 +99,110 @@ b{font-weight:700}.rail,.fill{display:none}
 .lbc{position:absolute;top:calc(26px + env(safe-area-inset-top));left:18px;color:#fff;font-weight:700}
 footer{text-align:center;color:var(--m);font-size:13px;padding:24px 10px 30px}
 @media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}.tile{min-height:190px}}
+
+/* ===== v3.1: original palette + motion ===== */
+:root{--b:#0CB1DF;--d:#0488F0;--bd:#0488F0;--c:#EB4A37;--bg:#F2F7FB;--card:#fff;--t:#13212b;--m:#5d6e7a;--line:#0c3b4a14;--soft:#0CB1DF1a;--csoft:#EB4A371a;--sh:0 14px 40px -18px #0a4a7055;--spring:cubic-bezier(.34,1.56,.64,1);--ease:cubic-bezier(.22,1,.36,1)}
+@media(prefers-color-scheme:dark){:root{--bg:#081118;--card:#122029;--t:#e9f3f8;--m:#9db1bf;--line:#ffffff12;--soft:#0CB1DF22;--csoft:#EB4A3726;--sh:0 14px 40px -18px #000c}.top{background:color-mix(in srgb,var(--bg) 75%,transparent)!important}.pin.off{background:#1c2c36!important}}
+body{font-family:Manrope,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,.big,.tile b,.vc strong,.dh .ov h1,.sec h2,.btn{font-family:Unbounded,Manrope,sans-serif}
+.big{font-weight:800}.vc strong{font-size:14px;font-weight:700}.tile b{font-size:clamp(15px,4.4vw,19px);overflow-wrap:anywhere}
+.hero{background:linear-gradient(120deg,#0CB1DF,#0488F0,#0566d6,#0CB1DF);background-size:300% 300%;animation:grad 14s ease infinite;padding-bottom:84px}
+@keyframes grad{50%{background-position:100% 50%}}
+.hero::before{display:none}
+.blob{position:absolute;border-radius:50%;filter:blur(50px);opacity:.55;animation:float 12s ease-in-out infinite;pointer-events:none}
+.b1{width:260px;height:260px;background:#EB4A37;right:-90px;bottom:-60px}.b2{width:220px;height:220px;background:#7fe3ff;left:-80px;top:-60px;animation-delay:-4s}.b3{width:160px;height:160px;background:#ff9a7a;left:40%;top:30%;opacity:.3;animation-delay:-8s}
+@keyframes float{50%{transform:translate(30px,-25px) scale(1.12)}}
+.hero h1{font-size:clamp(28px,8vw,46px)}
+.hero h1,.hero p,.hero .brand{opacity:0;animation:up .8s var(--ease) forwards}.hero p{animation-delay:.15s}.hero .brand{animation-delay:.05s;border:1px solid #ffffff55;backdrop-filter:blur(8px)}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hero img{animation:otterIn 1s var(--spring) .2s both,bob 4.2s ease-in-out 1.2s infinite;transform-origin:50% 90%;z-index:2}
+@keyframes otterIn{0%{opacity:0;transform:translateY(60px) rotate(-12deg) scale(.8)}60%{opacity:1;transform:translateY(-6px) rotate(6deg)}80%{transform:rotate(-4deg)}100%{transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(2deg)}}
+.wave{height:46px;z-index:3;overflow:visible}.wave path{fill:var(--bg)}.wave .w2{opacity:.45;animation:wv 9s linear infinite reverse}.wave .w1{animation:wv 6s linear infinite}
+@keyframes wv{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.wave{width:200%}
+/* containers */
+.wrap{max-width:520px}.hero .in{max-width:520px}
+#s-venues .wrap{max-width:1100px}
+.tile{opacity:0;animation:pop .6s var(--spring) forwards;animation-delay:calc(.25s + var(--k,0)*.08s);transition:transform .25s var(--ease),box-shadow .25s;transform-style:preserve-3d;will-change:transform}
+.tile.az{background:linear-gradient(150deg,#0CB1DF,#0488F0)}.tile.co{background:linear-gradient(150deg,#ff7a5c,#EB4A37)}
+@keyframes pop{from{opacity:0;transform:scale(.8) translateY(20px)}to{opacity:1;transform:none}}
+.tile:hover{box-shadow:0 22px 36px -16px rgba(4,136,240,.7)}.tile:active{transform:scale(.95)!important;transition-duration:.08s}
+.tile .ti{transition:transform .4s var(--spring)}.tile:hover .ti{transform:rotate(-8deg) scale(1.08)}
+.homefoot{opacity:0;animation:up .7s var(--ease) .65s forwards}
+.back{transition:transform .2s var(--spring)}.back:active{transform:scale(.88)}
+/* chips with sliding indicator */
+.chips{position:relative;margin:0 0 16px;padding:2px 2px 6px}
+.chip{position:relative;z-index:1;background:transparent;box-shadow:none;transition:color .3s;font-family:Manrope,sans-serif;font-weight:700}
+.chip.on{background:transparent;color:#fff}.chip.on span{color:#ffffffcc}
+.chips::before{content:"";position:absolute;inset:2px auto 6px 2px;right:2px;border-radius:99px;background:var(--card);box-shadow:var(--sh);z-index:0;width:auto}
+.chips .ind{position:absolute;top:2px;height:calc(100% - 8px);left:0;width:0;border-radius:99px;background:linear-gradient(135deg,var(--b),var(--d));box-shadow:0 8px 18px -8px #0488F0cc;transition:transform .45s var(--spring),width .45s var(--spring);z-index:0}
+@media(min-width:640px){.chips::before{right:auto;width:var(--cw,100%)}}
+#vq{border-radius:18px}
+/* grid */
+.grid{gap:14px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr);gap:18px}}
+@media(min-width:960px){.grid{grid-template-columns:repeat(4,1fr)}}
+.vc{border:1px solid var(--line);transition:transform .35s var(--ease),box-shadow .35s,opacity .3s;opacity:0;transform:translateY(24px) scale(.97)}
+.vc.rv{opacity:1;transform:none;transition-delay:calc(var(--k,0)*55ms)}
+.vc.rv:hover{transform:translateY(-6px);box-shadow:0 24px 40px -20px #0a4a7088;transition-delay:0s}
+.vc.rv:active{transform:scale(.96);transition-duration:.1s}
+.vc.out{opacity:0!important;transform:scale(.9)!important;transition:opacity .18s,transform .18s!important}
+.vc.sin{animation:sin .4s var(--spring) both;animation-delay:calc(var(--k,0)*30ms)}@keyframes sin{from{opacity:0;transform:scale(.88)}}
+.vc .im{aspect-ratio:4/3;max-height:260px}
+.vc .im img{transition:transform .6s var(--ease),opacity .4s;opacity:0}.vc .im.ld img{opacity:1}.vc.rv:hover .im img{transform:scale(1.06)}
+.skel{background:linear-gradient(100deg,#e3eef5 30%,#f4f9fc 50%,#e3eef5 70%);background-size:300% 100%;animation:skel 1.3s linear infinite}.skel.ld{animation:none;background:var(--soft)}
+@media(prefers-color-scheme:dark){.skel{background-image:linear-gradient(100deg,#13232d 30%,#1d3340 50%,#13232d 70%)}}
+@keyframes skel{from{background-position:100% 0}to{background-position:-50% 0}}
+.badge{background:var(--soft);color:var(--d)}
+/* detail */
+.dh{height:auto;aspect-ratio:16/10;min-height:0;max-height:min(58vh,520px);max-width:900px;margin:0 auto}
+@media(min-width:760px){.dh{margin-top:16px;border-radius:28px;width:calc(100% - 36px)}.dbody{margin-top:-30px}}
+.dh img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dh .ov h1{font-size:clamp(22px,6vw,34px)}
+.dh .ov>*{opacity:0;animation:up .6s var(--ease) forwards;animation-delay:calc(.15s + var(--k,0)*.08s)}
+.dbody{max-width:560px}
+.steps li{opacity:0;animation:up .5s var(--ease) forwards;animation-delay:calc(.3s + var(--k)*.12s)}
+.steps .n{background:linear-gradient(135deg,#ff7a5c,var(--c));animation:pulse 1s ease-out forwards;animation-delay:calc(.45s + var(--k)*.12s);box-shadow:0 0 0 0 #EB4A3780}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #EB4A3799;transform:scale(1)}30%{transform:scale(1.18)}100%{box-shadow:0 0 0 14px #EB4A3700;transform:scale(1)}}
+.btn{background:linear-gradient(135deg,var(--b),var(--d));font-size:15px;position:relative;overflow:hidden;transition:transform .2s var(--spring);opacity:0;animation:up .5s var(--ease) .5s forwards}
+.btn:active{transform:scale(.96)}
+.btn.gis{background:linear-gradient(135deg,#2FB94A,#1a9a3a);box-shadow:0 10px 22px -10px #1a9a3acc}
+.btn.gis::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,#ffffff66 50%,transparent 70%);transform:translateX(-100%);animation:sh 3.2s 1.2s infinite}
+@keyframes sh{40%,100%{transform:translateX(100%)}}
+.btn.ghost{background:var(--card);animation-delay:.6s}
+/* content */
+.sec,.hello{border:1px solid var(--line);animation:up .6s var(--ease) both}.sec:nth-of-type(2){animation-delay:.08s}.sec:nth-of-type(3){animation-delay:.16s}
+.hello{background:linear-gradient(135deg,#0CB1DF,#0488F0);color:#fff}.hello b{color:#fff}
+.sec h2{font-size:18px}.sec h2 .ic{background:linear-gradient(135deg,var(--b),var(--d));box-shadow:0 10px 20px -8px #0488F0aa}.sec h2 .ic.coral{background:linear-gradient(135deg,#ff7a5c,var(--c));box-shadow:0 10px 20px -8px #EB4A37aa}
+.stage .dot{background:linear-gradient(135deg,var(--b),var(--d))}
+.say{background:linear-gradient(135deg,#EB4A371a,#EB4A3708);border:1px solid #EB4A3730}
+.top{background:color-mix(in srgb,var(--bg) 75%,transparent)}
+/* screens */
+.scr.on{animation:scrIn .45s var(--ease)}@keyframes scrIn{from{opacity:0;transform:translateX(28px)}}
+.scr.on.bk{animation-name:scrBk}@keyframes scrBk{from{opacity:0;transform:translateX(-28px)}}
+::view-transition-old(root){animation:vtOut .25s ease both}::view-transition-new(root){animation:vtIn .35s var(--ease) both}
+@keyframes vtOut{to{opacity:0}}@keyframes vtIn{from{opacity:0}}
+::view-transition-group(hero){animation-duration:.45s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+html.vt .scr.on{animation:none}
+/* map */
+#map{max-height:70vh}#s-map .wrap{max-width:1100px}
+.mk{animation:drop .6s var(--spring) both;animation-delay:var(--d,0s);transform:rotate(-45deg)}
+@keyframes drop{from{opacity:0;transform:translateY(-60px) rotate(-45deg)}to{opacity:1;transform:rotate(-45deg)}}
+.mk{transform-origin:50% 50%}
+/* lightbox */
+#lb.show{animation:fi .25s ease}.lbt img,.lbt video{width:auto;height:auto;max-width:min(100%,1400px);max-height:85vh;object-fit:contain}
+@media(min-width:900px){.hero .in{min-height:190px}.hero img{max-width:210px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important}.vc{opacity:1;transform:none}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
 </style></head><body>
 <section class="scr" id="s-home">
-<div class="hero"><div class="in"><span class="brand">Рядом · курьерам</span><h1>Привет, курьер!</h1><p>Всё для смены: правила, входы в заведения и карта</p><img src="img/otter.png" alt="Выдра Рядом"></div>
-<svg class="wave" viewBox="0 0 390 46" preserveAspectRatio="none"><path d="M0 22 C60 46 120 46 195 26 S330 0 390 20 V46 H0Z" fill="#F5F8FA"/></svg></div>
+<div class="hero"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><div class="in"><span class="brand">Рядом · курьерам</span><h1>Привет, курьер!</h1><p>Всё для смены: правила, входы в заведения и карта</p><img src="img/otter.png" alt="Выдра Рядом"></div>
+<svg class="wave" viewBox="0 0 780 46" preserveAspectRatio="none"><path class="w2" d="M0 20 C60 40 130 40 195 22 S330 4 390 20 C450 36 520 36 585 22 S720 4 780 20 V46 H0Z"/><path class="w1" d="M0 26 C65 44 130 44 195 26 S325 8 390 26 C455 44 520 44 585 26 S715 8 780 26 V46 H0Z"/></svg></div>
 <div class="wrap"><div class="tiles">
-<button class="tile co" data-go="rules"><span class="ti"><i data-i="list"></i></span><b>Правила</b><small>Как работаем и общаемся</small></button>
-<button class="tile az" data-go="venues"><span class="ti"><i data-i="store"></i></span><b>Заведения</b><small>63 мест, фото входа</small></button>
-<button class="tile az" data-go="bag"><span class="ti"><i data-i="bag"></i></span><b>Термосумка</b><small>Чистота и порядок</small></button>
-<button class="tile co" data-go="map"><span class="ti"><i data-i="map"></i></span><b>Карта</b><small>Все точки рядом</small></button>
+<button style="--k:0" class="tile co" data-go="rules"><span class="ti"><i data-i="list"></i></span><b>Правила</b><small>Как работаем и общаемся</small></button>
+<button style="--k:1" class="tile az" data-go="venues"><span class="ti"><i data-i="store"></i></span><b>Заведения</b><small>63 мест, фото входа</small></button>
+<button style="--k:2" class="tile az" data-go="bag"><span class="ti"><i data-i="bag"></i></span><b>Термосумка</b><small>Чистота и порядок</small></button>
+<button style="--k:3" class="tile co" data-go="map"><span class="ti"><i data-i="map"></i></span><b>Карта</b><small>Все точки рядом</small></button>
 </div>
 <div class="homefoot"><span class="hb"><i data-i="heart"></i></span><div><b>Хорошей смены!</b>Не нашёл вход? Открой заведение, там фото и маршрут.</div></div>
 <footer>© Рядом · ryadom.co</footer></div>
@@ -931,17 +1027,23 @@ if(a.length<2&&a[0]&&a[0].includes(': '))a=a[0].split(/:\s+/).map((s,i,x)=>s.cha
 VENUES.forEach((v,i)=>{v.i=i;v.cat=cat(v);v.fl=floor(v)});
 const CATS=[['all','Все'],['mall','ТЦ'],['food','Фуд-корты'],['base','Подвалы'],['solo','Отдельные']];
 const nm=n=>n%10==1&&n%100!=11?'заведение':n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?'заведения':'заведений';
-const card=v=>{const c=cover(v);return '<article class="vc" data-v="'+v.slug+'" data-s="'+esc((v.name+' '+v.address).toLowerCase())+'" data-c="'+v.cat+'"><div class="im">'+(c?'<img loading="lazy" src="'+esc(c)+'" alt="'+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'</div><div class="bd"><strong>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</strong><div class="meta">'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'<span class="pin'+(v.lat!=null?'':' off')+'"><i data-i="pin"></i></span></div></div></article>'};
+const card=v=>{const c=cover(v);return '<article class="vc" data-v="'+v.slug+'" data-s="'+esc((v.name+' '+v.address).toLowerCase())+'" data-c="'+v.cat+'"><div class="im'+(c?' skel':'')+'">'+(c?'<img loading="lazy" onload="this.parentNode.classList.add(\'ld\')" src="'+esc(c)+'" alt="'+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'</div><div class="bd"><strong>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</strong><div class="meta">'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'<span class="pin'+(v.lat!=null?'':' off')+'"><i data-i="pin"></i></span></div></div></article>'};
 const VL=$('#vlist');VL.innerHTML=VENUES.map(card).join('');
 $('#chips').innerHTML=CATS.map(([k,l],j)=>'<button class="chip'+(j?'':' on')+'" data-f="'+k+'">'+l+'<span>'+(k=='all'?VENUES.length:VENUES.filter(v=>v.cat==k).length)+'</span></button>').join('');
 let F='all';const vq=$('#vq');
-const apply=()=>{const t=vq.value.trim().toLowerCase();let n=0;VL.querySelectorAll('.vc').forEach(c=>{const m=(!t||c.dataset.s.includes(t))&&(F=='all'||c.dataset.c==F);c.style.display=m?'':'none';if(m)n++});$('#vnone').style.display=n?'none':'block';$('#vcount').textContent=(t||F!='all'?'Нашлось ':'')+n+' '+nm(n)};
-vq.oninput=apply;$('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;F=b.dataset.f;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==b));apply()};
+const apply=()=>{const t=vq.value.trim().toLowerCase();let n=0;let k=0;VL.querySelectorAll('.vc').forEach(c=>{const m=(!t||c.dataset.s.includes(t))&&(F=='all'||c.dataset.c==F);if(m){n++;if(c.style.display=='none'||c.classList.contains('out')){clearTimeout(c._t);c.classList.remove('out','sin');c.style.display='';c.style.setProperty('--k',k++);void c.offsetWidth;c.classList.add('sin','rv')}}else if(c.style.display!='none'&&!c.classList.contains('out')){c.classList.add('out');c._t=setTimeout(()=>{c.style.display='none';c.classList.remove('out')},180)}});$('#vnone').style.display=n?'none':'block';$('#vcount').textContent=(t||F!='all'?'Нашлось ':'')+n+' '+nm(n)};
+vq.oninput=apply;$('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;F=b.dataset.f;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==b));moveInd();apply()};
+const ind=document.createElement('i');ind.className='ind';$('#chips').prepend(ind);
+function moveInd(){const b=$('#chips .chip.on');if(!b||!b.offsetWidth)return;ind.style.width=b.offsetWidth+'px';ind.style.transform='translateX('+b.offsetLeft+'px)';const l=$('#chips .chip:last-child');$('#chips').style.setProperty('--cw',(l.offsetLeft+l.offsetWidth-2)+'px')}
+addEventListener('resize',moveInd);
+const io=new IntersectionObserver(es=>{let k=0;es.forEach(e=>{if(e.isIntersecting){e.target.style.setProperty('--k',k++);e.target.classList.add('rv');io.unobserve(e.target)}})},{rootMargin:'0px 0px -30px 0px'});
+VL.querySelectorAll('.vc').forEach(c=>io.observe(c));
+if(matchMedia('(hover:hover)').matches)document.querySelectorAll('.tile').forEach(el=>{el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform='perspective(600px) rotateX('+(-y*10)+'deg) rotateY('+(x*12)+'deg) translateY(-4px)'});el.addEventListener('pointerleave',()=>{el.style.transform=''})});
 /* detail */
 function detail(v){const a=phs(v),c=cover(v),st=steps(v.hint);
-$('#s-venue').innerHTML='<div class="dh" id="dh"><button class="back" aria-label="Назад"><i data-i="back"></i></button>'+(a.length>1?'<span class="cnt"><i data-i="camera"></i>'+a.length+'</span>':'')+(c?'<img src="'+esc(c)+'" alt="Вход: '+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'<div class="ov">'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'<h1>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</h1><p><i data-i="pin"></i>'+(v.address?esc(v.address):'Адрес уточняется')+'</p></div></div>'+
-'<div class="dbody"><h2>Как пройти</h2><ol class="steps'+(st.length?'':' empty')+'">'+(st.length?st.map((s,k)=>'<li><span class="n">'+(k+1)+'</span><span>'+esc(s)+'</span></li>').join(''):'<li><span class="n">?</span><span>Подсказка скоро появится. Пока ориентируйся по 2ГИС.</span></li>')+'</ol>'+
-'<a class="btn" href="'+gis(v)+'" target="_blank" rel="noopener"><i data-i="map"></i>Открыть в 2ГИС</a>'+(v.lat!=null?'<button class="btn ghost" data-onmap="'+v.i+'"><i data-i="pin"></i>На карте</button>':'')+'</div>';
+$('#s-venue').innerHTML='<div class="dh" id="dh"><button class="back" aria-label="Назад"><i data-i="back"></i></button>'+(a.length>1?'<span class="cnt"><i data-i="camera"></i>'+a.length+'</span>':'')+(c?'<img style="view-transition-name:hero" src="'+esc(c)+'" alt="Вход: '+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'<div class="ov">'+(v.fl?'<span class="badge" style="--k:0">'+v.fl+'</span>':'')+'<h1 style="--k:1">'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</h1><p style="--k:2"><i data-i="pin"></i>'+(v.address?esc(v.address):'Адрес уточняется')+'</p></div></div>'+
+'<div class="dbody"><h2>Как пройти</h2><ol class="steps'+(st.length?'':' empty')+'">'+(st.length?st.map((s,k)=>'<li style="--k:'+k+'"><span class="n">'+(k+1)+'</span><span>'+esc(s)+'</span></li>').join(''):'<li style="--k:0"><span class="n">?</span><span>Подсказка скоро появится. Пока ориентируйся по 2ГИС.</span></li>')+'</ol>'+
+'<a class="btn gis" href="'+gis(v)+'" target="_blank" rel="noopener"><i data-i="map"></i>Открыть в 2ГИС</a>'+(v.lat!=null?'<button class="btn ghost" data-onmap="'+v.i+'"><i data-i="pin"></i>На карте</button>':'')+'</div>';
 icons($('#s-venue'));if(a.length)$('#dh').onclick=e=>{if(!e.target.closest('.back'))openLB(a,0)}}
 /* lightbox */
 const LB=$('#lb'),lbt=LB.querySelector('.lbt'),lbc=LB.querySelector('.lbc');
@@ -954,12 +1056,12 @@ function openSheet(i,fly){const v=VENUES[i],c=cover(v);sheet.innerHTML='<div cla
 function initMap(){if(map){map.invalidateSize();return}if(!window.L){$('#mapnote').textContent='Карта не загрузилась. Проверь интернет и обнови страницу.';return}
 map=L.map('map').setView([46.957,142.735],13);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
 const ic=L.divIcon({className:'',html:'<div class="mk"></div>',iconSize:[30,30],iconAnchor:[15,30]}),pts=[];
-VENUES.forEach((v,i)=>{if(v.lat==null)return;pts.push([v.lat,v.lng]);L.marker([v.lat,v.lng],{icon:ic,title:v.name}).addTo(map).on('click',()=>openSheet(i))});
+VENUES.forEach((v,i)=>{if(v.lat==null)return;pts.push([v.lat,v.lng]);L.marker([v.lat,v.lng],{icon:L.divIcon({className:'',html:'<div class="mk" style="--d:'+(pts.length*40)+'ms"></div>',iconSize:[30,30],iconAnchor:[15,30]}),title:v.name}).addTo(map).on('click',()=>openSheet(i))});
 if(pts.length)map.fitBounds(pts,{padding:[30,30],maxZoom:15});map.on('click',()=>sheet.classList.remove('on'));
 const off=VENUES.length-pts.length;$('#mapnote').textContent='На карте '+pts.length+' из '+VENUES.length+'.'+(off?' Остальные ищи в «Заведениях».':'')}
 /* routing */
 const go=h=>{location.hash=h};
-function route(){const h=decodeURIComponent(location.hash.slice(1));let id='home';sheet.classList.remove('on');lbClose();
+function routeNow(){const h=decodeURIComponent(location.hash.slice(1));let id='home';sheet.classList.remove('on');lbClose();
 if(h.startsWith('v/')){const v=VENUES.find(x=>x.slug==h.slice(2));if(v){detail(v);id='venue'}}else if(['rules','venues','bag','map'].includes(h))id=h;
 document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id=='s-'+id));
 if(id=='venues'&&route.y!=null&&route.last=='venue')scrollTo(0,route.y);else scrollTo(0,0);
@@ -968,7 +1070,20 @@ document.addEventListener('click',e=>{const t=e.target;let x;
 if(x=t.closest('[data-go]'))return go(x.dataset.go);
 if(x=t.closest('.back')){e.stopPropagation();if(history.length>1&&route.nav)history.back();else go('');return}
 if(x=t.closest('[data-onmap]')){pend=+x.dataset.onmap;return go('map')}
-if(x=t.closest('[data-v]')){if(route.last=='venues')route.y=scrollY;return go('v/'+x.dataset.v)}});
+if(x=t.closest('[data-v]')){lastCard=x;if(route.last=='venues')route.y=scrollY;return go('v/'+x.dataset.v)}});
+let lastCard=null,prevId='home';const ORDER={home:0,rules:1,venues:1,bag:1,map:1,venue:2};
+function route(){const h=decodeURIComponent(location.hash.slice(1)),nid=h.startsWith('v/')?'venue':(['rules','venues','bag','map'].includes(h)?h:'home'),back=(ORDER[nid]??0)<(ORDER[prevId]??0);
+const fin=()=>{const s=document.querySelector('.scr.on');if(s)s.classList.toggle('bk',back);prevId=route.last;if(nid=='venues')setTimeout(moveInd,30)};
+const shared=(nid=='venue'&&prevId=='venues')||(nid=='venues'&&prevId=='venue');
+if(document.startViewTransition&&route.nav&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('vt');
+ let ci=null;if(nid=='venue'&&lastCard){ci=lastCard.querySelector('img');if(ci)ci.style.viewTransitionName='hero'}
+ const hi=document.querySelector('#dh img');if(nid=='venues'&&hi)hi.style.viewTransitionName='hero';
+ const vt=document.startViewTransition(()=>{if(ci)ci.style.viewTransitionName='';if(hi)hi.style.viewTransitionName='';
+  if(nid=='venues'&&route.slug){const c=VL.querySelector('[data-v="'+CSS.escape(route.slug)+'"] img');if(c)c.style.viewTransitionName='hero'}
+  if(nid!='venue'&&nid!='venues'||!shared){} routeNow();if(nid=='venue'&&!ci){const d=document.querySelector('#dh img');if(d)d.style.viewTransitionName=''}fin()});
+ vt.finished.finally(()=>{document.documentElement.classList.remove('vt');VL.querySelectorAll('img').forEach(i=>i.style.viewTransitionName='');if(nid=='venue'&&!ci){}});
+}else{routeNow();fin()}
+if(nid=='venue')route.slug=h.slice(2)}
 addEventListener('hashchange',()=>{route.nav=1;route()});icons(document);route();
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer onload="if(document.getElementById('s-map').classList.contains('on'))initMap()"></script>
