@@ -1,0 +1,1180 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0CB1DF"><link rel="manifest" href="../../manifest.json"><link rel="apple-touch-icon" href="../../img/icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Рядом"><title>Дизайн C · Рядом — для курьеров</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<style>
+:root{--b:#0CB1DF;--bd:#0796c4;--c:#EB4A37;--cd:#d23a28;--bg:#F5F8FA;--card:#fff;--t:#14202a;--m:#5f6f7b;--line:#e6ecf0;--soft:#eaf7fc;--csoft:#fdeeec;--sh:0 6px 22px -10px rgba(20,40,60,.22),0 1px 3px rgba(20,40,60,.06)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--t);font-size:17px;line-height:1.5}
+svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.15em}
+.scr{display:none;min-height:100vh}.scr.on{display:block;animation:fi .22s ease}@keyframes fi{from{opacity:0;transform:translateY(8px)}}
+.wrap{max-width:720px;margin:0 auto;padding:0 18px 40px}
+/* home */
+.hero{position:relative;background:linear-gradient(135deg,#2cc6ee 0%,#0CB1DF 45%,#0790c7 100%);color:#fff;padding:calc(30px + env(safe-area-inset-top)) 22px 70px;overflow:hidden}
+.hero .in{max-width:720px;margin:0 auto;position:relative;min-height:150px}
+.hero h1{margin:0;font-size:34px;line-height:1.1;font-weight:800;letter-spacing:-.02em;max-width:62%}
+.hero p{margin:12px 0 0;font-size:16px;opacity:.95;max-width:58%;font-weight:500}
+.hero .brand{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#ffffff2e;padding:5px 11px;border-radius:99px;margin-bottom:14px}
+.hero img{position:absolute;right:-6px;bottom:-30px;width:42%;max-width:190px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.2))}
+.hero::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:#ffffff14;right:-80px;top:-90px}
+.wave{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:46px;display:block}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:-8px;position:relative}
+.tile{border:0;text-align:left;font:inherit;color:#fff;border-radius:26px;padding:18px 16px 18px;min-height:168px;display:flex;flex-direction:column;cursor:pointer;box-shadow:0 12px 26px -14px rgba(12,177,223,.8);position:relative;overflow:hidden;transition:transform .15s}
+.tile:active{transform:scale(.97)}
+.tile.az{background:linear-gradient(150deg,#27c3ec,#0CB1DF 60%,#0a9fd0)}.tile.co{background:linear-gradient(150deg,#f56a58,#EB4A37 60%,#dc3d2a);box-shadow:0 12px 26px -14px rgba(235,74,55,.8)}
+.tile .ti{width:52px;height:52px;border-radius:16px;background:#ffffff30;display:grid;place-items:center;font-size:27px}
+.tile b{font-size:21px;font-weight:800;margin-top:auto;padding-top:16px;letter-spacing:-.01em}.tile small{font-size:14px;opacity:.92;line-height:1.3;margin-top:3px}
+.tile::after{content:"";position:absolute;width:110px;height:110px;border-radius:50%;background:#ffffff14;right:-34px;top:-34px}
+.homefoot{margin-top:22px;background:var(--card);border-radius:22px;padding:16px 18px;box-shadow:var(--sh);display:flex;gap:14px;align-items:center;font-size:15px;color:var(--m)}
+.homefoot .hb{width:44px;height:44px;border-radius:14px;background:var(--csoft);color:var(--c);display:grid;place-items:center;font-size:22px;flex:none}
+.homefoot b{color:var(--t);display:block;font-size:16px}
+/* top bar */
+.top{position:sticky;top:0;z-index:30;background:rgba(245,248,250,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:calc(10px + env(safe-area-inset-top)) 12px 10px;display:flex;align-items:center;gap:8px}
+.back{width:44px;height:44px;border-radius:14px;border:0;background:var(--card);box-shadow:var(--sh);display:grid;place-items:center;font-size:22px;color:var(--t);cursor:pointer;flex:none}
+.top .tl{font-weight:700;font-size:16px;color:var(--m)}
+.big{font-size:32px;font-weight:800;letter-spacing:-.02em;margin:6px 0 4px;line-height:1.1}.sub{color:var(--m);margin:0 0 16px;font-size:15px}
+/* search + chips */
+.sw{position:relative;margin-bottom:12px}.sw svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--m);font-size:20px}
+#vq{width:100%;padding:14px 16px 14px 48px;font:inherit;font-size:16px;border:0;border-radius:99px;background:var(--card);color:var(--t);outline:none;box-shadow:var(--sh);-webkit-appearance:none}#vq:focus{box-shadow:0 0 0 3px #0CB1DF55,var(--sh)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -18px 16px;padding:2px 18px 6px}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:0;font:inherit;font-size:15px;font-weight:600;padding:9px 16px;border-radius:99px;background:var(--card);color:var(--t);box-shadow:0 1px 3px rgba(20,40,60,.1);cursor:pointer;white-space:nowrap}
+.chip span{color:var(--m);font-weight:500;margin-left:4px}.chip.on{background:var(--t);color:#fff}.chip.on span{color:#ffffffaa}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.vc{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--sh);cursor:pointer;display:flex;flex-direction:column;transition:transform .15s}.vc:active{transform:scale(.97)}
+.vc .im{aspect-ratio:1/1;flex:none;overflow:hidden;background:var(--soft);position:relative}.vc .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.vc .im .np{position:absolute;inset:0;display:grid;place-items:center;color:var(--b);font-size:34px}
+.vc .bd{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.vc strong{font-size:15px;line-height:1.25;font-weight:700}
+.vc .meta{display:flex;align-items:center;gap:6px;margin-top:auto}
+.badge{font-size:12px;font-weight:700;padding:3px 8px;border-radius:99px;background:var(--soft);color:var(--bd);white-space:nowrap}
+.pin{margin-left:auto;width:26px;height:26px;border-radius:50%;background:var(--csoft);color:var(--c);display:grid;place-items:center;font-size:14px;flex:none}
+.pin.off{background:#eef1f3;color:#b7c1c8}
+.none{display:none;text-align:center;color:var(--m);padding:30px}
+/* detail */
+.dh{position:relative;height:56vh;min-height:330px;max-height:520px;background:#1b2a33;cursor:zoom-in;overflow:hidden}
+.dh img{width:100%;height:100%;object-fit:cover;display:block}
+.dh::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0) 45%,rgba(0,0,0,.82) 100%);pointer-events:none}
+.dh .np{position:absolute;inset:0;display:grid;place-items:center;color:#ffffff66;font-size:60px}
+.dh .back{position:absolute;z-index:3;top:calc(12px + env(safe-area-inset-top));left:12px;background:#ffffffe6}
+.dh .cnt{position:absolute;z-index:3;top:calc(18px + env(safe-area-inset-top));right:14px;background:#000a;color:#fff;font-size:13px;font-weight:700;padding:5px 11px;border-radius:99px;display:flex;gap:6px;align-items:center}
+.dh .ov{position:absolute;z-index:2;left:20px;right:20px;bottom:22px;color:#fff}
+.dh .ov h1{margin:0;font-size:30px;line-height:1.1;font-weight:800;letter-spacing:-.02em}
+.dh .ov p{margin:8px 0 0;font-size:16px;opacity:.92;display:flex;gap:6px;align-items:flex-start}
+.dh .ov .badge{background:#ffffff2b;color:#fff;margin-right:6px;display:inline-block;margin-bottom:8px}
+.dbody{max-width:720px;margin:-18px auto 0;position:relative;z-index:4;background:var(--bg);border-radius:24px 24px 0 0;padding:24px 18px 40px}
+.dbody h2{font-size:22px;margin:0 0 14px;font-weight:800}
+.steps{list-style:none;margin:0 0 22px;padding:0;background:var(--card);border-radius:22px;box-shadow:var(--sh);padding:6px 16px}
+.steps li{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line);align-items:flex-start}.steps li:first-child{border-top:0}
+.steps .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--c);color:#fff;font-weight:800;font-size:15px;display:grid;place-items:center;margin-top:-2px}
+.steps.empty li{color:var(--m)}.steps.empty .n{background:#c9d2d8}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;border-radius:18px;font:inherit;font-size:17px;font-weight:700;text-decoration:none;border:0;cursor:pointer;background:var(--b);color:#fff;box-shadow:0 10px 22px -12px #0CB1DFcc;width:100%}
+.btn.ghost{background:var(--card);color:var(--t);box-shadow:var(--sh);margin-top:10px}.btn.ghost svg{color:var(--c)}
+/* content cards */
+.hello{background:linear-gradient(135deg,var(--soft),#fff);border-radius:22px;padding:18px;margin-bottom:16px;box-shadow:var(--sh)}
+.hello b{color:var(--b);display:block;font-weight:800;letter-spacing:.08em;font-size:13px;margin-bottom:6px}
+.sec{background:var(--card);border-radius:22px;padding:18px;margin-bottom:16px;box-shadow:var(--sh)}
+.sec h2{margin:0 0 12px;font-size:21px;font-weight:800;display:flex;align-items:center;gap:12px;line-height:1.2}.sec h2 .cnt{font-size:13px;font-weight:600;color:var(--m);margin-left:auto;white-space:nowrap}
+.sec h2 .ic{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--b);color:#fff;font-size:21px;flex:none}.sec h2 .ic.coral{background:var(--c)}
+.sec ol{list-style:none;margin:0;padding:0}.sec ol li{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}.sec ol li:first-child{border-top:0}
+.ri{position:relative;flex:none;width:38px;height:38px;border-radius:12px;background:var(--soft);color:var(--b);display:grid;place-items:center;font-size:19px}
+.ri em{position:absolute;right:-6px;top:-6px;background:var(--c);color:#fff;font-style:normal;font-size:11px;font-weight:800;min-width:20px;height:20px;border-radius:10px;display:grid;place-items:center;padding:0 4px}
+b{font-weight:700}.rail,.fill{display:none}
+.stage{border-left:3px solid var(--soft);padding:0 0 8px 16px;margin:0 0 14px 8px;position:relative}
+.stage .dot{position:absolute;left:-19px;top:0;width:34px;height:34px;border-radius:50%;background:var(--b);color:#fff;display:grid;place-items:center;font-size:17px}
+.stage h3{margin:0 0 6px 14px;font-size:18px}.stage h3 small{display:block;color:var(--c);font-size:12px;letter-spacing:.1em}
+.say{background:var(--soft);border-radius:16px;padding:12px 14px;margin:10px 0;font-weight:500}.say small{display:flex;gap:6px;align-items:center;color:var(--bd);font-weight:800;font-size:12px;letter-spacing:.08em}.say .q{display:none}
+.smile{display:flex;gap:10px;align-items:center;font-weight:700;color:var(--c);padding-top:6px}
+/* map */
+#map{height:calc(100vh - 200px);min-height:380px;border-radius:22px;box-shadow:var(--sh);z-index:1}
+.mk{width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--c);border:3px solid #fff;box-shadow:0 3px 8px #0005}
+.mapnote{color:var(--m);font-size:14px;margin:10px 4px}
+#sheet{position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:40;transform:translateY(140%);transition:transform .28s ease;max-width:600px;margin:0 auto}#sheet.on{transform:none}
+.mc{background:var(--card);border-radius:22px;box-shadow:0 16px 40px -12px rgba(0,0,0,.35);display:flex;gap:12px;padding:12px;align-items:center;cursor:pointer}
+.mc img,.mc .np{width:78px;height:78px;border-radius:16px;object-fit:cover;flex:none;background:var(--soft);display:grid;place-items:center;color:var(--b);font-size:26px}
+.mc strong{display:block;font-size:17px;line-height:1.25}.mc span{color:var(--m);font-size:14px}.mc .go{margin-left:auto;width:40px;height:40px;border-radius:50%;background:var(--b);color:#fff;display:grid;place-items:center;flex:none;font-size:18px}
+/* lightbox */
+#lb{position:fixed;inset:0;z-index:100;background:#000f;display:none}#lb.show{display:block}
+.lbt{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.lbt figure{flex:none;width:100%;height:100%;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;scroll-snap-align:center}
+.lbt img,.lbt video{max-width:100%;max-height:85vh;object-fit:contain}.lbt figcaption{color:#fff;font-weight:600;padding:12px}
+.lbx{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:2;width:46px;height:46px;border-radius:50%;border:0;background:#ffffff26;color:#fff;font-size:20px}
+.lbc{position:absolute;top:calc(26px + env(safe-area-inset-top));left:18px;color:#fff;font-weight:700}
+footer{text-align:center;color:var(--m);font-size:13px;padding:24px 10px 30px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}.tile{min-height:190px}}
+
+/* ===== v3.1: original palette + motion ===== */
+:root{--b:#0CB1DF;--d:#0488F0;--bd:#0488F0;--c:#EB4A37;--bg:#F2F7FB;--card:#fff;--t:#13212b;--m:#5d6e7a;--line:#0c3b4a14;--soft:#0CB1DF1a;--csoft:#EB4A371a;--sh:0 14px 40px -18px #0a4a7055;--spring:cubic-bezier(.34,1.56,.64,1);--ease:cubic-bezier(.22,1,.36,1)}
+@media(prefers-color-scheme:dark){:root{--bg:#081118;--card:#122029;--t:#e9f3f8;--m:#9db1bf;--line:#ffffff12;--soft:#0CB1DF22;--csoft:#EB4A3726;--sh:0 14px 40px -18px #000c}.top{background:color-mix(in srgb,var(--bg) 75%,transparent)!important}.pin.off{background:#1c2c36!important}}
+body{font-family:Manrope,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,.big,.tile b,.vc strong,.dh .ov h1,.sec h2,.btn{font-family:Unbounded,Manrope,sans-serif}
+.big{font-weight:800}.vc strong{font-size:14px;font-weight:700}.tile b{font-size:clamp(14px,4.2vw,19px);overflow-wrap:normal;hyphens:auto}
+.hero{background:linear-gradient(120deg,#0CB1DF,#0488F0,#0566d6,#0CB1DF);background-size:300% 300%;animation:grad 14s ease infinite;padding-bottom:84px}
+@keyframes grad{50%{background-position:100% 50%}}
+.hero::before{display:none}
+.blob{position:absolute;border-radius:50%;filter:blur(50px);opacity:.55;animation:float 12s ease-in-out infinite;pointer-events:none}
+.b1{width:260px;height:260px;background:#EB4A37;right:-90px;bottom:-60px}.b2{width:220px;height:220px;background:#7fe3ff;left:-80px;top:-60px;animation-delay:-4s}.b3{width:160px;height:160px;background:#ff9a7a;left:40%;top:30%;opacity:.3;animation-delay:-8s}
+@keyframes float{50%{transform:translate(30px,-25px) scale(1.12)}}
+.hero h1{font-size:clamp(28px,8vw,46px)}
+.hero h1,.hero p,.hero .brand{opacity:0;animation:up .8s var(--ease) forwards}.hero p{animation-delay:.15s}.hero .brand{animation-delay:.05s;border:1px solid #ffffff55;backdrop-filter:blur(8px)}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hero img{animation:otterIn 1s var(--spring) .2s both,bob 4.2s ease-in-out 1.2s infinite;transform-origin:50% 90%;z-index:2}
+@keyframes otterIn{0%{opacity:0;transform:translateY(60px) rotate(-12deg) scale(.8)}60%{opacity:1;transform:translateY(-6px) rotate(6deg)}80%{transform:rotate(-4deg)}100%{transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(2deg)}}
+.wave{height:46px;z-index:3;overflow:visible}.wave path{fill:var(--bg)}.wave .w2{opacity:.45;animation:wv 9s linear infinite reverse}.wave .w1{animation:wv 6s linear infinite}
+@keyframes wv{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.wave{width:200%}
+/* containers */
+.wrap{max-width:520px}.hero .in{max-width:520px}
+#s-venues .wrap{max-width:1100px}
+.tile{opacity:0;animation:pop .6s var(--spring) forwards;animation-delay:calc(.25s + var(--k,0)*.08s);transition:transform .25s var(--ease),box-shadow .25s;transform-style:preserve-3d;will-change:transform}
+.tile.az{background:linear-gradient(150deg,#0CB1DF,#0488F0)}.tile.co{background:linear-gradient(150deg,#ff7a5c,#EB4A37)}
+@keyframes pop{from{opacity:0;transform:scale(.8) translateY(20px)}to{opacity:1;transform:none}}
+.tile:hover{box-shadow:0 22px 36px -16px rgba(4,136,240,.7)}.tile:active{transform:scale(.95)!important;transition-duration:.08s}
+.tile .ti{transition:transform .4s var(--spring)}.tile:hover .ti{transform:rotate(-8deg) scale(1.08)}
+.homefoot{opacity:0;animation:up .7s var(--ease) .65s forwards}
+.back{transition:transform .2s var(--spring)}.back:active{transform:scale(.88)}
+/* chips with sliding indicator */
+.chips{position:relative;margin:0 0 16px;padding:2px 2px 6px}
+.chip{position:relative;z-index:1;background:transparent;box-shadow:none;transition:color .3s;font-family:Manrope,sans-serif;font-weight:700}
+.chip.on{background:transparent;color:#fff}.chip.on span{color:#ffffffcc}
+.chips::before{content:"";position:absolute;inset:2px auto 6px 2px;right:2px;border-radius:99px;background:var(--card);box-shadow:var(--sh);z-index:0;width:auto}
+.chips .ind{position:absolute;top:2px;height:calc(100% - 8px);left:0;width:0;border-radius:99px;background:linear-gradient(135deg,var(--b),var(--d));box-shadow:0 8px 18px -8px #0488F0cc;transition:transform .45s var(--spring),width .45s var(--spring);z-index:0}
+@media(min-width:640px){.chips::before{right:auto;width:var(--cw,100%)}}
+#vq{border-radius:18px}
+/* grid */
+.grid{gap:14px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr);gap:18px}}
+@media(min-width:960px){.grid{grid-template-columns:repeat(4,1fr)}}
+.vc{border:1px solid var(--line);transition:transform .35s var(--ease),box-shadow .35s,opacity .3s;opacity:0;transform:translateY(24px) scale(.97)}
+.vc.rv{opacity:1;transform:none;transition-delay:calc(var(--k,0)*55ms)}
+.vc.rv:hover{transform:translateY(-6px);box-shadow:0 24px 40px -20px #0a4a7088;transition-delay:0s}
+.vc.rv:active{transform:scale(.96);transition-duration:.1s}
+.vc.out{opacity:0!important;transform:scale(.9)!important;transition:opacity .18s,transform .18s!important}
+.vc.sin{animation:sin .4s var(--spring) both;animation-delay:calc(var(--k,0)*30ms)}@keyframes sin{from{opacity:0;transform:scale(.88)}}
+.vc .im{aspect-ratio:4/3;max-height:260px}
+.vc .im img{transition:transform .6s var(--ease),opacity .4s;opacity:0}.vc .im.ld img{opacity:1}.vc.rv:hover .im img{transform:scale(1.06)}
+.skel{background:linear-gradient(100deg,#e3eef5 30%,#f4f9fc 50%,#e3eef5 70%);background-size:300% 100%;animation:skel 1.3s linear infinite}.skel.ld{animation:none;background:var(--soft)}
+@media(prefers-color-scheme:dark){.skel{background-image:linear-gradient(100deg,#13232d 30%,#1d3340 50%,#13232d 70%)}}
+@keyframes skel{from{background-position:100% 0}to{background-position:-50% 0}}
+.badge{background:var(--soft);color:var(--d)}
+/* detail */
+.dh{height:auto;aspect-ratio:16/10;min-height:0;max-height:min(58vh,520px);max-width:900px;margin:0 auto}
+@media(min-width:760px){.dh{margin-top:16px;border-radius:28px;width:calc(100% - 36px)}.dbody{margin-top:-30px}}
+.dh img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dh .ov h1{font-size:clamp(22px,6vw,34px)}
+.dh .ov>*{opacity:0;animation:up .6s var(--ease) forwards;animation-delay:calc(.15s + var(--k,0)*.08s)}
+.dbody{max-width:560px}
+.steps li{opacity:0;animation:up .5s var(--ease) forwards;animation-delay:calc(.3s + var(--k)*.12s)}
+.steps .n{background:linear-gradient(135deg,#ff7a5c,var(--c));animation:pulse 1s ease-out forwards;animation-delay:calc(.45s + var(--k)*.12s);box-shadow:0 0 0 0 #EB4A3780}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #EB4A3799;transform:scale(1)}30%{transform:scale(1.18)}100%{box-shadow:0 0 0 14px #EB4A3700;transform:scale(1)}}
+.btn{background:linear-gradient(135deg,var(--b),var(--d));font-size:15px;position:relative;overflow:hidden;transition:transform .2s var(--spring);opacity:0;animation:up .5s var(--ease) .5s forwards}
+.btn:active{transform:scale(.96)}
+.btn.gis{background:linear-gradient(135deg,#2FB94A,#1a9a3a);box-shadow:0 10px 22px -10px #1a9a3acc}
+.btn.gis::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,#ffffff66 50%,transparent 70%);transform:translateX(-100%);animation:sh 3.2s 1.2s infinite}
+@keyframes sh{40%,100%{transform:translateX(100%)}}
+.btn.ghost{background:var(--card);animation-delay:.6s}
+/* content */
+.sec,.hello{border:1px solid var(--line);animation:up .6s var(--ease) both}.sec:nth-of-type(2){animation-delay:.08s}.sec:nth-of-type(3){animation-delay:.16s}
+.hello{background:linear-gradient(135deg,#0CB1DF,#0488F0);color:#fff}.hello b{color:#fff}
+.sec h2{font-size:18px}.sec h2 .ic{background:linear-gradient(135deg,var(--b),var(--d));box-shadow:0 10px 20px -8px #0488F0aa}.sec h2 .ic.coral{background:linear-gradient(135deg,#ff7a5c,var(--c));box-shadow:0 10px 20px -8px #EB4A37aa}
+.stage .dot{background:linear-gradient(135deg,var(--b),var(--d))}
+.say{background:linear-gradient(135deg,#EB4A371a,#EB4A3708);border:1px solid #EB4A3730}
+.top{background:color-mix(in srgb,var(--bg) 75%,transparent)}
+/* screens */
+.scr.on{animation:scrIn .45s var(--ease)}@keyframes scrIn{from{opacity:0;transform:translateX(28px)}}
+.scr.on.bk{animation-name:scrBk}@keyframes scrBk{from{opacity:0;transform:translateX(-28px)}}
+::view-transition-old(root){animation:vtOut .25s ease both}::view-transition-new(root){animation:vtIn .35s var(--ease) both}
+@keyframes vtOut{to{opacity:0}}@keyframes vtIn{from{opacity:0}}
+::view-transition-group(hero){animation-duration:.45s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+html.vt .scr.on{animation:none}
+/* map */
+#map{max-height:70vh}#s-map .wrap{max-width:1100px}
+.mk{animation:drop .6s var(--spring) both;animation-delay:var(--d,0s);transform:rotate(-45deg)}
+@keyframes drop{from{opacity:0;transform:translateY(-60px) rotate(-45deg)}to{opacity:1;transform:rotate(-45deg)}}
+.mk{transform-origin:50% 50%}
+/* lightbox */
+#lb.show{animation:fi .25s ease}.lbt img,.lbt video{width:auto;height:auto;max-width:min(100%,1400px);max-height:85vh;object-fit:contain}
+@media(min-width:900px){.hero .in{min-height:190px}.hero img{max-width:210px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important}.vc{opacity:1;transform:none}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+.tile.wide{grid-column:1/-1;min-height:120px}.sec .fx{color:var(--m);font-size:14.5px;line-height:1.45}.sec .fx b{color:var(--t)}
+.inst{margin-top:16px;background:linear-gradient(135deg,#0CB1DF,#0488F0);color:#fff;border-radius:22px;padding:14px 16px;display:flex;gap:12px;align-items:center;font-size:14px;animation:up .7s var(--ease) .55s both}
+.inst[hidden]{display:none}.inst .hb{font-size:24px}.inst b{display:block;font-size:16px}.inst div{flex:1}
+#instb{border:0;background:#fff;color:#0488F0;font:inherit;font-weight:800;border-radius:12px;padding:9px 12px;cursor:pointer}#instx{border:0;background:none;color:#fff;font-size:16px;cursor:pointer;opacity:.8}
+
+.fav{position:absolute;z-index:3;top:8px;right:8px;width:36px;height:36px;border-radius:50%;border:0;background:#00000040;backdrop-filter:blur(6px);color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center;transition:transform .3s var(--spring),background .2s}
+.vc{position:relative}.vc.isfav .fav{background:#FFC93C;color:#fff;box-shadow:0 4px 12px -4px #e0a000}.fav.pop{animation:fp .45s var(--spring)}@keyframes fp{40%{transform:scale(1.45) rotate(18deg)}}
+.rt{display:grid;grid-template-columns:auto 1fr 1fr;gap:8px;align-items:center;margin-top:10px}.rt .btn{margin:0;min-height:48px;font-size:13px}.rtl{font-weight:800;font-size:14px;color:var(--m)}
+.ck label{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line);cursor:pointer;font-size:16px}.ck label:first-child{border-top:0}.ck input{position:absolute;opacity:0}
+.bx{flex:none;width:26px;height:26px;border-radius:9px;border:2px solid var(--b);display:grid;place-items:center;transition:all .25s var(--spring)}.ck input:checked+.bx{background:var(--b);transform:scale(1.1)}.ck input:checked+.bx::after{content:"✓";color:#fff;font-weight:900;font-size:15px}.ck input:checked~span:last-child{color:var(--m);text-decoration:line-through}
+.ckp{display:flex;gap:12px;align-items:center;margin:4px 0 16px;font-weight:700;font-size:14px}.ckbar{flex:1;height:10px;border-radius:9px;background:var(--soft);overflow:hidden}#ckfill{display:block;height:100%;background:linear-gradient(90deg,var(--b),var(--c));transition:width .4s var(--ease)}#ckr{border:0;background:var(--csoft);color:var(--c);font:inherit;font-weight:700;border-radius:10px;padding:6px 10px;cursor:pointer}
+html[data-theme="2"]{--b:#10B981;--d:#059669;--bd:#059669;--c:#F97316;--bg:#F0FBF6;--soft:#10B9811f;--csoft:#F973161f}
+html[data-theme="2"] .hero{background:linear-gradient(120deg,#10B981,#059669,#F97316,#10B981);background-size:300% 300%}html[data-theme="2"] .tile.az{background:linear-gradient(150deg,#10B981,#059669);box-shadow:0 12px 26px -14px #059669cc}html[data-theme="2"] .tile.co{background:linear-gradient(150deg,#F97316,#F97316d0);box-shadow:0 12px 26px -14px #F97316cc}
+html[data-theme="3"]{--b:#F59E0B;--d:#EA580C;--bd:#EA580C;--c:#DB2777;--bg:#FFF7ED;--soft:#F59E0B1f;--csoft:#DB27771f}
+html[data-theme="3"] .hero{background:linear-gradient(120deg,#F59E0B,#EA580C,#DB2777,#F59E0B);background-size:300% 300%}html[data-theme="3"] .tile.az{background:linear-gradient(150deg,#F59E0B,#EA580C);box-shadow:0 12px 26px -14px #EA580Ccc}html[data-theme="3"] .tile.co{background:linear-gradient(150deg,#DB2777,#DB2777d0);box-shadow:0 12px 26px -14px #DB2777cc}
+html[data-theme="4"]{--b:#22D3EE;--d:#A855F7;--bd:#A855F7;--c:#F472B6;--bg:#0B0B1A;--soft:#22D3EE1f;--csoft:#F472B61f}
+html[data-theme="4"] .hero{background:linear-gradient(120deg,#22D3EE,#A855F7,#F472B6,#22D3EE);background-size:300% 300%}html[data-theme="4"] .tile.az{background:linear-gradient(150deg,#22D3EE,#A855F7);box-shadow:0 12px 26px -14px #A855F7cc}html[data-theme="4"] .tile.co{background:linear-gradient(150deg,#F472B6,#F472B6d0);box-shadow:0 12px 26px -14px #F472B6cc}
+html[data-theme="5"]{--b:#111827;--d:#111827;--bd:#111827;--c:#EF4444;--bg:#FAFAFA;--soft:#1118271f;--csoft:#EF44441f}
+html[data-theme="5"] .hero{background:linear-gradient(120deg,#111827,#111827,#111827,#111827);background-size:300% 300%}html[data-theme="5"] .tile.az{background:linear-gradient(150deg,#111827,#111827);box-shadow:0 12px 26px -14px #111827cc}html[data-theme="5"] .tile.co{background:linear-gradient(150deg,#EF4444,#EF4444d0);box-shadow:0 12px 26px -14px #EF4444cc}
+html[data-theme="4"]{--card:#151530;--t:#EDEBFF;--m:#A6A3C9;--line:#ffffff14;color-scheme:dark}html[data-theme="4"] .tile{box-shadow:0 0 24px -6px #A855F7aa}
+html[data-theme="5"]{--card:#fff;--t:#111827;--m:#6B7280;--line:#E5E7EB}html[data-theme="5"] .tile.az{background:#111827}html[data-theme="5"] .tile.co{background:#EF4444}html[data-theme="5"] .hero{background:#111827}
+
+html:root{--b:#007AFF;--d:#007AFF;--c:#FF3B30;--bg:#F2F2F7;--card:#fff;--t:#000;--m:#8E8E93;--line:#C6C6C8;--soft:#007AFF14;--csoft:#FF3B3014;--sh:none}
+@media(prefers-color-scheme:dark){html:root{--bg:#000;--card:#1C1C1E;--t:#fff;--m:#8E8E93;--line:#38383A}}
+body,h1,h2,.big,.tile b,.vc strong,.sec h2,.btn{font-family:-apple-system,"SF Pro Display","Inter",system-ui,sans-serif!important;letter-spacing:-.02em}
+body{padding-bottom:90px}
+.hero{background:var(--bg)!important;color:var(--t);animation:none;padding-bottom:10px}.hero::before,.wave,.blob{display:none}
+.hero .brand{background:none;padding:0;color:var(--m);letter-spacing:0;text-transform:none}.hero h1{font-size:34px}.hero p{color:var(--m)}.hero img{width:30%;bottom:-6px}
+.tiles{display:block;background:var(--card);border-radius:14px;overflow:hidden;margin-top:6px}
+.tile{display:flex!important;flex-direction:row;align-items:center;gap:14px;min-height:0!important;border-radius:0;padding:11px 16px;background:var(--card)!important;color:var(--t);box-shadow:none!important;border-bottom:.5px solid var(--line);animation:none;opacity:1}
+.tile::after{content:"›";position:static;width:auto;height:auto;background:none;margin-left:auto;font-size:24px;color:var(--m)}
+.tile .ti{width:32px;height:32px;border-radius:8px;font-size:18px;background:var(--b);color:#fff}.tile.co .ti{background:#FF9500}.tile:nth-child(3) .ti{background:#34C759}.tile:nth-child(4) .ti{background:#FF3B30}
+.tile b{padding:0;margin:0;font-size:17px!important;font-weight:500}.tile small{display:none}
+.grid{display:block!important;background:var(--card);border-radius:14px;overflow:hidden}
+.vc{flex-direction:row!important;align-items:center;border:0!important;border-radius:0;box-shadow:none;border-bottom:.5px solid var(--line)!important}
+.vc .im{width:64px;height:64px;aspect-ratio:1!important;margin:8px 0 8px 14px;border-radius:12px;flex:none}.vc .fav{top:auto;right:12px;background:none;color:#C7C7CC;font-size:22px;position:absolute}.vc.isfav .fav{color:#FF9F0A;background:none;box-shadow:none}
+.vc .bd{padding:10px 56px 10px 12px}.vc strong{font-size:16px;font-weight:600}
+.chip{border-radius:8px}.ind{border-radius:8px;background:var(--card)!important;box-shadow:0 2px 6px #0002}.chip.on{color:var(--t)}.chips{background:#7676801f;border-radius:10px;padding:2px}
+.sec{border-radius:14px;box-shadow:none}.btn{border-radius:14px;background:var(--b)!important;box-shadow:none}
+.top{background:color-mix(in srgb,var(--bg) 80%,transparent)!important}.back{box-shadow:none;background:none;color:var(--b)}
+.tabbar{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:space-around;padding:6px 0 calc(8px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--card) 85%,transparent);backdrop-filter:blur(20px);border-top:.5px solid var(--line)}
+.tabbar a{flex:1;text-align:center;font-size:10px;color:var(--m);text-decoration:none;font-family:-apple-system,Inter,sans-serif}.tabbar a span{display:block;font-size:22px;filter:grayscale(1)}.tabbar a.on{color:var(--b)}.tabbar a.on span{filter:none}
+</style><script>{const m=location.search.match(/theme=(\d)/);if(m)document.documentElement.dataset.theme=m[1]}</script></head><body>
+<section class="scr" id="s-home">
+<div class="hero"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><div class="in"><span class="brand">Рядом · курьерам</span><h1>Привет, курьер!</h1><p>Всё для смены: правила, входы в заведения и карта</p><img src="../../img/otter.png" alt="Выдра Рядом"></div>
+<svg class="wave" viewBox="0 0 780 46" preserveAspectRatio="none"><path class="w2" d="M0 20 C60 40 130 40 195 22 S330 4 390 20 C450 36 520 36 585 22 S720 4 780 20 V46 H0Z"/><path class="w1" d="M0 26 C65 44 130 44 195 26 S325 8 390 26 C455 44 520 44 585 26 S715 8 780 26 V46 H0Z"/></svg></div>
+<div class="wrap"><div class="tiles">
+<button style="--k:0" class="tile co" data-go="rules"><span class="ti"><i data-i="list"></i></span><b>Правила</b><small>Как работаем и общаемся</small></button>
+<button style="--k:1" class="tile az" data-go="venues"><span class="ti"><i data-i="store"></i></span><b>Заведения</b><small>63 мест, фото входа</small></button>
+<button style="--k:2" class="tile az" data-go="bag"><span class="ti"><i data-i="bag"></i></span><b>Термосумка</b><small>Чистота и порядок</small></button>
+<button style="--k:3" class="tile co" data-go="map"><span class="ti"><i data-i="map"></i></span><b>Карта</b><small>Все точки рядом</small></button>
+<button style="--k:4" class="tile az" data-go="check"><span class="ti">✅</span><b>Перед выездом</b><small>Чек-лист на смену</small></button>
+<button style="--k:5" class="tile co" data-go="oops"><span class="ti">⚠️</span><b>Частые косяки</b><small>Ошибки и как их избежать</small></button>
+</div>
+<div class="inst" id="inst" hidden><span class="hb">📲</span><div><b>Установить на телефон</b><span id="insttx">Работает даже без интернета</span></div><button id="instb">Установить</button><button id="instx" aria-label="Скрыть">✕</button></div>
+<div class="homefoot"><span class="hb"><i data-i="heart"></i></span><div><b>Хорошей смены!</b>Не нашёл вход? Открой заведение, там фото и маршрут.</div></div>
+<footer>© Рядом · ryadom.co</footer></div>
+</section>
+<section class="scr" id="s-rules"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
+<h1 class="big">Правила</h1><p class="sub">Как мы работаем, общаемся и выглядим</p>
+<div class="hello"><b>ПРЕДИСЛОВИЕ</b>Добро пожаловать в команду «Рядом» в Южно-Сахалинске! Курьер — это лицо нашего сервиса: именно вас клиент видит, когда получает заказ. Здесь собрано всё, что нужно для спокойной и уверенной работы. Главное для нас — аккуратность и вежливость: целый заказ и доброе слово запоминаются надолго. Спасибо, что вы с нами!</div>
+<div class="sec" id="how"><h2><span class="ic"><i data-i="scooter"></i></span>Как работает заказ<span class="cnt">3 этапа</span></h2><div class="tl"><div class="rail"></div><div class="fill"></div>
+<div class="stage"><span class="dot"><i data-i="store"></i></span><h3><small>ЭТАП 1</small>Принимаем и забираем заказ</h3><ol><li><span class="ri"><i data-i="zap"></i></span><span>Приняли заказ в приложении, <b>сразу едем в заведение</b>.</span></li><li><span class="ri"><i data-i="check"></i></span><span>Когда заведение отдаёт заказ (вы уже на месте), проверяем полноту по списку в приложении: <b>приборы, позиции, соусы</b>.</span></li><li><span class="ri"><i data-i="phoneapp"></i></span><span>Отмечаем заказ в приложении и следим, чтобы заведение тоже отметило его у себя.</span></li></ol></div>
+<div class="stage"><span class="dot"><i data-i="route"></i></span><h3><small>ЭТАП 2</small>Везём заказ клиенту</h3><ol><li><span class="ri"><i data-i="shield"></i></span><span><b>Аккуратность важнее всего.</b> Лучше довезти блюдо целым, чем быстро. Скорость важна, но качество еды важнее.</span></li><li><span class="ri"><i data-i="phone"></i></span><span><b>Будьте вежливы.</b> Не можете найти дорогу? Звоните клиенту: поздоровайтесь и назовите, кто вы и зачем звоните.</span></li></ol>
+<div class="say"><i class="q" data-i="quote"></i><small><i data-i="phone"></i>ПРИМЕР ЗВОНКА</small>«Здравствуйте, курьер „Рядом“. Подскажите, пожалуйста, какой у вас этаж?»</div></div>
+<div class="stage"><span class="dot"><i data-i="hand"></i></span><h3><small>ЭТАП 3</small>Отдаём заказ</h3><div class="say"><i class="q" data-i="quote"></i><small><i data-i="msg"></i>ЧТО СКАЗАТЬ</small>«Доброе утро», «Добрый день», «Добрый вечер» или просто «Здравствуйте». «Вот ваш заказ, приятного аппетита!»</div><ol><li><span class="ri"><i data-i="phoneapp"></i></span><span>После того как отдали заказ, заходим в приложение и отмечаем его.</span></li></ol></div>
+</div><div class="smile"><i data-i="smile"></i>Вы доставляете не только еду, но и радость людям. Улыбайтесь :)</div></div>
+<div class="sec" id="rules"><h2><span class="ic coral"><i data-i="list"></i></span>Правила работы с заказом<span class="cnt">11 правил</span></h2><ol>
+<li><span class="ri"><i data-i="shield"></i><em>1</em></span><span><b>Принял заказ, значит взял ответственность.</b> Не принимай заказ, если не успеваешь забрать его вовремя.</span></li>
+<li><span class="ri"><i data-i="store"></i><em>2</em></span><span><b>Ждём заказ в заведении.</b> К моменту готовности курьер уже на месте, чтобы забрать еду сразу горячей.</span></li>
+<li><span class="ri"><i data-i="check"></i><em>3</em></span><span><b>Сверяем заказ при получении:</b> номер, количество позиций, напитки, соусы, приборы. Если чего-то не хватает, решаем на месте.</span></li>
+<li><span class="ri"><i data-i="lock"></i><em>4</em></span><span><b>Пакеты закрыты.</b> Упаковку не открываем.</span></li>
+<li><span class="ri"><i data-i="route"></i><em>5</em></span><span><b>Едем сразу к клиенту,</b> без личных остановок.</span></li>
+<li><span class="ri"><i data-i="clock"></i><em>6</em></span><span><b>Задерживаешься больше чем на 10 минут?</b> Предупреди клиента и менеджера.</span></li>
+<li><span class="ri"><i data-i="pin"></i><em>7</em></span><span><b>Адрес непонятен, звони клиенту.</b> Подъезд, этаж и домофон уточняем заранее.</span></li>
+<li><span class="ri"><i data-i="smile"></i><em>8</em></span><span><b>Вручаем вежливо:</b> здороваемся, называем «Рядом», благодарим. Без грубости и споров.</span></li>
+<li><span class="ri"><i data-i="phoneoff"></i><em>9</em></span><span><b>Клиент не отвечает:</b> звоним 2–3 раза, ждём 10 минут, пишем менеджеру. Сам заказ не отменяем.</span></li>
+<li><span class="ri"><i data-i="alert"></i><em>10</em></span><span><b>Заметил проблему до вручения</b> (пролилось, помялось, не хватает позиции): сразу связываемся с поддержкой и ждём решения. Клиенту не грубим и ничего не обещаем от себя.</span></li>
+<li><span class="ri"><i data-i="phoneapp"></i><em>11</em></span><span><b>Закрываем заказ в приложении</b> только после вручения в руки.</span></li></ol></div>
+<div class="sec" id="look"><h2><span class="ic"><i data-i="shirt"></i></span>Внешний вид<span class="cnt">2 правила</span></h2><ol>
+<li><span class="ri"><i data-i="shirt"></i></span><span><b>Спецодежда обязательна:</b> куртка, кепка, футболка.</span></li>
+<li><span class="ri"><i data-i="bag"></i></span><span><b>Сумка всегда с вами:</b> и когда забираете еду, и когда отдаёте клиенту.</span></li></ol></div>
+</div></section>
+<section class="scr" id="s-venues"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
+<h1 class="big">Заведения</h1><p class="sub" id="vcount">63 заведений</p>
+<div class="sw"><i data-i="search"></i><input id="vq" type="search" placeholder="Название или адрес" aria-label="Поиск заведения"></div>
+<div class="chips" id="chips"></div>
+<div class="grid" id="vlist"></div><p class="none" id="vnone">Хм, такого не нашлось. Попробуй по-другому 🦦</p>
+</div></section>
+<section class="scr" id="s-venue"></section>
+<section class="scr" id="s-bag"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
+<h1 class="big">Термосумка</h1><p class="sub">Чтобы заказ приехал как из кухни</p>
+<div class="sec" id="bag"><h2><span class="ic coral"><i data-i="bag"></i></span>Термосумка<span class="cnt">10 правил</span></h2><ol>
+<li><span class="ri"><i data-i="flame"></i><em>1</em></span><span><b>Горячее отдельно от холодного.</b></span></li>
+<li><span class="ri"><i data-i="layers"></i><em>2</em></span><span><b>Тяжёлое вниз, лёгкое наверх.</b> Пиццу кладём плашмя.</span></li>
+<li><span class="ri"><i data-i="cup"></i><em>3</em></span><span><b>Напитки стоят вертикально.</b> Проверяем крышки.</span></li>
+<li><span class="ri"><i data-i="soup"></i><em>4</em></span><span><b>Супы и соусы</b> держим вертикально, в отдельном пакете.</span></li>
+<li><span class="ri"><i data-i="lock"></i><em>5</em></span><span><b>Сумку закрываем сразу</b> и не открываем зря.</span></li>
+<li><span class="ri"><i data-i="package"></i><em>6</em></span><span><b>В сумке только заказы:</b> без личных вещей, еды курьера и сигарет.</span></li>
+<li><span class="ri"><i data-i="drop"></i><em>7</em></span><span><b>Чистота:</b> протираем после смены, пролитое моем сразу.</span></li>
+<li><span class="ri"><i data-i="wrench"></i><em>8</em></span><span><b>Сумка целая.</b> О поломках сразу сообщаем менеджеру.</span></li>
+<li><span class="ri"><i data-i="snow"></i><em>9</em></span><span><b>Зимой</b> не оставляем сумку открытой на морозе.</span></li>
+<li><span class="ri"><i data-i="check"></i><em>10</em></span><span><b>Перед выдачей</b> проверяем, что упаковка целая.</span></li></ol></div>
+</div></section>
+<section class="scr" id="s-check"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
+<h1 class="big">Перед выездом</h1><p class="sub">Отмечай пункты. Список сбрасывается каждый день</p>
+<div class="ckp"><div class="ckbar"><i id="ckfill"></i></div><span id="ckn"></span><button id="ckr">Сбросить</button></div>
+<div class="sec"><h2><span class="ic"><i data-i="check"></i></span>Перед сменой<span class="cnt">5</span></h2><div class="ck"><label><input type="checkbox" data-ck="0-0"><span class="bx"></span><span>Спецодежда: куртка, кепка, футболка</span></label><label><input type="checkbox" data-ck="0-1"><span class="bx"></span><span>Термосумка с собой</span></label><label><input type="checkbox" data-ck="0-2"><span class="bx"></span><span>Сумка чистая, после прошлой смены протёрта</span></label><label><input type="checkbox" data-ck="0-3"><span class="bx"></span><span>Сумка целая (о поломках сразу сообщаю менеджеру)</span></label><label><input type="checkbox" data-ck="0-4"><span class="bx"></span><span>В сумке только заказы: без личных вещей, еды и сигарет</span></label></div></div><div class="sec"><h2><span class="ic"><i data-i="check"></i></span>Когда забираю заказ<span class="cnt">7</span></h2><div class="ck"><label><input type="checkbox" data-ck="1-0"><span class="bx"></span><span>Приехал в заведение сразу после принятия заказа</span></label><label><input type="checkbox" data-ck="1-1"><span class="bx"></span><span>Сверил номер заказа и количество позиций</span></label><label><input type="checkbox" data-ck="1-2"><span class="bx"></span><span>Проверил приборы и соусы</span></label><label><input type="checkbox" data-ck="1-3"><span class="bx"></span><span>Напитки стоят вертикально, крышки проверены</span></label><label><input type="checkbox" data-ck="1-4"><span class="bx"></span><span>Супы и соусы вертикально, в отдельном пакете</span></label><label><input type="checkbox" data-ck="1-5"><span class="bx"></span><span>Горячее отдельно от холодного, тяжёлое вниз</span></label><label><input type="checkbox" data-ck="1-6"><span class="bx"></span><span>Отметил заказ в приложении, заведение тоже отметило</span></label></div></div></div></section>
+<section class="scr" id="s-oops"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
+<h1 class="big">Частые косяки</h1><p class="sub">Типичные ошибки и как их избежать</p>
+<div class="sec" id="oops"><h2><span class="ic coral"><i data-i="list"></i></span>Как не надо<span class="cnt">15 ошибок</span></h2><ol>
+<li><span class="ri"><i data-i="list"></i><em>1</em></span><span><b>Забыл соусы или приборы.</b><br><span class="fx">Когда заведение отдаёт заказ, сверяем по списку в приложении: <b>приборы, позиции, соусы</b>.</span></span></li>
+<li><span class="ri"><i data-i="check"></i><em>2</em></span><span><b>Не проверил заказ при получении.</b><br><span class="fx">Сверяем номер, количество позиций, напитки, соусы и приборы. Если чего-то не хватает, <b>решаем на месте</b>.</span></span></li>
+<li><span class="ri"><i data-i="check"></i><em>3</em></span><span><b>Не отметил заказ в приложении.</b><br><span class="fx">Отмечаем заказ в приложении и <b>следим, чтобы заведение тоже отметило его у себя</b>.</span></span></li>
+<li><span class="ri"><i data-i="scooter"></i><em>4</em></span><span><b>Приехал в заведение поздно.</b><br><span class="fx">Принял заказ — <b>сразу едем в заведение</b>. К моменту готовности курьер уже на месте, чтобы забрать еду горячей.</span></span></li>
+<li><span class="ri"><i data-i="scooter"></i><em>5</em></span><span><b>Торопился и пролил.</b><br><span class="fx"><b>Аккуратность важнее скорости.</b> Лучше довезти блюдо целым, чем быстро.</span></span></li>
+<li><span class="ri"><i data-i="scooter"></i><em>6</em></span><span><b>Заехал по своим делам.</b><br><span class="fx">Едем <b>сразу к клиенту</b>, без личных остановок.</span></span></li>
+<li><span class="ri"><i data-i="heart"></i><em>7</em></span><span><b>Позвонил и не представился.</b><br><span class="fx">Здороваемся и называем, кто мы и зачем звоним: <b>«Здравствуйте, курьер „Рядом“. Подскажите, пожалуйста, какой у вас этаж?»</b></span></span></li>
+<li><span class="ri"><i data-i="heart"></i><em>8</em></span><span><b>Не предупредил об опоздании.</b><br><span class="fx">Задерживаешься больше чем на 10 минут — <b>предупреди клиента и менеджера</b>.</span></span></li>
+<li><span class="ri"><i data-i="heart"></i><em>9</em></span><span><b>Отменил заказ сам, когда клиент не ответил.</b><br><span class="fx">Звоним 2–3 раза, ждём 10 минут, пишем менеджеру. <b>Сам заказ не отменяем.</b></span></span></li>
+<li><span class="ri"><i data-i="check"></i><em>10</em></span><span><b>Закрыл заказ раньше времени.</b><br><span class="fx">Закрываем заказ в приложении <b>только после вручения в руки</b>.</span></span></li>
+<li><span class="ri"><i data-i="heart"></i><em>11</em></span><span><b>Пообещал клиенту что-то от себя.</b><br><span class="fx">Пролилось, помялось или не хватает позиции — <b>сразу связываемся с поддержкой</b> и ждём решения. Клиенту не грубим и ничего не обещаем от себя.</span></span></li>
+<li><span class="ri"><i data-i="bag"></i><em>12</em></span><span><b>Горячее рядом с холодным, напитки лёжа.</b><br><span class="fx">Горячее отдельно от холодного, напитки вертикально с проверенными крышками, супы и соусы — <b>вертикально в отдельном пакете</b>.</span></span></li>
+<li><span class="ri"><i data-i="bag"></i><em>13</em></span><span><b>Открыл упаковку или сумку зря.</b><br><span class="fx">Пакеты закрыты, упаковку не открываем. Сумку <b>закрываем сразу</b>, зимой не оставляем открытой на морозе.</span></span></li>
+<li><span class="ri"><i data-i="bag"></i><em>14</em></span><span><b>Личные вещи в термосумке.</b><br><span class="fx">В сумке <b>только заказы</b>: без личных вещей, еды курьера и сигарет.</span></span></li>
+<li><span class="ri"><i data-i="bag"></i><em>15</em></span><span><b>Без спецодежды или без сумки.</b><br><span class="fx">Спецодежда обязательна: <b>куртка, кепка, футболка</b>. Сумка всегда с вами — и в заведении, и у клиента.</span></span></li>
+</ol></div>
+<div class="homefoot" style="opacity:1;animation:none"><span class="hb"><i data-i="heart"></i></span><div><b>Вы доставляете радость</b>Улыбайтесь :)</div></div>
+</div></section>
+<section class="scr" id="s-map"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
+<h1 class="big">Карта</h1><div id="map"></div><p class="mapnote" id="mapnote"></p></div></section>
+<div id="sheet"></div>
+<div id="lb"><button class="lbx" aria-label="Закрыть">✕</button><div class="lbt"></div><div class="lbc"></div></div>
+<script>
+const VENUES=[
+ {
+  "name": "DoБлин",
+  "address": "Сахалинская улица, 89",
+  "logo": "../../img/logos/doblin.webp",
+  "photo": [
+   "../../img/venues/doblin.jpg",
+   {
+    "src": "../../img/venues/doblin-map.jpg",
+    "caption": "Схема: 5 этаж"
+   }
+  ],
+  "hint": "Заходите через ТЦ «МегаБерёзка» и поднимайтесь на 5 этаж. От эскалатора поверните налево, пройдите мимо «Гуд Фуд» и идите прямо вдоль левой стены мимо «Сеньор Денёр» и Burger station. Заведение будет впереди, рядом с фудкортом (отмечено на схеме).",
+  "slug": "doblin",
+  "lat": 46.962997,
+  "lng": 142.723769
+ },
+ {
+  "name": "Homura",
+  "address": "Улица Ленина, 573",
+  "logo": "../../img/logos/homura.webp",
+  "photo": "../../img/venues/homura.jpg",
+  "hint": "Отдельный вход с улицы, под вывеской с большим красным крабом.",
+  "slug": "homura",
+  "lat": 46.90007,
+  "lng": 142.742269
+ },
+ {
+  "name": "K.LAB",
+  "address": "Проспект мира, 231",
+  "logo": "../../img/logos/k-lab.webp",
+  "photo": [
+   "../../img/venues/k-lab.jpg",
+   {
+    "src": "../../img/venues/k-lab-map.jpg",
+    "caption": "Схема"
+   }
+  ],
+  "hint": "Проспект Мира, 231. Небольшой отдельный павильон прямо на парковке, ближе к дороге со стороны улицы Емельянова. Вход по центру фасада, под козырьком, окна в красный горошек.",
+  "slug": "k-lab",
+  "lat": 46.94378,
+  "lng": 142.744429
+ },
+ {
+  "name": "Ma'schike",
+  "address": "Мира, 2/3 литер Д",
+  "logo": "../../img/logos/ma-schike.webp",
+  "photo": [
+   "../../img/venues/ma-schike.jpg",
+   {
+    "src": "../../img/venues/ma-schike-map.jpg",
+    "caption": "Где находится"
+   }
+  ],
+  "hint": "Проспект Мира, 2/3, литера Д. Территория закрыта шлагбаумом, заезжайте через него во двор. Здание длинное, серое, трёхэтажное, похоже на склад с погрузочными воротами. Нужный вход в дальнем левом конце (отмечен на фото): коричневая дверь под небольшим тёмным козырьком.",
+  "slug": "ma-schike",
+  "lat": 46.994859,
+  "lng": 142.731957
+ },
+ {
+  "name": "Parade Allee",
+  "address": "Зимы, 79",
+  "logo": "../../img/logos/parade-allee.webp",
+  "photo": "../../img/venues/parade-allee.jpg",
+  "hint": "ТЦ «Холмы», улица Зимы, 79. Заходите через главный вход по центру фасада, между двумя круглыми стеклянными башнями: поднимитесь по ступенькам к автоматическим дверям (отмечено на фото).",
+  "slug": "parade-allee",
+  "lat": 46.909904,
+  "lng": 142.751696
+ },
+ {
+  "name": "Subway",
+  "address": "Космонавта Поповича, 65",
+  "logo": "../../img/logos/subway.webp",
+  "photo": "../../img/venues/subway.jpg",
+  "hint": "ТК «Славянский», улица имени Космонавта Поповича, 65. Отдельное коричневое здание с большой вывеской SUBWAY на крыше. Вход слева: поднимитесь по ступенькам к деревянной двери под зелёным козырьком.",
+  "slug": "subway",
+  "lat": 46.952608,
+  "lng": 142.736737
+ },
+ {
+  "name": "YUME SUSHI",
+  "address": "Горького Алексея Максимовича, 32",
+  "logo": "../../img/logos/yume-sushi.webp",
+  "photo": [
+   "../../img/venues/yume-sushi.jpg",
+   {
+    "src": "../../img/venues/yume-sushi-inside.jpg",
+    "caption": "Стойка внутри"
+   }
+  ],
+  "hint": "ТЦ «Реми Сити», улица Горького, 32. Заходите через главный вход и держитесь левой стороны. Ищите яркую стойку с фиолетовыми неоновыми вывесками YUME.",
+  "slug": "yume-sushi",
+  "lat": 46.945917,
+  "lng": 142.756397
+ },
+ {
+  "name": "Автогриль",
+  "address": "Ленина, 441А/4",
+  "logo": "../../img/logos/avtogril.webp",
+  "photo": "../../img/venues/avtogril.jpg",
+  "hint": "Жилой массив Большая Елань. Небольшой отдельный павильон с крупной вывеской «#АВТО ГРИЛЬ 24/7» жёлто-красными буквами и нарисованной едой на окнах. Работает круглосуточно.",
+  "slug": "avtogril",
+  "lat": 46.925578,
+  "lng": 142.734561
+ },
+ {
+  "name": "Белый Барашка | Жарим Варим",
+  "address": "Мира, 482",
+  "logo": "../../img/logos/belyy-barashka-zharim-varim.webp",
+  "photo": "../../img/venues/belyy-barashka-zharim-varim.jpg",
+  "hint": "ТРК «Сити Молл», проспект Мира, 482. Поднимайтесь на 4 этаж в фуд-корт «Жарим Варим». «Белый Барашка» сразу перед лифтом.",
+  "slug": "belyy-barashka-zharim-varim",
+  "lat": 46.900689,
+  "lng": 142.743811,
+  "gis": "70000001078774008"
+ },
+ {
+  "name": "Белый Барашка | Фуд Холл",
+  "address": "Горнолыжная улица, 1а",
+  "logo": "../../img/logos/belyy-barashka-fud-holl.webp",
+  "photo": [
+   {
+    "src": "../../img/venues/belyy-barashka-fud-holl.jpg",
+    "caption": "Вход"
+   },
+   {
+    "src": "../../img/venues/belyy-barashka-fud-holl-counter.jpg",
+    "caption": "Стойка"
+   }
+  ],
+  "hint": "Горнолыжная улица, 1а, здание «Рассвет». Заходите со стороны парковки через главный вход, внутри фуд-холл, стойка «Белый Барашка» с синей вывеской.",
+  "slug": "belyy-barashka-fud-holl",
+  "gis": "70000001117630979"
+ },
+ {
+  "name": "БК Корона",
+  "address": "Ленина, 441а/2",
+  "logo": "../../img/logos/bk-korona.webp",
+  "photo": [
+   {
+    "video": "../../img/venues/bk-korona.mp4",
+    "poster": "../../img/venues/bk-korona-poster.jpg",
+    "caption": "Видео: как пройти"
+   }
+  ],
+  "hint": "улица Ленина, 441а/2. Заходите так же, как в «Гиперавто»: здание сквозное, вход с двух сторон. По центру дверной проём, за ним лестница на 2 этаж.",
+  "slug": "bk-korona",
+  "lat": 46.925647,
+  "lng": 142.733579,
+  "gis": "70000001113725767"
+ },
+ {
+  "name": "Бриошь",
+  "address": "Мира, 108",
+  "logo": "../../img/logos/briosh.webp",
+  "photo": "../../img/venues/briosh.jpg",
+  "hint": "Проспект Мира, 108, 1 этаж. Заходите через главный вход и идите по коридору прямо до самого конца. Там стойка с белой вывеской BRIOCHE.",
+  "slug": "briosh",
+  "lat": 46.956062,
+  "lng": 142.739846,
+  "gis": "70000001102971108"
+ },
+ {
+  "name": "Бункер",
+  "address": "Космонавта Поповича, 100",
+  "logo": "../../img/logos/bunker.webp",
+  "photo": "../../img/venues/bunker.jpg",
+  "hint": "Улица Космонавта Поповича, 100, цокольный этаж, напротив ТК «Славянский». Отдельный чёрный вход-тамбур под вывеской «БУНКЕР гастробар & караоке»: заходите в стеклянную дверь и спускайтесь вниз в подвал.",
+  "slug": "bunker",
+  "lat": 46.95311,
+  "lng": 142.736227,
+  "gis": "70000001028055734"
+ },
+ {
+  "name": "Бургерная №1",
+  "address": "Емельянова, 14а",
+  "logo": "../../img/logos/burgernaya-1.webp",
+  "photo": "../../img/venues/burgernaya-1-2gis.jpg",
+  "hint": "Улица Емельянова, 14а, отдельное здание с вывеской «БУРГЕРНАЯ #1», работает круглосуточно.",
+  "slug": "burgernaya-1",
+  "gis": "70000001035811352"
+ },
+ {
+  "name": "Бууза Бум",
+  "address": "Сахалинская 89, ТЦ МегаБерёзка",
+  "logo": "../../img/logos/buuza-bum.webp",
+  "photo": {
+   "src": "../../img/venues/buuza-bum-map.jpg",
+   "caption": "Схема"
+  },
+  "hint": "ТРЦ «МегаБерёзка», Сахалинская, 89, 5 этаж. От эскалатора поверните налево, обойдите «Миринэ» и идите к ряду точек сразу за ним, «Бууза Бум» там (маршрут на схеме).",
+  "slug": "buuza-bum",
+  "lat": 46.962997,
+  "lng": 142.723769,
+  "gis": "70000001088219541"
+ },
+ {
+  "name": "Гранат",
+  "address": "Хабаровская, 43",
+  "logo": "",
+  "photo": "../../img/venues/granat.jpg",
+  "hint": "Хабаровская улица, 43, цокольный этаж. Вход в пристройке между подъездами жилого дома: красный полукруглый козырёк с вывеской «ГРАНАТ кафе», белая дверь. Заходите и спускайтесь вниз в подвал.",
+  "slug": "granat",
+  "lat": 46.960656,
+  "lng": 142.734072,
+  "gis": "70000001029590956"
+ },
+ {
+  "name": "Гриль Хаус",
+  "address": "Фархутдинова, 3",
+  "logo": "../../img/logos/gril-haus.webp",
+  "photo": "",
+  "hint": "ТРЦ «Аллея», улица Фархутдинова, 3, 1 этаж. Точка между «Мама Карри» и «Каннам Чикен».",
+  "slug": "gril-haus",
+  "lat": 46.915345,
+  "lng": 142.695562,
+  "gis": "70000001050277437"
+ },
+ {
+  "name": "Гуд Фуд",
+  "address": "2-я Центральная, 1-Б",
+  "logo": "../../img/logos/gud-fud.webp",
+  "photo": "",
+  "hint": "ТРК «Сити Молл», 2-я Центральная улица, 1Б. Поднимайтесь на 3 этаж, бургерная «Гуд Фуд», место 330.",
+  "slug": "gud-fud",
+  "gis": "70000001033054157"
+ },
+ {
+  "name": "Дастан",
+  "address": "Крайняя, 26а",
+  "logo": "../../img/logos/dastan.webp",
+  "photo": "../../img/venues/dastan-2gis.jpg",
+  "hint": "Улица Крайняя, 26а, 1 этаж. Вход под полукруглым коричневым козырьком: за открытой металлической дверью белая пластиковая дверь (отмечено на фото).",
+  "slug": "dastan",
+  "lat": 46.98017,
+  "lng": 142.73741,
+  "gis": "70000001050734087"
+ },
+ {
+  "name": "Дудук",
+  "address": "Мира, 108",
+  "logo": "../../img/logos/duduk.webp",
+  "photo": [
+   {
+    "src": "../../img/venues/duduk-2gis.jpg",
+    "caption": "Вход"
+   },
+   {
+    "src": "../../img/venues/duduk-counter.jpg",
+    "caption": "Стойка"
+   }
+  ],
+  "hint": "Проспект Мира, 108, 1 этаж. Стойка «Дудук» в коридоре здания: зелёная стена и витрина с напитками (на фото).",
+  "slug": "duduk",
+  "lat": 46.956062,
+  "lng": 142.739846,
+  "gis": "70000001101245090"
+ },
+ {
+  "name": "Дюрюм-Дюрюм",
+  "address": "Мира, 231/8",
+  "logo": "../../img/logos/dyuryum-dyuryum.webp",
+  "photo": "../../img/venues/dyuryum-dyuryum-2gis.jpg",
+  "hint": "Проспект Мира, 231/8. Точка с большой светящейся вывеской DURUM-DURUM «24 часа» и красным круглым логотипом над витринами. Работает круглосуточно.",
+  "slug": "dyuryum-dyuryum",
+  "gis": "70000001030454174"
+ },
+ {
+  "name": "Империал суши",
+  "address": "Проспект Мира, 422",
+  "logo": "../../img/logos/imperial-sushi.webp",
+  "photo": "../../img/venues/imperial-sushi-2gis.jpg",
+  "hint": "Проспект Мира, 422, 1 этаж, «Империал суши».",
+  "slug": "imperial-sushi",
+  "lat": 46.933879,
+  "lng": 142.74424,
+  "gis": "12385427256248668"
+ },
+ {
+  "name": "Иначе",
+  "address": "Комсомольская, 198",
+  "logo": "../../img/logos/inache.webp",
+  "photo": "../../img/venues/inache-2gis.jpg",
+  "hint": "Улица Комсомольская, 198, двухэтажное круглое угловое здание с вывеской «ИНАЧЕ», вход по ступенькам.",
+  "slug": "inache",
+  "lat": 46.944221,
+  "lng": 142.750304,
+  "gis": "70000001046107787"
+ },
+ {
+  "name": "Кефир бистро",
+  "address": "Горького, 25а",
+  "logo": "../../img/logos/kefir-bistro.webp",
+  "photo": "../../img/venues/kefir-bistro-2gis.jpg",
+  "hint": "Улица Горького, 25а, 1 этаж. Бистро под бирюзовой вывеской «КЕФИР» на тёмной части фасада.",
+  "slug": "kefir-bistro",
+  "gis": "70000001110102817"
+ },
+ {
+  "name": "Кипарис",
+  "address": "Ленина, 230",
+  "logo": "../../img/logos/kiparis.webp",
+  "photo": "../../img/venues/kiparis-2gis.jpg",
+  "hint": "Улица Ленина, 230, 1 этаж. Серое здание с колоннами на углу. Вход слева, по ступенькам под светящейся вывеской «КИПАРИС» (отмечено на фото).",
+  "slug": "kiparis",
+  "lat": 46.956857,
+  "lng": 142.72964,
+  "gis": "70000001081636325"
+ },
+ {
+  "name": "Лиса Буншик",
+  "address": "Проспект Мира, 482",
+  "logo": "../../img/logos/lisa-bunshik.webp",
+  "photo": "",
+  "hint": "",
+  "slug": "lisa-bunshik",
+  "lat": 46.900689,
+  "lng": 142.743811
+ },
+ {
+  "name": "ЛоГо СНЕК",
+  "address": "Проспект Мира, 108",
+  "logo": "../../img/logos/logo-snek.webp",
+  "photo": "../../img/venues/logo-snek.jpg",
+  "hint": "Проспект Мира, 108. Поднимитесь на эскалаторе на 2 этаж и сразу поверните направо. Ищите стойку с неоновой вывеской «ЛоГо Снек» и усами под надписью.",
+  "slug": "logo-snek",
+  "lat": 46.956062,
+  "lng": 142.739846,
+  "gis": "70000001115137759"
+ },
+ {
+  "name": "Манго",
+  "address": "Больничная, 2/1",
+  "logo": "../../img/logos/mango.webp",
+  "photo": "../../img/venues/mango-2gis.jpg",
+  "hint": "",
+  "slug": "mango",
+  "gis": "70000001035950602"
+ },
+ {
+  "name": "Марико",
+  "address": "Емельянова, 36",
+  "logo": "../../img/logos/mariko.webp",
+  "photo": "../../img/venues/mariko-2gis.jpg",
+  "hint": "ТЦ «Рояль», улица Емельянова, 36. Вход с западной стороны здания, у небольшой парковки: стеклянная дверь, за ней лестница вниз, «Марико» сразу слева.",
+  "slug": "mariko",
+  "lat": 46.941083,
+  "lng": 142.737165,
+  "gis": "70000001099070920"
+ },
+ {
+  "name": "Маруся",
+  "address": "Ленина, 219",
+  "logo": "../../img/logos/marusya.webp",
+  "photo": "../../img/venues/marusya-2gis.jpg",
+  "hint": "Улица Ленина, 219, 1 этаж жилого дома. Тёмный кирпичный фасад с большой вывеской «МАРУСЯ русская кухня» и матрёшкой.",
+  "slug": "marusya",
+  "lat": 46.953325,
+  "lng": 142.731023,
+  "gis": "70000001028466903"
+ },
+ {
+  "name": "Местные",
+  "address": "Курильская, 41А",
+  "logo": "../../img/logos/mestnye.webp",
+  "photo": "",
+  "hint": "Курильская улица, 41а, кафе корейской кухни «Местные».",
+  "slug": "mestnye",
+  "lat": 46.96206,
+  "lng": 142.73528,
+  "gis": "70000001110474246"
+ },
+ {
+  "name": "Мистикал Чикен",
+  "address": "Анивская 70/1",
+  "logo": "../../img/logos/mistikal-chiken.webp",
+  "photo": "../../img/venues/mistikal-chiken-2gis.jpg",
+  "hint": "Анивская улица, 70/1. Одноэтажный тёмный павильон с вывеской «КАФЕ МИСТИКАЛ ЧИКЕН». Вход через стеклянную дверь слева (отмечено на фото).",
+  "slug": "mistikal-chiken",
+  "gis": "70000001084252785"
+ },
+ {
+  "name": "Мясо в тесте",
+  "address": "Ленина, 294",
+  "logo": "../../img/logos/myaso-v-teste.webp",
+  "photo": "../../img/venues/myaso-v-teste-2gis.jpg",
+  "hint": "Улица Ленина, 294, 1 этаж. Вход с улицы: поднимитесь по ступенькам с перилами к двери под бежевым козырьком с вывеской «Мясо в тесте» (отмечено на фото).",
+  "slug": "myaso-v-teste",
+  "lat": 46.945337,
+  "lng": 142.731934,
+  "gis": "70000001112375734"
+ },
+ {
+  "name": "На Абордаж!",
+  "address": "Милицейская улица, 7в",
+  "logo": "../../img/logos/na-abordazh.webp",
+  "photo": "",
+  "hint": "Гостиница «Командор», Милицейская улица, 7в. Пиратский бар «На Абордаж!» в цокольном этаже.",
+  "slug": "na-abordazh",
+  "lat": 46.966989,
+  "lng": 142.732726,
+  "gis": "70000001033833936"
+ },
+ {
+  "name": "Островная Фрикаделька",
+  "address": "Железнодорожная, 88",
+  "logo": "../../img/logos/ostrovnaya-frikadelka.webp",
+  "photo": "",
+  "hint": "",
+  "slug": "ostrovnaya-frikadelka",
+  "lat": 46.956369,
+  "lng": 142.722969
+ },
+ {
+  "name": "Пельмень Бар",
+  "address": "Фархутдинова, 3",
+  "logo": "../../img/logos/pelmen-bar.webp",
+  "photo": "",
+  "hint": "ТРЦ «Аллея», улица Фархутдинова, 3, 1 этаж. По центру, в небольшом проходе напротив «Чебуреки».",
+  "slug": "pelmen-bar",
+  "lat": 46.915345,
+  "lng": 142.695562,
+  "gis": "70000001102710181"
+ },
+ {
+  "name": "Перчини",
+  "address": "проспект Победы, 9Б",
+  "logo": "../../img/logos/perchini.webp",
+  "photo": "../../img/venues/perchini-2gis.jpg",
+  "hint": "Проспект Победы, 9Б, 1 этаж, вход с угла здания под вывеской «Перчини».",
+  "slug": "perchini",
+  "lat": 46.950613,
+  "lng": 142.75389,
+  "gis": "70000001104993737"
+ },
+ {
+  "name": "Пир на весь мир",
+  "address": "Колодезная, 8/2",
+  "logo": "../../img/logos/pir-na-ves-mir.webp",
+  "photo": "../../img/venues/pir-na-ves-mir-2gis.jpg",
+  "hint": "",
+  "slug": "pir-na-ves-mir",
+  "gis": "70000001098514363"
+ },
+ {
+  "name": "Пироги от Марины",
+  "address": "Железнодорожная, 88",
+  "logo": "../../img/logos/pirogi-ot-mariny.webp",
+  "photo": "../../img/venues/pirogi-ot-mariny-2gis.jpg",
+  "hint": "Железнодорожная улица, 88, 2 этаж. Здание обшито коричневым сайдингом, вход через белую пластиковую дверь со стеклом (на фото).",
+  "slug": "pirogi-ot-mariny",
+  "lat": 46.956369,
+  "lng": 142.722969,
+  "gis": "70000001079852662"
+ },
+ {
+  "name": "Пицца Марио",
+  "address": "Сахалинская 88а",
+  "logo": "../../img/logos/pitstsa-mario.webp",
+  "photo": "../../img/venues/pitstsa-mario-2gis.jpg",
+  "hint": "Сахалинская улица, 88а, служба доставки «Марио».",
+  "slug": "pitstsa-mario",
+  "gis": "70000001018961700"
+ },
+ {
+  "name": "Пицца Мокта | Жарим Варим",
+  "address": "Проспект Мира, 482",
+  "logo": "../../img/logos/pitstsa-mokta-zharim-varim.webp",
+  "photo": "",
+  "hint": "ТРК «Сити Молл», проспект Мира, 482, фуд-корт «Жарим Варим», пиццерия «Пицца Мокта».",
+  "slug": "pitstsa-mokta-zharim-varim",
+  "lat": 46.900689,
+  "lng": 142.743811,
+  "gis": "70000001114851309"
+ },
+ {
+  "name": "Пицца Мокта | На Смирнова",
+  "address": "Николая Смирнова, 3",
+  "logo": "../../img/logos/pitstsa-mokta-na-smirnova.webp",
+  "photo": [
+   {
+    "src": "../../img/venues/pitstsa-mokta-na-smirnova-2gis.jpg",
+    "caption": "Вход"
+   },
+   {
+    "src": "../../img/venues/pitstsa-mokta-na-smirnova-counter.jpg",
+    "caption": "Зал"
+   }
+  ],
+  "hint": "Улица Николая Смирнова, 3, 1 этаж, пиццерия «Пицца Мокта».",
+  "slug": "pitstsa-mokta-na-smirnova",
+  "lat": 46.947026,
+  "lng": 142.75351,
+  "gis": "70000001111094788"
+ },
+ {
+  "name": "Поке Боул | Жарим Варим",
+  "address": "пр. Мира 482",
+  "logo": "../../img/logos/poke-boul-zharim-varim.webp",
+  "photo": "",
+  "hint": "ТРК «Сити Молл», проспект Мира, 482, корпус С, 4 этаж, фуд-корт «Жарим Варим». Пройдите по коридору и сразу поверните направо, Poke bowl на углу.",
+  "slug": "poke-boul-zharim-varim",
+  "lat": 46.900689,
+  "lng": 142.743811,
+  "gis": "70000001078606140"
+ },
+ {
+  "name": "Поке Боул | Фуд Холл",
+  "address": "Горнолыжная улица, 1а",
+  "logo": "../../img/logos/poke-boul-fud-holl.webp",
+  "photo": {
+   "src": "../../img/venues/poke-boul-fud-holl-counter.jpg",
+   "caption": "Стойка"
+  },
+  "hint": "Горнолыжная улица, 1а, здание «Рассвет». Заходите со стороны парковки через главный вход, внутри фуд-холл, стойка с вывеской «ПОКЕ боул».",
+  "slug": "poke-boul-fud-holl",
+  "gis": "70000001117629527"
+ },
+ {
+  "name": "Поке Хаус Кокос",
+  "address": "Фархутдинова, 3",
+  "logo": "../../img/logos/poke-haus-kokos.webp",
+  "photo": "",
+  "hint": "ТРЦ «Аллея», улица Фархутдинова, 3, 1 этаж. В одном ряду с Subway, напротив «Миринэ».",
+  "slug": "poke-haus-kokos",
+  "lat": 46.915345,
+  "lng": 142.695562,
+  "gis": "70000001052436884"
+ },
+ {
+  "name": "Русская Трапеза",
+  "address": "Мира, 108",
+  "logo": "../../img/logos/russkaya-trapeza.webp",
+  "photo": "../../img/venues/russkaya-trapeza.jpg",
+  "hint": "Проспект Мира, 108, 2 этаж. Поднимитесь на эскалаторе на второй этаж. Ищите стойку с большой белой светящейся вывеской «Русская трапеза» и экранами меню.",
+  "slug": "russkaya-trapeza",
+  "lat": 46.956062,
+  "lng": 142.739846,
+  "gis": "70000001088887911"
+ },
+ {
+  "name": "Рыба без трусов",
+  "address": "пр. Мира 482",
+  "logo": "../../img/logos/ryba-bez-trusov.webp",
+  "photo": "",
+  "hint": "",
+  "slug": "ryba-bez-trusov",
+  "lat": 46.900689,
+  "lng": 142.743811
+ },
+ {
+  "name": "Рыбный Мир",
+  "address": "Шлакоблочная, 34, офис 201/4",
+  "logo": "../../img/logos/rybnyy-mir.webp",
+  "photo": "../../img/venues/rybnyy-mir.jpg",
+  "hint": "Шлакоблочная улица, 34. Заходите через центральный вход по ступенькам (отмечено на фото) и поднимайтесь на 2 этаж, офис 201/4.",
+  "slug": "rybnyy-mir",
+  "gis": "70000001112929208"
+ },
+ {
+  "name": "София",
+  "address": "Горького, 110д",
+  "logo": "../../img/logos/sofiya.webp",
+  "photo": "../../img/venues/sofiya-2gis.jpg",
+  "hint": "Улица Горького, 110д, 1 этаж. Вход через тёмно-серую металлическую дверь с табличкой режима работы (на фото). По этому же адресу есть детский сад «София», не перепутайте.",
+  "slug": "sofiya",
+  "lat": 46.928425,
+  "lng": 142.756403,
+  "gis": "70000001066426674"
+ },
+ {
+  "name": "Столовая Ложка",
+  "address": "Фархутдинова, 3",
+  "logo": "../../img/logos/stolovaya-lozhka.webp",
+  "photo": "",
+  "hint": "",
+  "slug": "stolovaya-lozhka",
+  "lat": 46.915345,
+  "lng": 142.695562
+ },
+ {
+  "name": "Суши Прайм",
+  "address": "Амурская, 62",
+  "logo": "../../img/logos/sushi-praym.webp",
+  "photo": "../../img/venues/sushi-praym.jpg",
+  "hint": "Амурская улица, 62, цокольный этаж. Вход со стороны дороги, под оранжевым полукруглым козырьком с вывеской «ГУРМАНИЯ» (это и есть «Суши Прайм»). Проходите через деревянную арку и спускайтесь вниз в подвал.",
+  "slug": "sushi-praym",
+  "lat": 46.959382,
+  "lng": 142.730938,
+  "gis": "70000001092740125"
+ },
+ {
+  "name": "Тадж Махал",
+  "address": "им. Антона Буюклы, 38",
+  "logo": "../../img/logos/tadzh-mahal.webp",
+  "photo": "../../img/venues/tadzh-mahal-2gis.jpg",
+  "hint": "Улица Антона Буюклы, 38, 1 этаж. Вход в бежевой пристройке: поднимитесь по гранитным ступенькам к серой стеклянной двери под вывеской «Тадж Махал» (отмечено на фото).",
+  "slug": "tadzh-mahal",
+  "lat": 46.956831,
+  "lng": 142.735944,
+  "gis": "12385427256252247"
+ },
+ {
+  "name": "Токио",
+  "address": "Сахалинская улица, 89",
+  "logo": "../../img/logos/tokio.webp",
+  "photo": {
+   "src": "../../img/venues/tokio-map.jpg",
+   "caption": "Схема"
+  },
+  "hint": "ТРЦ «МегаБерёзка», Сахалинская, 89, 5 этаж. От эскалатора поверните налево и идите вдоль левой стороны этажа до самого конца, «Токио» в дальнем левом углу фуд-корта (маршрут на схеме).",
+  "slug": "tokio",
+  "lat": 46.962997,
+  "lng": 142.723769,
+  "gis": "70000001037159971"
+ },
+ {
+  "name": "Точно Сочно | Горный воздух",
+  "address": "Горнолыжная улица 3 (Внутренняя площадка за зданием 46.95361, 142.763368)",
+  "logo": "../../img/logos/tochno-sochno-gornyy-vozduh.webp",
+  "photo": "../../img/venues/tochno-sochno-gornyy-vozduh-2gis.jpg",
+  "hint": "Фудтрак «Точно Сочно» с красной вывеской.",
+  "slug": "tochno-sochno-gornyy-vozduh",
+  "lat": 46.95361,
+  "lng": 142.763368,
+  "gis": "70000001101187833"
+ },
+ {
+  "name": "Точно Сочно | ЖД Вокзал",
+  "address": "Вокзальная улица, 52",
+  "logo": "../../img/logos/tochno-sochno-zhd-vokzal.webp",
+  "photo": "../../img/venues/tochno-sochno-zhd-vokzal-2gis.jpg",
+  "hint": "Фудтрак «Точно Сочно» у ЖД вокзала, чёрно-красный прицеп.",
+  "slug": "tochno-sochno-zhd-vokzal",
+  "gis": "70000001111750597"
+ },
+ {
+  "name": "Троицкий",
+  "address": "ДСУ-1, 9 (Оздоровительный комплекс \"Троицкий\")",
+  "logo": "../../img/logos/troitskiy.webp",
+  "photo": "../../img/venues/troitskiy-2gis.jpg",
+  "hint": "Улица ДСУ-1, 9, оздоровительный комплекс «Троицкий». Главный вход в двухэтажное здание через стеклянный тамбур под тёмным козырьком с флагом, рядом лавочки (отмечено на фото).",
+  "slug": "troitskiy",
+  "gis": "70000001062586714"
+ },
+ {
+  "name": "Уголь",
+  "address": "Мира, 482 \"Жарим Варим\"",
+  "logo": "../../img/logos/ugol.webp",
+  "photo": "",
+  "hint": "ТРК «Сити Молл», проспект Мира, 482. Поднимайтесь на 5 этаж, корейское барбекю «Уголь».",
+  "slug": "ugol",
+  "lat": 46.900689,
+  "lng": 142.743811,
+  "gis": "70000001103789870"
+ },
+ {
+  "name": "Уминаки",
+  "address": "Улица Пуркаева, 61а",
+  "logo": "../../img/logos/uminaki.webp",
+  "photo": "../../img/venues/uminaki-2gis.jpg",
+  "hint": "Улица Пуркаева, 61а, 1 этаж, «Уминаки».",
+  "slug": "uminaki",
+  "lat": 46.934011,
+  "lng": 142.739465,
+  "gis": "70000001019250784"
+ },
+ {
+  "name": "Фишка Суши",
+  "address": "Пуркаева, 114",
+  "logo": "../../img/logos/fishka-sushi.webp",
+  "photo": "../../img/venues/fishka-sushi-2gis.jpg",
+  "hint": "Улица Пуркаева, 114, 1 этаж. Внутри здания ищите стеклянную перегородку с красной вывеской fishka «суши • роллы», вход через стеклянную дверь (отмечено на фото).",
+  "slug": "fishka-sushi",
+  "lat": 46.934751,
+  "lng": 142.735316,
+  "gis": "70000001069549697"
+ },
+ {
+  "name": "Ханами",
+  "address": "Комсомольская, 287Б",
+  "logo": "../../img/logos/hanami.webp",
+  "photo": "../../img/venues/hanami-2gis.jpg",
+  "hint": "Улица Комсомольская, 287Б, вход через стеклянный тамбур.",
+  "slug": "hanami",
+  "lat": 46.930352,
+  "lng": 142.754119,
+  "gis": "70000001100638210"
+ },
+ {
+  "name": "ЧебурекМи",
+  "address": "Ленина, 252а",
+  "logo": "../../img/logos/cheburekmi.webp",
+  "photo": "../../img/venues/cheburekmi-2gis.jpg",
+  "hint": "Улица Ленина, 252а, правое крыло здания. Кирпичный павильон с чёрной вывеской «те самые чебуреки». Вход слева: коричневая дверь под кованым козырьком (отмечено на фото).",
+  "slug": "cheburekmi",
+  "gis": "70000001113157183"
+ },
+ {
+  "name": "ШаурмLike",
+  "address": "19-й микрорайон",
+  "logo": "../../img/logos/shaurmlike.webp",
+  "photo": "../../img/venues/shaurmlike-2gis.jpg",
+  "hint": "19-й микрорайон, киоск с вывеской «ШАУРМLIKE».",
+  "slug": "shaurmlike",
+  "gis": "70000001076510582"
+ },
+ {
+  "name": "Шафран",
+  "address": "Ленина, 120",
+  "logo": "../../img/logos/shafran.webp",
+  "photo": "../../img/venues/shafran-2gis.jpg",
+  "hint": "Улица Ленина, 120а, кафе «Шафран».",
+  "slug": "shafran",
+  "gis": "70000001039814562"
+ }
+];
+const P={zoom:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/>',camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/>',heart:'<path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/>',
+route:'<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>',
+list:'<path d="M9 6h11M9 12h11M9 18h11"/><path d="m3 6 1 1 2-2M3 12l1 1 2-2M3 18l1 1 2-2"/>',
+bag:'<path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M8 14h8"/>',
+search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+scooter:'<circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h2l3 11.5M9 17.5h6l2-7H8a3 3 0 0 0-3 3"/>',
+shirt:'<path d="M20.4 6.6 16 4a4 4 0 0 1-8 0L3.6 6.6a1 1 0 0 0-.4 1.3l1.3 2.6a1 1 0 0 0 1.3.4L7 10v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V10l1.2.9a1 1 0 0 0 1.3-.4l1.3-2.6a1 1 0 0 0-.4-1.3z"/>',
+map:'<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/>',
+phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+phoneoff:'<path d="M10.7 13.3a16 16 0 0 0 3.4 2.6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-3.3-2.7M5.2 13.1A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9"/><path d="M22 2 2 22"/>',
+down:'<path d="m6 9 6 6 6-6"/>',up:'<path d="m18 15-6-6-6 6"/>',
+store:'<path d="M3 9 4.5 4h15L21 9M3 9v11h18V9M3 9h18"/><path d="M9 20v-6h6v6"/>',
+zap:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',check:'<circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/>',
+phoneapp:'<rect x="5" y="2" width="14" height="20" rx="2"/><path d="m9 12 2 2 4-4M11 18h2"/>',
+shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+hand:'<path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-6-2.4l-3.6-3.6a2 2 0 0 1 2.8-2.8L7 15"/>',
+quote:'<path d="M3 21c3 0 7-1 7-8V5c0-1.3-.8-2-2-2H4c-1.3 0-2 .8-2 2v6c0 1.3.8 2 2 2h3c0 3-1 4-4 5zM15 21c3 0 7-1 7-8V5c0-1.3-.8-2-2-2h-4c-1.3 0-2 .8-2 2v6c0 1.3.8 2 2 2h3c0 3-1 4-4 5z"/>',
+msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+smile:'<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>',
+lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+pin:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+alert:'<path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3z"/><path d="M12 9v4M12 17h.01"/>',
+flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3.3.3 1.3 1 2.3 2.5 2.8z"/>',
+layers:'<path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/>',
+cup:'<path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/>',
+soup:'<path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9zM7 21h10"/><path d="M19.5 12 22 6M16 8c.6-.6.6-1.4 0-2-.6-.6-.6-1.4 0-2M11 8c.6-.6.6-1.4 0-2-.6-.6-.6-1.4 0-2"/>',
+package:'<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
+drop:'<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5S12.5 5.5 12 3c-.5 2.5-2 4.9-4 6.5S5 13 5 15a7 7 0 0 0 7 7z"/>',
+wrench:'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/>',
+snow:'<path d="M2 12h20M12 2v20M20 16l-4-4 4-4M4 8l4 4-4 4M16 4l-4 4-4-4M8 20l4-4 4 4"/>',};
+P.back='<path d="M15 18l-6-6 6-6"/>';P.chev='<path d="M9 18l6-6-6-6"/>';P.img=P.img||'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 17l-5-5-8 7"/>';
+const $=s=>document.querySelector(s),esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const icons=r=>r.querySelectorAll('i[data-i]').forEach(e=>{const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('class','i');s.setAttribute('viewBox','0 0 24 24');s.innerHTML=P[e.dataset.i]||'';e.replaceWith(s)});
+const phs=v=>(Array.isArray(v.photo)?v.photo:v.photo?[v.photo]:[]).map(p=>typeof p==='string'?{src:p,caption:''}:p.video?{video:p.video,poster:p.poster||'',caption:p.caption||''}:{src:p.src,caption:p.caption||''});
+const cover=v=>{const a=phs(v),f=a.find(p=>p.src)||a.find(p=>p.poster);return f?(f.src||f.poster):''};
+const qa=v=>encodeURIComponent((v.name.replace(/\|/g,' ')+' '+(v.address||'')+' Южно-Сахалинск').replace(/\s+/g,' ').trim());
+const r2g=v=>v.lat!=null?'https://2gis.ru/yuzhnosakhalinsk/directions/points/%7C'+v.lng+'%2C'+v.lat:'https://2gis.ru/yuzhnosakhalinsk/search/'+qa(v);
+const rya=v=>v.lat!=null?'https://yandex.ru/maps/?rtext=~'+v.lat+'%2C'+v.lng+'&rtt=auto':'https://yandex.ru/maps/?text='+qa(v);
+const gis=v=>v.gis?'https://2gis.ru/yuzhnosakhalinsk/firm/'+v.gis:'https://2gis.ru/yuzhnosakhalinsk/search/'+encodeURIComponent((v.name.replace(/\|/g,' ')+' '+(v.address||'')).replace(/\s+/g,' ').trim());
+/* category + floor heuristics */
+const cat=v=>{const t=(v.name+' '+v.address+' '+(v.hint||'')).toLowerCase();
+if(/фуд[- ]?корт|фуд[- ]?холл|фудкорт(?!ом)|жарим варим/.test(t.replace(/рядом с фудкортом/g,'')))return 'food';
+if(/подвал|цокол|полуподвал/.test(t))return 'base';
+if(/(^|[^а-я])(тц|трк|трц)([^а-я]|$)|торгов|эскалатор/.test(t))return 'mall';
+if(/мира,? 482|мира,? 108|фархутдинова,? 3|сахалинская(?: улица)?,? 89/.test(v.address.toLowerCase()))return 'mall';
+if(/(^|[^а-я])тк([^а-я]|$)/.test(t)&&!/отдельн|напротив тк/.test(t))return 'mall';
+return 'solo'};
+const ORD={'перв':1,'втор':2,'трет':3,'четв':4,'пят':5};
+const floor=v=>{const t=(v.hint||'')+' '+v.address;if(/цокол/i.test(t))return 'цоколь';if(/подвал/i.test(t))return 'подвал';let m=t.match(/(\d)\s*(?:-?й\s*)?этаж/i);if(m)return m[1]+' этаж';m=t.match(/(перв|втор|трет|четв|пят)\S*\s+этаж/i);return m?ORD[m[1].toLowerCase()]+' этаж':''};
+const steps=h=>{if(!h)return[];let a=h.replace(/\s+/g,' ').trim().split(/(?<=[.!?])\s+(?=[А-ЯЁA-Z«"(0-9])/).map(s=>s.trim()).filter(Boolean);
+if(a.length<2&&a[0]&&a[0].includes(': '))a=a[0].split(/:\s+/).map((s,i,x)=>s.charAt(0).toUpperCase()+s.slice(1)+(i<x.length-1?'.':''));return a};
+VENUES.forEach((v,i)=>{v.i=i;v.cat=cat(v);v.fl=floor(v)});
+const CATS=[['all','Все'],['mall','ТЦ'],['food','Фуд-корты'],['base','Подвалы'],['solo','Отдельные']];
+const nm=n=>n%10==1&&n%100!=11?'заведение':n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?'заведения':'заведений';
+const card=v=>{const c=cover(v);return '<article class="vc" data-v="'+v.slug+'" data-s="'+esc((v.name+' '+v.address).toLowerCase())+'" data-c="'+v.cat+'"><div class="im'+(c?' skel':'')+'">'+(c?'<img loading="lazy" onload="this.parentNode.classList.add(\'ld\')" src="'+esc(c)+'" alt="'+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'</div><button class="fav" data-fav="'+v.slug+'" aria-label="В избранное">★</button><div class="bd"><strong>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</strong><div class="meta">'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'<span class="pin'+(v.lat!=null?'':' off')+'"><i data-i="pin"></i></span></div></div></article>'};
+const VL=$('#vlist');VL.innerHTML=VENUES.map(card).join('');
+const FAV=new Set(JSON.parse(localStorage.fav||'[]'));
+function favSort(){VL.querySelectorAll('.vc').forEach(c=>c.classList.toggle('isfav',FAV.has(c.dataset.v)));[...VL.children].sort((a,b)=>(FAV.has(b.dataset.v)-FAV.has(a.dataset.v))||(+a.dataset.o-+b.dataset.o)).forEach(c=>VL.appendChild(c))}
+[...VL.children].forEach((c,i)=>c.dataset.o=i);favSort();
+VL.addEventListener('click',e=>{const f=e.target.closest('[data-fav]');if(!f)return;e.stopPropagation();e.preventDefault();const s=f.dataset.fav;FAV.has(s)?FAV.delete(s):FAV.add(s);localStorage.fav=JSON.stringify([...FAV]);f.classList.remove('pop');void f.offsetWidth;f.classList.add('pop');setTimeout(favSort,350)},true);
+$('#chips').innerHTML=CATS.map(([k,l],j)=>'<button class="chip'+(j?'':' on')+'" data-f="'+k+'">'+l+'<span>'+(k=='all'?VENUES.length:VENUES.filter(v=>v.cat==k).length)+'</span></button>').join('');
+let F='all';const vq=$('#vq');
+const apply=()=>{const t=vq.value.trim().toLowerCase();let n=0;let k=0;VL.querySelectorAll('.vc').forEach(c=>{const m=(!t||c.dataset.s.includes(t))&&(F=='all'||c.dataset.c==F);if(m){n++;if(c.style.display=='none'||c.classList.contains('out')){clearTimeout(c._t);c.classList.remove('out','sin');c.style.display='';c.style.setProperty('--k',k++);void c.offsetWidth;c.classList.add('sin','rv')}}else if(c.style.display!='none'&&!c.classList.contains('out')){c.classList.add('out');c._t=setTimeout(()=>{c.style.display='none';c.classList.remove('out')},180)}});$('#vnone').style.display=n?'none':'block';$('#vcount').textContent=(t||F!='all'?'Нашлось ':'')+n+' '+nm(n)};
+vq.oninput=apply;$('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;F=b.dataset.f;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==b));moveInd();apply()};
+const ind=document.createElement('i');ind.className='ind';$('#chips').prepend(ind);
+function moveInd(){const b=$('#chips .chip.on');if(!b||!b.offsetWidth)return;ind.style.width=b.offsetWidth+'px';ind.style.transform='translateX('+b.offsetLeft+'px)';const l=$('#chips .chip:last-child');$('#chips').style.setProperty('--cw',(l.offsetLeft+l.offsetWidth-2)+'px')}
+addEventListener('resize',moveInd);
+const io=new IntersectionObserver(es=>{let k=0;es.forEach(e=>{if(e.isIntersecting){e.target.style.setProperty('--k',k++);e.target.classList.add('rv');io.unobserve(e.target)}})},{rootMargin:'0px 0px -30px 0px'});
+VL.querySelectorAll('.vc').forEach(c=>io.observe(c));
+if(matchMedia('(hover:hover)').matches)document.querySelectorAll('.tile').forEach(el=>{el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform='perspective(600px) rotateX('+(-y*10)+'deg) rotateY('+(x*12)+'deg) translateY(-4px)'});el.addEventListener('pointerleave',()=>{el.style.transform=''})});
+/* detail */
+function detail(v){const a=phs(v),c=cover(v),st=steps(v.hint);
+$('#s-venue').innerHTML='<div class="dh" id="dh"><button class="back" aria-label="Назад"><i data-i="back"></i></button>'+(a.length>1?'<span class="cnt"><i data-i="camera"></i>'+a.length+'</span>':'')+(c?'<img style="view-transition-name:hero" src="'+esc(c)+'" alt="Вход: '+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'<div class="ov">'+(v.fl?'<span class="badge" style="--k:0">'+v.fl+'</span>':'')+'<h1 style="--k:1">'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</h1><p style="--k:2"><i data-i="pin"></i>'+(v.address?esc(v.address):'Адрес уточняется')+'</p></div></div>'+
+'<div class="dbody"><h2>Как пройти</h2><ol class="steps'+(st.length?'':' empty')+'">'+(st.length?st.map((s,k)=>'<li style="--k:'+k+'"><span class="n">'+(k+1)+'</span><span>'+esc(s)+'</span></li>').join(''):'<li style="--k:0"><span class="n">?</span><span>Подсказка скоро появится. Пока ориентируйся по 2ГИС.</span></li>')+'</ol>'+
+'<a class="btn gis" href="'+gis(v)+'" target="_blank" rel="noopener"><i data-i="map"></i>Открыть в 2ГИС</a><div class="rt"><span class="rtl">Маршрут</span><a class="btn ghost" href="'+r2g(v)+'" target="_blank" rel="noopener">2ГИС</a><a class="btn ghost" href="'+rya(v)+'" target="_blank" rel="noopener">Яндекс Карты</a></div>'+(v.lat!=null?'<button class="btn ghost" data-onmap="'+v.i+'"><i data-i="pin"></i>На карте</button>':'')+'</div>';
+icons($('#s-venue'));if(a.length)$('#dh').onclick=e=>{if(!e.target.closest('.back'))openLB(a,0)}}
+/* lightbox */
+const LB=$('#lb'),lbt=LB.querySelector('.lbt'),lbc=LB.querySelector('.lbc');
+function openLB(a,k){lbt.innerHTML=a.map(p=>'<figure>'+(p.video?'<video controls playsinline muted preload="metadata" poster="'+esc(p.poster)+'" src="'+esc(p.video)+'"></video>':'<img src="'+esc(p.src)+'" alt="">')+(p.caption?'<figcaption>'+esc(p.caption)+'</figcaption>':'')+'</figure>').join('');LB.classList.add('show');document.body.style.overflow='hidden';requestAnimationFrame(()=>{lbt.scrollLeft=k*lbt.clientWidth;lbc.textContent=a.length>1?(k+1)+'/'+a.length:''})}
+lbt.addEventListener('scroll',()=>{const n=lbt.children.length;if(n>1)lbc.textContent=(Math.round(lbt.scrollLeft/lbt.clientWidth)+1)+'/'+n});
+const lbClose=()=>{LB.querySelectorAll('video').forEach(x=>x.pause());LB.classList.remove('show');document.body.style.overflow=''};LB.querySelector('.lbx').onclick=lbClose;LB.addEventListener('click',e=>{if(e.target.tagName!=='IMG'&&e.target.tagName!=='VIDEO')lbClose()});addEventListener('keydown',e=>{if(e.key==='Escape'){lbClose();sheet.classList.remove('on')}});
+/* map */
+const sheet=$('#sheet');let map,mk={},pend=null;
+function openSheet(i,fly){const v=VENUES[i],c=cover(v);sheet.innerHTML='<div class="mc" data-v="'+v.slug+'">'+(c?'<img src="'+esc(c)+'" alt="">':'<span class="np"><i data-i="camera"></i></span>')+'<div><strong>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</strong><span>'+esc(v.address||'')+'</span></div><span class="go"><i data-i="chev"></i></span></div>';icons(sheet);sheet.classList.add('on');if(fly&&map)map.setView([v.lat,v.lng],17)}
+function initMap(){if(map){map.invalidateSize();return}if(!window.L){$('#mapnote').textContent='Карта не загрузилась. Проверь интернет и обнови страницу.';return}
+map=L.map('map').setView([46.957,142.735],13);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
+const ic=L.divIcon({className:'',html:'<div class="mk"></div>',iconSize:[30,30],iconAnchor:[15,30]}),pts=[];
+VENUES.forEach((v,i)=>{if(v.lat==null)return;pts.push([v.lat,v.lng]);L.marker([v.lat,v.lng],{icon:L.divIcon({className:'',html:'<div class="mk" style="--d:'+(pts.length*40)+'ms"></div>',iconSize:[30,30],iconAnchor:[15,30]}),title:v.name}).addTo(map).on('click',()=>openSheet(i))});
+if(pts.length)map.fitBounds(pts,{padding:[30,30],maxZoom:15});map.on('click',()=>sheet.classList.remove('on'));
+const off=VENUES.length-pts.length;$('#mapnote').textContent='На карте '+pts.length+' из '+VENUES.length+'.'+(off?' Остальные ищи в «Заведениях».':'')}
+/* routing */
+const go=h=>{location.hash=h};
+function routeNow(){const h=decodeURIComponent(location.hash.slice(1));let id='home';sheet.classList.remove('on');lbClose();
+if(h.startsWith('v/')){const v=VENUES.find(x=>x.slug==h.slice(2));if(v){detail(v);id='venue'}}else if(['rules','venues','bag','map','oops','check'].includes(h))id=h;
+document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id=='s-'+id));
+if(id=='venues'&&route.y!=null&&route.last=='venue')scrollTo(0,route.y);else scrollTo(0,0);
+if(id=='map'){initMap();if(pend!=null){const p=pend;pend=null;setTimeout(()=>openSheet(p,true),80)}}route.last=id}
+document.addEventListener('click',e=>{const t=e.target;let x;
+if(x=t.closest('[data-go]'))return go(x.dataset.go);
+if(x=t.closest('.back')){e.stopPropagation();if(history.length>1&&route.nav)history.back();else go('');return}
+if(x=t.closest('[data-onmap]')){pend=+x.dataset.onmap;return go('map')}
+if(x=t.closest('[data-v]')){lastCard=x;if(route.last=='venues')route.y=scrollY;return go('v/'+x.dataset.v)}});
+let lastCard=null,prevId='home';const ORDER={home:0,rules:1,venues:1,bag:1,map:1,oops:1,check:1,venue:2};
+function route(){const h=decodeURIComponent(location.hash.slice(1)),nid=h.startsWith('v/')?'venue':(['rules','venues','bag','map','oops','check'].includes(h)?h:'home'),back=(ORDER[nid]??0)<(ORDER[prevId]??0);
+const fin=()=>{const s=document.querySelector('.scr.on');if(s)s.classList.toggle('bk',back);prevId=route.last;if(nid=='venues')setTimeout(moveInd,30)};
+const shared=(nid=='venue'&&prevId=='venues')||(nid=='venues'&&prevId=='venue');
+if(document.startViewTransition&&route.nav&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('vt');
+ let ci=null;if(nid=='venue'&&lastCard){ci=lastCard.querySelector('img');if(ci)ci.style.viewTransitionName='hero'}
+ const hi=document.querySelector('#dh img');if(nid=='venues'&&hi)hi.style.viewTransitionName='hero';
+ const vt=document.startViewTransition(()=>{if(ci)ci.style.viewTransitionName='';if(hi)hi.style.viewTransitionName='';
+  if(nid=='venues'&&route.slug){const c=VL.querySelector('[data-v="'+CSS.escape(route.slug)+'"] img');if(c)c.style.viewTransitionName='hero'}
+  if(nid!='venue'&&nid!='venues'||!shared){} routeNow();if(nid=='venue'&&!ci){const d=document.querySelector('#dh img');if(d)d.style.viewTransitionName=''}fin()});
+ vt.finished.finally(()=>{document.documentElement.classList.remove('vt');VL.querySelectorAll('img').forEach(i=>i.style.viewTransitionName='');if(nid=='venue'&&!ci){}});
+}else{routeNow();fin()}
+if(nid=='venue')route.slug=h.slice(2)}
+addEventListener('hashchange',()=>{route.nav=1;route()});icons(document);route();
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer onload="if(document.getElementById('s-map').classList.contains('on'))initMap()"></script>
+<script>
+(()=>{const d=new Date().toLocaleDateString('ru');let S=JSON.parse(localStorage.ck||'{}');if(S.d!=d)S={d,v:{}};const bx=[...document.querySelectorAll('[data-ck]')];
+const upd=()=>{const n=bx.filter(b=>b.checked).length;document.getElementById('ckn').textContent=n+' из '+bx.length+(n==bx.length?' · можно ехать!':'');document.getElementById('ckfill').style.width=(100*n/bx.length)+'%';localStorage.ck=JSON.stringify(S)};
+bx.forEach(b=>{b.checked=!!S.v[b.dataset.ck];b.onchange=()=>{S.v[b.dataset.ck]=b.checked;upd()}});document.getElementById('ckr').onclick=()=>{S.v={};bx.forEach(b=>b.checked=false);upd()};upd()})();
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('../../sw.js',{scope:'../../'}));
+(()=>{const b=document.getElementById('inst'),tx=document.getElementById('insttx'),bt=document.getElementById('instb');let ev=null;
+const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone;if(sa||localStorage.instHide)return;
+const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+if(ios){tx.textContent='Нажми «Поделиться» → «На экран Домой»';bt.hidden=true;b.hidden=false}
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();ev=e;b.hidden=false});
+bt.onclick=async()=>{if(!ev)return;ev.prompt();await ev.userChoice;ev=null;b.hidden=true};
+document.getElementById('instx').onclick=()=>{b.hidden=true;localStorage.instHide=1};
+addEventListener('appinstalled',()=>b.hidden=true)})();
+</script><nav class="tabbar"><a href="#" data-t=""><span>🏠</span>Главная</a><a href="#venues" data-t="venues"><span>🍽</span>Заведения</a><a href="#map" data-t="map"><span>🗺</span>Карта</a><a href="#check" data-t="check"><span>✅</span>Выезд</a><a href="#rules" data-t="rules"><span>📋</span>Правила</a></nav><script>const tb=()=>{const h=location.hash.slice(1);document.querySelectorAll('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.t==(h.startsWith('v/')?'venues':h)))};addEventListener('hashchange',tb);tb()</script></body></html>
