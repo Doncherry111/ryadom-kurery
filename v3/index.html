@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0CB1DF"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="img/icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Рядом"><title>Рядом — для курьеров</title>
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07090D"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="img/icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Рядом"><title>Рядом — для курьеров</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-<style>
+<style>@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap");
 :root{--b:#0CB1DF;--bd:#0796c4;--c:#EB4A37;--cd:#d23a28;--bg:#F5F8FA;--card:#fff;--t:#14202a;--m:#5f6f7b;--line:#e6ecf0;--soft:#eaf7fc;--csoft:#fdeeec;--sh:0 6px 22px -10px rgba(20,40,60,.22),0 1px 3px rgba(20,40,60,.06)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--t);font-size:17px;line-height:1.5}
@@ -215,6 +215,35 @@ html[data-theme="5"]{--b:#111827;--d:#111827;--bd:#111827;--c:#EF4444;--bg:#FAFA
 html[data-theme="5"] .hero{background:linear-gradient(120deg,#111827,#111827,#111827,#111827);background-size:300% 300%}html[data-theme="5"] .tile.az{background:linear-gradient(150deg,#111827,#111827);box-shadow:0 12px 26px -14px #111827cc}html[data-theme="5"] .tile.co{background:linear-gradient(150deg,#EF4444,#EF4444d0);box-shadow:0 12px 26px -14px #EF4444cc}
 html[data-theme="4"]{--card:#151530;--t:#EDEBFF;--m:#A6A3C9;--line:#ffffff14;color-scheme:dark}html[data-theme="4"] .tile{box-shadow:0 0 24px -6px #A855F7aa}
 html[data-theme="5"]{--card:#fff;--t:#111827;--m:#6B7280;--line:#E5E7EB}html[data-theme="5"] .tile.az{background:#111827}html[data-theme="5"] .tile.co{background:#EF4444}html[data-theme="5"] .hero{background:#111827}
+
+html:root{--b:#00E5A8;--d:#00B3FF;--c:#FF4D8D;--bg:#07090D;--card:#11151C;--t:#F2F5F8;--m:#8A94A6;--line:#ffffff12;--soft:#00E5A814;--csoft:#FF4D8D18;--sh:0 20px 40px -20px #000;color-scheme:dark}
+body{font-family:"Space Grotesk",Manrope,sans-serif;background:#07090D}
+h1,h2,.big,.tile b,.vc strong,.sec h2,.btn{font-family:"Space Grotesk",sans-serif!important;letter-spacing:-.02em}
+.hero{background:linear-gradient(180deg,#07090d00,#07090D),url(img/venues/doblin.jpg) center/cover!important;min-height:340px;animation:none}.wave,.blob,.hero::before{display:none}
+.hero h1{font-size:40px;text-shadow:0 4px 30px #000}.hero .brand{background:#00E5A822;color:#00E5A8;border:1px solid #00E5A866}
+.hero img{width:26%;opacity:.95}
+.tiles{grid-template-columns:repeat(3,1fr)!important;gap:10px}
+.tile{background:var(--card)!important;border:1px solid var(--line);border-radius:18px;min-height:110px!important;color:var(--t);box-shadow:none!important;padding:14px 12px}
+.tiles{grid-auto-flow:dense}.tile:nth-child(4){order:-1;grid-column:span 3;min-height:150px!important;background:linear-gradient(135deg,#00E5A822,#00B3FF22),var(--card)!important;border-color:#00E5A855}
+.tile:nth-child(6){grid-column:span 2}
+.tile .ti{background:none;color:var(--b);border:1px solid #00E5A855;box-shadow:0 0 18px #00E5A855;width:40px;height:40px}.tile.co .ti{color:var(--c);border-color:#FF4D8D66;box-shadow:0 0 18px #FF4D8D55}
+.tile::after{display:none}.tile small{color:var(--m)}.tile b{font-size:15px!important}
+.tile:hover{border-color:var(--b);box-shadow:0 0 30px -8px #00E5A8!important}
+.vc{background:var(--card);border:1px solid var(--line)!important;border-radius:16px}.vc .im{aspect-ratio:16/10}.vc .im::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,#11151Cee)}
+.vc:hover{box-shadow:0 0 0 1px var(--b),0 0 30px -10px var(--b)!important}
+.chip.on{color:#07090D}.ind{background:var(--b)!important;box-shadow:0 0 20px #00E5A8aa}
+.btn{background:linear-gradient(135deg,#00E5A8,#00B3FF)!important;color:#07090D}.homefoot,.sec{background:var(--card);border:1px solid var(--line)}
+.top{background:#07090Dcc!important}.back{background:var(--card);color:var(--t)}
+.dh .back{background:#11151Ccc!important;color:#F2F5F8!important;backdrop-filter:blur(10px);border:1px solid #ffffff22}
+.dh .ov h1,.dh .ov p{font-family:"Space Grotesk",sans-serif!important;text-shadow:0 2px 16px #000}
+.btn.ghost{background:var(--card)!important;color:var(--b)!important;border:1px solid #00E5A855;box-shadow:none}.btn.ghost svg{color:var(--c)}
+.btn.gis{color:#07090D}
+.hero p{color:#E3E9F0;text-shadow:0 2px 12px #000}.hero{background-position:center 30%!important}
+.chip{color:var(--m)}.chip.on{color:#07090D}.sub,.tile small{color:#A3ACBC}
+.vc .bd strong{color:var(--t)}.badge{background:#00E5A81f;color:#00E5A8}
+.leaflet-container{background:#11151C}#map{border:1px solid var(--line)}
+.hello{color:#F2F5F8}
+.vc .im::after{pointer-events:none}
 </style><script>{const m=location.search.match(/theme=(\d)/);if(m)document.documentElement.dataset.theme=m[1]}</script></head><body>
 <section class="scr" id="s-home">
 <div class="hero"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><div class="in"><span class="brand">Рядом · курьерам</span><h1>Привет, курьер!</h1><p>Всё для смены: правила, входы в заведения и карта</p><img src="img/otter.png" alt="Выдра Рядом"></div>
