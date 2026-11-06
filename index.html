@@ -48,7 +48,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-l
 .badge{font-size:12px;font-weight:700;padding:3px 8px;border-radius:99px;background:var(--soft);color:var(--bd);white-space:nowrap}
 .pin{margin-left:auto;width:26px;height:26px;border-radius:50%;background:var(--csoft);color:var(--c);display:grid;place-items:center;font-size:14px;flex:none}
 .pin.off{background:#eef1f3;color:#b7c1c8}
-.none{display:none;text-align:center;color:var(--m);padding:30px}
+.none{display:none;text-align:center;color:var(--m);padding:30px}.sw .vq-x{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:0;border-radius:99px;background:var(--soft);color:var(--m);font:inherit;font-size:18px;line-height:1;cursor:pointer;display:none;place-items:center;padding:0}.sw .vq-x.on{display:grid}#vq.has-x{padding-right:44px}#vq::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;display:none}#vq::-ms-clear{display:none}
 /* detail */
 .dh{position:relative;height:56vh;min-height:330px;max-height:520px;background:#1b2a33;cursor:zoom-in;overflow:hidden}
 .dh img{width:100%;height:100%;object-fit:cover;display:block}
@@ -360,6 +360,9 @@ svg.i{fill:currentColor!important;stroke:currentColor!important;stroke-width:1.8
 .sak-dh{position:relative;z-index:1}
 #lb .lbt figure{position:relative}
 
+
+/* search hide must beat .vc-sak display:flex!important */
+.hid,.vc.hid,.vc-sak.hid,.mall.hid{display:none!important}
 </style><script>{const m=location.search.match(/theme=(\d)/);if(m)document.documentElement.dataset.theme=m[1]}</script></head><body>
 <section class="scr" id="s-home">
 <div class="hero"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><div class="in"><span class="brand">Рядом · курьерам</span><h1>Привет, курьер!</h1><p>Всё для смены: правила, входы в заведения и карта</p><img src="img/otter.png" alt="Выдра Рядом"></div>
@@ -411,9 +414,9 @@ svg.i{fill:currentColor!important;stroke:currentColor!important;stroke-width:1.8
 </div></section>
 <section class="scr" id="s-venues"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
 <h1 class="big">Заведения</h1><p class="sub" id="vcount">61 заведение</p>
-<div class="sw"><i data-i="search"></i><input id="vq" type="search" placeholder="Название или адрес" aria-label="Поиск заведения"></div>
+<div class="sw"><i data-i="search"></i><input id="vq" type="text" placeholder="Название или адрес" aria-label="Поиск заведения" autocomplete="off" enterkeyhint="search"><button type="button" class="vq-x" id="vq-x" aria-label="Очистить">×</button></div>
 <div class="chips" id="chips"></div>
-<div class="grid" id="vlist"></div><p class="none" id="vnone">Хм, такого не нашлось. Попробуй по-другому 🦦</p>
+<div class="grid" id="vlist"></div><p class="none" id="vnone">Ничего не нашли</p>
 </div></section>
 <section class="scr" id="s-venue"></section>
 <section class="scr" id="s-bag"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
@@ -1290,7 +1293,7 @@ if(a.length<2&&a[0]&&a[0].includes(': '))a=a[0].split(/:\s+/).map((s,i,x)=>s.cha
 VENUES.forEach((v,i)=>{v.i=i;v.cat=cat(v);v.fl=floor(v)});
 const CATS=[['all','Все'],['mall','ТЦ'],['food','Фуд-корты'],['base','Подвалы'],['solo','Отдельные'],['own','Свои курьеры']];
 const nm=n=>n%10==1&&n%100!=11?'заведение':n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?'заведения':'заведений';
-const card=v=>{const c=cover(v);return '<article class="vc vc-sak" data-v="'+v.slug+'" data-s="'+esc((v.name+' '+v.address).toLowerCase())+'" data-c="'+v.cat+'"><div class="im'+(c?' skel':'')+'">'+(c?'<img loading="lazy" onload="this.parentNode.classList.add(\'ld\')" src="'+esc(c)+'" alt="'+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'</div><button class="fav" data-fav="'+v.slug+'" aria-label="В избранное">★</button><div class="bd"><strong>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</strong><div class="meta">'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'</div></div></article>'};
+const card=v=>{const c=cover(v);const g=v._g||{};const hay=[v.name,v.address,v.hint,g.title,g.addr].filter(Boolean).join(' ');return '<article class="vc vc-sak" data-v="'+v.slug+'" data-s="'+esc(hay)+'" data-c="'+v.cat+'"><div class="im'+(c?' skel':'')+'">'+(c?'<img loading="lazy" onload="this.parentNode.classList.add(\'ld\')" src="'+esc(c)+'" alt="'+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'</div><button class="fav" data-fav="'+v.slug+'" aria-label="В избранное">★</button><div class="bd"><strong>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</strong><div class="meta">'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'</div></div></article>'};
 
 /* mall / address grouping (from venue data only) */
 const mallDetect=v=>{
@@ -1317,7 +1320,7 @@ const GROUP_MAP=(()=>{const m=new Map(); VENUES.forEach(v=>{if(!m.has(v._g.key))
   return m})();
 const renderList=()=>{const done=new Set(),parts=[];
   VENUES.forEach(v=>{const g=GROUP_MAP.get(v._g.key); if(done.has(g.key))return; done.add(g.key);
-    if(g.grouped) parts.push('<section class="mall" data-gk="'+esc(g.key)+'" data-s="'+esc((g.title+' '+g.addr+' '+g.items.map(x=>x.name+' '+x.address).join(' ')).toLowerCase())+'" data-c="mall"><div class="mall-h"><span class="mi"><i data-i="store"></i></span><div class="mt"><b>'+esc(g.title)+'</b><small>'+esc(g.addr||'')+'</small></div><span class="mcnt">'+g.items.length+'</span></div><div class="mall-g">'+g.items.map(card).join('')+'</div></section>');
+    if(g.grouped) parts.push('<section class="mall" data-gk="'+esc(g.key)+'" data-ms="'+esc([g.title,g.addr].filter(Boolean).join(' '))+'" data-s="'+esc([g.title,g.addr].concat(g.items.flatMap(x=>[x.name,x.address,x.hint])).filter(Boolean).join(' '))+'" data-c="mall"><div class="mall-h"><span class="mi"><i data-i="store"></i></span><div class="mt"><b>'+esc(g.title)+'</b><small>'+esc(g.addr||'')+'</small></div><span class="mcnt">'+g.items.length+'</span></div><div class="mall-g">'+g.items.map(card).join('')+'</div></section>');
     else parts.push(g.items.map(card).join(''));
   }); return parts.join('')};
 const VL=$('#vlist');VL.innerHTML=renderList();icons(VL);
@@ -1327,23 +1330,59 @@ function favSort(){VL.querySelectorAll('.vc').forEach(c=>c.classList.toggle('isf
 [...VL.children].forEach((c,i)=>c.dataset.o=i);favSort();
 VL.addEventListener('click',e=>{const f=e.target.closest('[data-fav]');if(!f)return;e.stopPropagation();e.preventDefault();const s=f.dataset.fav;FAV.has(s)?FAV.delete(s):FAV.add(s);localStorage.fav=JSON.stringify([...FAV]);f.classList.remove('pop');void f.offsetWidth;f.classList.add('pop');setTimeout(favSort,350)},true);
 $('#chips').innerHTML=CATS.map(([k,l],j)=>'<button class="chip'+(j?'':' on')+'" data-f="'+k+'">'+l+'<span>'+(k=='all'?VENUES.filter(v=>v.cat!='own').length:VENUES.filter(v=>v.cat==k).length)+'</span></button>').join('');
-let F='all';const vq=$('#vq');
-const apply=()=>{const t=vq.value.trim().toLowerCase();let n=0;let k=0;
-VL.querySelectorAll('.mall').forEach(m=>{
-  let any=0; m.querySelectorAll('.vc').forEach(c=>{
-    const ok=(!t||c.dataset.s.includes(t)||(m.dataset.s||'').includes(t))&&(F=='all'?c.dataset.c!='own':c.dataset.c==F);
-    c.style.display=ok?'':'none'; if(ok){any++;n++;c.style.setProperty('--k',k++);}
+let F='all';const vq=$('#vq'), vqx=$('#vq-x');
+const normQ=s=>(s||'').toLowerCase().replace(/ё/g,'е')
+  .replace(/[«»"'„“”‚‘’]/g,'')
+  .replace(/[^a-zа-я0-9]+/gi,' ')
+  .replace(/\s+/g,' ').trim();
+/* rough latin↔cyr for venue names like Homura/Subway */
+const TR={'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'ts','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'};
+const toLat=s=>normQ(s).split('').map(ch=>TR[ch]||ch).join('').replace(/\s+/g,'');
+const hayOf=el=>{
+  const raw=el.dataset.s||'';
+  const n=normQ(raw);
+  return n+' '+toLat(raw);
+};
+const matchQ=(hay,q)=>{
+  if(!q) return true;
+  if(hay.includes(q)) return true;
+  const q2=q.replace(/\s+/g,'');
+  if(q2 && hay.replace(/\s+/g,'').includes(q2)) return true;
+  const ql=toLat(q);
+  if(ql && hay.replace(/\s+/g,'').includes(ql.replace(/\s+/g,''))) return true;
+  return false;
+};
+const setHid=(el,hid)=>el.classList.toggle('hid',!!hid);
+const syncX=()=>{const on=!!vq.value; vqx&&vqx.classList.toggle('on',on); vq.classList.toggle('has-x',on)};
+const apply=()=>{
+  const q=normQ(vq.value);
+  syncX();
+  let n=0,k=0;
+  const searching=!!q;
+  VL.querySelectorAll('.mall').forEach(m=>{
+    const mallHit=q && matchQ(normQ(m.dataset.ms||'')+' '+toLat(m.dataset.ms||''), q);
+    let any=0;
+    m.querySelectorAll('.vc').forEach(c=>{
+      const catOk=F=='all'?c.dataset.c!='own':c.dataset.c==F;
+      const textOk=!q||matchQ(hayOf(c),q)||mallHit;
+      const ok=catOk&&textOk;
+      setHid(c,!ok);
+      if(ok){any++;n++;c.style.setProperty('--k',k++);}
+    });
+    setHid(m,!any);
   });
-  m.style.display=any?'':'none';
-});
-VL.querySelectorAll(':scope > .vc').forEach(c=>{
-  const ok=(!t||c.dataset.s.includes(t))&&(F=='all'?c.dataset.c!='own':c.dataset.c==F);
-  if(ok){n++;c.style.display='';c.style.setProperty('--k',k++);} else c.style.display='none';
-});
-$('#vnone').style.display=n?'none':'';$('#vcount').textContent=n+' '+nm(n);};
-
-vq.oninput=apply;apply();$('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;F=b.dataset.f;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==b));moveInd();apply()};
-VL.querySelectorAll('.vc').forEach(c=>{if(c.dataset.c=='own')c.style.display='none'});
+  VL.querySelectorAll(':scope > .vc').forEach(c=>{
+    const catOk=F=='all'?c.dataset.c!='own':c.dataset.c==F;
+    const ok=catOk&&matchQ(hayOf(c),q);
+    setHid(c,!ok);
+    if(ok){n++;c.style.setProperty('--k',k++);}
+  });
+  $('#vnone').style.display=n?'none':'block';
+  $('#vcount').textContent=n+' '+nm(n);
+};
+vq.oninput=apply; if(vqx) vqx.onclick=()=>{vq.value='';vq.focus();apply()};
+apply();$('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;F=b.dataset.f;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==b));moveInd();apply()};
+VL.querySelectorAll('.vc').forEach(c=>{if(c.dataset.c=='own')c.classList.add('hid')});
 const ind=document.createElement('i');ind.className='ind';$('#chips').prepend(ind);
 function moveInd(){const b=$('#chips .chip.on');if(!b||!b.offsetWidth)return;ind.style.width=b.offsetWidth+'px';ind.style.transform='translateX('+b.offsetLeft+'px)';const l=$('#chips .chip:last-child');$('#chips').style.setProperty('--cw',(l.offsetLeft+l.offsetWidth-2)+'px')}
 addEventListener('resize',moveInd);
