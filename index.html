@@ -246,14 +246,33 @@ h1,h2,.big,.tile b,.vc strong,.brand{font-family:Nunito,system-ui,sans-serif!imp
 .btn{border-radius:22px!important;background:linear-gradient(135deg,#1E3A8A,#3B82F6)!important;color:#fff!important;box-shadow:0 12px 24px -12px #1E3A8Aaa!important;border:0!important}
 .btn.ghost{background:var(--card)!important;color:var(--b)!important;border:1px solid var(--line)!important}
 .btn.gis{background:linear-gradient(135deg,#FF6B4A,#e85a3c)!important;color:#fff!important}
-a.emcall{border-radius:22px!important;background:linear-gradient(150deg,#FF6B4A,#e85a3c)!important;border:0!important}
-a.emcall.sos{background:linear-gradient(150deg,#1E3A8A,#1e40af)!important}
+
+/* dispatcher call buttons — premium metal */
+.emcalls{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin:0 0 18px!important}
+a.emcall{position:relative!important;overflow:hidden!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:8px!important;min-height:58px!important;height:58px!important;padding:0 14px!important;border-radius:16px!important;text-decoration:none!important;color:#fff!important;font:inherit!important;line-height:1!important;border:1px solid rgba(255,255,255,.28)!important;box-shadow:0 8px 18px -10px rgba(30,58,138,.45),inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(0,0,0,.18)!important;-webkit-tap-highlight-color:transparent;isolation:isolate}
+a.emcall::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.08) 42%,rgba(0,0,0,.12) 100%);pointer-events:none;z-index:1}
+a.emcall::after{content:"";position:absolute;top:0;left:-40%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);pointer-events:none;z-index:2;animation:emShine 3.6s ease-in-out infinite}
+@keyframes emShine{0%,55%{left:-45%;opacity:0}70%{opacity:1}100%{left:120%;opacity:0}}
+a.emcall svg.i,a.emcall .i{position:relative;z-index:3;width:18px!important;height:18px!important;flex:none;opacity:.95;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))!important}
+a.emcall b{position:relative;z-index:3;font-size:15px!important;font-weight:800!important;letter-spacing:-.01em;color:#fff!important;margin:0!important;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+a.emcall:active{transform:scale(.97)!important;transition:transform .12s ease!important}
+a.emcall.em1{background:linear-gradient(135deg,#FF8A65 0%,#FF6B4A 40%,#E11D48 100%)!important}
+a.emcall.em2{background:linear-gradient(135deg,#60A5FA 0%,#3B82F6 45%,#1E3A8A 100%)!important}
+a.emcall.em3{background:linear-gradient(135deg,#F472B6 0%,#EC4899 40%,#A21CAF 100%)!important}
+a.emcall.em4{background:linear-gradient(135deg,#2DD4BF 0%,#0EA5A4 45%,#0F766E 100%)!important}
+a.emcall.sos{grid-column:1/-1!important;height:52px!important;min-height:52px!important;gap:10px!important;border-radius:16px!important;background:linear-gradient(135deg,#64748B 0%,#1E3A8A 50%,#0F172A 100%)!important;box-shadow:0 8px 18px -10px rgba(15,23,42,.5),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(0,0,0,.25)!important}
+a.emcall.sos b{font-size:17px!important}
+a.emcall.sos span{position:relative;z-index:3;font-size:12px!important;font-weight:700!important;opacity:.92;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+@media(prefers-reduced-motion:reduce){a.emcall::after{animation:none!important;display:none!important}}
+a.emcall.sos b{font-size:24px!important}
+a.emcall.sos span{font-size:14px!important;font-weight:700!important;opacity:.9;color:#fff}
+
 .sec,.hello{border-radius:24px!important;background:var(--card)!important;border:1px solid var(--line)!important;box-shadow:var(--sh)!important}
 .hello{background:linear-gradient(135deg,#1E3A8A,#3B82F6)!important;color:#fff!important;border:0!important}
 .scr.on{animation:sakIn .5s var(--ease)!important}
 @keyframes sakIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-#s-venue.scr.on{animation:sakExpand .55s var(--spring)!important}
-@keyframes sakExpand{from{opacity:.5;transform:scale(.9) translateY(30px)}to{opacity:1;transform:none}}
+#s-venue.scr.on{animation:sakExpand .4s var(--ease)!important}
+@keyframes sakExpand{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 svg.i{stroke-width:2!important;stroke-linecap:round!important}
 /* sak venue list: horizontal carousel cards */
 #s-venues .wrap{padding-bottom:24px}
@@ -284,6 +303,18 @@ svg.i{stroke-width:2!important;stroke-linecap:round!important}
 
 /* icon-fill-fix */
 svg.i{fill:currentColor!important;stroke:currentColor!important;stroke-width:1.8!important}
+
+/* tap ripple — must NOT affect layout */
+.rp{position:absolute!important;border-radius:50%;pointer-events:none;background:#1E3A8A22;transform:scale(0);animation:rpIn .55s ease-out forwards;z-index:5}
+@keyframes rpIn{to{transform:scale(1);opacity:0}}
+.tile,.vc,.btn,.chip{position:relative}
+.tile:active,.vc:active,.btn:active{transform:scale(.97)!important;transition:transform .12s ease!important}
+
+
+/* tap-stretch fix */
+.tile,.vc{transform-style:flat!important;will-change:auto!important}
+.tile:active,.vc:active,.tile.chunk:active,.vc-sak:active{transform:scale(.97)!important;transition:transform .12s ease!important}
+.tile .ti:active{transform:none!important}
 </style><script>{const m=location.search.match(/theme=(\d)/);if(m)document.documentElement.dataset.theme=m[1]}</script></head><body>
 <section class="scr" id="s-home">
 <div class="hero"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><div class="in"><span class="brand">Рядом · курьерам</span><h1>Привет, курьер!</h1><p>Всё для смены: правила, входы в заведения и карта</p><img src="img/otter.png" alt="Выдра Рядом"></div>
@@ -381,11 +412,11 @@ svg.i{fill:currentColor!important;stroke:currentColor!important;stroke-width:1.8
 <section class="scr" id="s-emerg"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
 <h1 class="big">Экстренная ситуация</h1><p class="sub">Сначала безопасность, потом звонок диспетчеру</p>
 <div class="emcalls">
-<a class="emcall" href="tel:+79146882261"><span class="emico">📞</span><span class="emwho"><b>Валентин</b><small>+7 914 688-22-61</small></span></a>
-<a class="emcall" href="tel:+79244985021"><span class="emico">📞</span><span class="emwho"><b>Данил</b><small>+7 924 498-50-21</small></span></a>
-<a class="emcall" href="tel:+79244985022"><span class="emico">📞</span><span class="emwho"><b>Алина</b><small>+7 924 498-50-22</small></span></a>
-<a class="emcall" href="tel:+79244986020"><span class="emico">📞</span><span class="emwho"><b>Дмитрий</b><small>+7 924 498-60-20</small></span></a>
-<a class="emcall sos" href="tel:112"><span class="emico">🚨</span><span class="emwho"><b>112 — экстренные службы</b><small>Пожар, ДТП с пострадавшими, угроза жизни</small></span></a>
+<a class="emcall em1" href="tel:+79146882261"><i data-i="phone"></i><b>Валентин</b></a>
+<a class="emcall em2" href="tel:+79244985021"><i data-i="phone"></i><b>Данил</b></a>
+<a class="emcall em3" href="tel:+79244985022"><i data-i="phone"></i><b>Алина</b></a>
+<a class="emcall em4" href="tel:+79244986020"><i data-i="phone"></i><b>Дмитрий</b></a>
+<a class="emcall sos" href="tel:112"><i data-i="phone"></i><b>112</b><span>Экстренные службы</span></a>
 </div>
 
 <div class="sec"><h2><span class="ic coral"><i data-i="alert"></i></span>ДТП<span class="cnt">6 шагов</span></h2><ol>
@@ -1296,7 +1327,7 @@ const hero=$('.hero');if(hero){const g=document.createElement('div');g.className
  const h=hero.querySelector('h1');if(h&&!RM){let i=0;h.innerHTML=h.textContent.split(/(\s+)/).map(w=>/^\s+$/.test(w)?w:'<span style="display:inline-block;white-space:nowrap">'+[...w].map(c=>'<span class="ch" style="--i:'+(i++)+'">'+c+'</span>').join('')+'</span>').join('')}
  if(!RM){let tk=0;addEventListener('scroll',()=>{if(tk)return;tk=requestAnimationFrame(()=>{tk=0;const y=Math.min(scrollY,500);hero.style.setProperty('--py',(y*.35)+'px')})},{passive:true})}}
 // ripple
-document.addEventListener('pointerdown',e=>{if(RM)return;const t=e.target.closest('.tile,.btn,.vc,.chip');if(!t)return;const r=t.getBoundingClientRect(),s=Math.max(r.width,r.height)*2.2,d=document.createElement('span');d.className='rp';d.style.cssText='width:'+s+'px;height:'+s+'px;left:'+(e.clientX-r.left-s/2)+'px;top:'+(e.clientY-r.top-s/2)+'px';if(getComputedStyle(t).position=='static')t.style.position='relative';t.style.overflow='hidden';t.appendChild(d);setTimeout(()=>d.remove(),650)},{passive:true});
+document.addEventListener('pointerdown',e=>{if(RM)return;const t=e.target.closest('.tile,.btn,.vc,.chip');if(!t)return;const r=t.getBoundingClientRect(),s=Math.max(r.width,r.height)*2.2,d=document.createElement('span');d.className='rp';d.style.cssText='position:absolute;width:'+s+'px;height:'+s+'px;left:'+(e.clientX-r.left-s/2)+'px;top:'+(e.clientY-r.top-s/2)+'px';const prevPos=t.style.position,prevOv=t.style.overflow;if(getComputedStyle(t).position==='static')t.style.position='relative';t.style.overflow='hidden';t.appendChild(d);setTimeout(()=>{d.remove();t.style.overflow=prevOv;if(prevPos!==undefined)t.style.position=prevPos},650)},{passive:true});
 // desktop tilt + spotlight on cards
 if(!RM&&matchMedia('(hover:hover)').matches){$$('.vc').forEach(c=>{const s=document.createElement('i');s.className='spot';c.appendChild(s);
  c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');c.style.transform='perspective(800px) rotateX('+((.5-y)*8)+'deg) rotateY('+((x-.5)*10)+'deg) translate3d(0,-4px,0)'});
