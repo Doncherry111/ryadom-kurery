@@ -91,6 +91,8 @@ b{font-weight:700}.rail,.fill{display:none}
 .mc{background:var(--card);border-radius:22px;box-shadow:0 16px 40px -12px rgba(0,0,0,.35);display:flex;gap:12px;padding:12px;align-items:center;cursor:pointer}
 .mc img,.mc .np{width:78px;height:78px;border-radius:16px;object-fit:cover;flex:none;background:var(--soft);display:grid;place-items:center;color:var(--b);font-size:26px}
 .mc strong{display:block;font-size:17px;line-height:1.25}.mc span{color:var(--m);font-size:14px}.mc .go{margin-left:auto;width:40px;height:40px;border-radius:50%;background:var(--b);color:#fff;display:grid;place-items:center;flex:none;font-size:18px}
+
+
 /* lightbox */
 #lb{position:fixed;inset:0;z-index:100;background:#000f;display:none}#lb.show{display:block}
 .lbt{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.lbt figure{flex:none;width:100%;height:100%;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;scroll-snap-align:center}
@@ -315,6 +317,49 @@ svg.i{fill:currentColor!important;stroke:currentColor!important;stroke-width:1.8
 .tile,.vc{transform-style:flat!important;will-change:auto!important}
 .tile:active,.vc:active,.tile.chunk:active,.vc-sak:active{transform:scale(.97)!important;transition:transform .12s ease!important}
 .tile .ti:active{transform:none!important}
+
+/* === FEATURES: photo / groups / voice / qr / blue pins === */
+.mk{background:#29B6F6!important;border-color:#fff!important;box-shadow:0 3px 10px #29B6F666!important}
+.mk.on,.mk.sel{background:#0288D1!important;box-shadow:0 0 0 4px #29B6F655,0 3px 10px #0288D188!important}
+#lb{background:#0a0a0ccc!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);touch-action:none}
+#lb .lbx{width:44px;height:44px;border-radius:14px;background:#ffffff22;backdrop-filter:blur(8px);font-size:22px;display:grid;place-items:center}
+#lb .lbc{top:calc(22px + env(safe-area-inset-top));left:18px;right:70px;font-size:14px;opacity:.9;pointer-events:none}
+#lb .lbn,#lb .lbprv{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:44px;height:44px;border:0;border-radius:14px;background:#ffffff22;color:#fff;font-size:26px;display:grid;place-items:center;backdrop-filter:blur(6px)}
+#lb .lbprv{left:10px}#lb .lbn{right:10px}
+#lb .lbt{height:100%;align-items:center}
+#lb .lbt figure{padding:56px 12px 72px;box-sizing:border-box}
+#lb .lbt img,#lb .lbt video{max-height:calc(100vh - 140px);max-width:100%;touch-action:none;transform-origin:center center;transition:transform .15s ease;border-radius:12px}
+#lb .lbt figcaption{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom));left:16px;right:16px;text-align:center;color:#fff;font-weight:600;font-size:14px;text-shadow:0 1px 8px #000a;padding:0}
+#lb .lbhint{position:absolute;bottom:calc(48px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#ffffff88;font-size:12px;pointer-events:none}
+.mall{grid-column:1/-1;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh);padding:12px;margin:0 0 4px}
+.mall-h{display:flex;align-items:flex-start;gap:10px;padding:4px 4px 10px;cursor:pointer}
+.mall-h .mi{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#DBEAFE,#93C5FD66);color:var(--b);display:grid;place-items:center;flex:none;box-shadow:inset 0 -2px 0 #1E3A8A22}
+.mall-h .mt{flex:1;min-width:0}
+.mall-h b{display:block;font-size:16px;font-weight:800;color:var(--t)}
+.mall-h small{display:block;font-size:12px;color:var(--m);margin-top:2px}
+.mall-h .mcnt{font-size:12px;font-weight:800;color:var(--b);background:var(--soft);padding:4px 10px;border-radius:99px;flex:none}
+.mall-g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mall .vc-sak{box-shadow:0 6px 16px -10px #1E3A8A33!important}
+.voice-bar{display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.btn.voice{background:linear-gradient(135deg,#1E3A8A,#3B82F6)!important;color:#fff!important;border:0!important;border-radius:18px!important;min-height:48px;padding:0 16px;display:inline-flex;align-items:center;gap:8px;font-weight:800;box-shadow:0 10px 20px -12px #1E3A8Aaa}
+.btn.voice.on{background:linear-gradient(135deg,#FF6B4A,#e85a3c)!important}
+.voice-tip{font-size:13px;color:var(--m)}
+.qr-card{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh);padding:14px 16px;display:flex;align-items:center;gap:14px;cursor:pointer}
+.qr-card img{width:72px;height:72px;border-radius:12px;background:#fff;padding:6px;flex:none;border:1px solid var(--line)}
+.qr-card b{display:block;font-size:16px;font-weight:800}
+.qr-card small{display:block;font-size:13px;color:var(--m);margin-top:2px}
+#qrbig{position:fixed;inset:0;z-index:120;background:#0a0a0ccc;display:none;place-items:center;padding:24px;backdrop-filter:blur(8px)}
+#qrbig.show{display:grid}
+#qrbig img{width:min(78vw,320px);height:auto;background:#fff;padding:18px;border-radius:24px;box-shadow:0 20px 50px #0008}
+#qrbig .lbx{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px}
+
+
+.btn.voice{opacity:1!important;animation:none!important;visibility:visible!important}
+.voice-bar{opacity:1!important;animation:none!important}
+.sak-dh img{opacity:1!important;visibility:visible!important;display:block!important;width:100%;height:100%;object-fit:cover}
+.sak-dh{position:relative;z-index:1}
+#lb .lbt figure{position:relative}
+
 </style><script>{const m=location.search.match(/theme=(\d)/);if(m)document.documentElement.dataset.theme=m[1]}</script></head><body>
 <section class="scr" id="s-home">
 <div class="hero"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><div class="in"><span class="brand">Рядом · курьерам</span><h1>Привет, курьер!</h1><p>Всё для смены: правила, входы в заведения и карта</p><img src="img/otter.png" alt="Выдра Рядом"></div>
@@ -335,6 +380,7 @@ svg.i{fill:currentColor!important;stroke:currentColor!important;stroke-width:1.8
 </div>
 </div>
 <div class="inst" id="inst" hidden><span class="hb">📲</span><div><b>Установить на телефон</b><span id="insttx">Работает даже без интернета</span></div><button id="instb">Установить</button><button id="instx" aria-label="Скрыть">✕</button></div>
+<div class="qr-card" id="qrshare" role="button" tabindex="0"><img src="img/qr.png" alt="QR"><div><b>Поделиться с новичком</b><small>Отсканируй QR — сайт сразу откроется</small></div></div>
 <div class="homefoot"><span class="hb"><i data-i="heart"></i></span><div><b>Хорошей смены!</b>Не нашёл вход? Открой заведение, там фото и маршрут.</div></div>
 <footer>© Рядом · ryadom.co</footer></div>
 </section>
@@ -467,7 +513,7 @@ svg.i{fill:currentColor!important;stroke:currentColor!important;stroke-width:1.8
 <section class="scr" id="s-map"><div class="top"><button class="back" aria-label="Назад"><i data-i="back"></i></button></div><div class="wrap">
 <h1 class="big">Карта</h1><div id="map"></div><p class="mapnote" id="mapnote"></p></div></section>
 <div id="sheet"></div>
-<div id="lb"><button class="lbx" aria-label="Закрыть">✕</button><div class="lbt"></div><div class="lbc"></div></div>
+<div id="lb"><button class="lbx" aria-label="Закрыть">✕</button><button class="lbprv" aria-label="Назад">‹</button><button class="lbn" aria-label="Вперёд">›</button><div class="lbt"></div><div class="lbc"></div><div class="lbhint">Свайп · щипок · двойной тап</div></div><div id="qrbig"><button class="lbx" aria-label="Закрыть">✕</button><img src="img/qr.png" alt="QR на сайт курьеров"></div>
 <script>
 const VENUES=[
  {
@@ -1245,15 +1291,58 @@ VENUES.forEach((v,i)=>{v.i=i;v.cat=cat(v);v.fl=floor(v)});
 const CATS=[['all','Все'],['mall','ТЦ'],['food','Фуд-корты'],['base','Подвалы'],['solo','Отдельные'],['own','Свои курьеры']];
 const nm=n=>n%10==1&&n%100!=11?'заведение':n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?'заведения':'заведений';
 const card=v=>{const c=cover(v);return '<article class="vc vc-sak" data-v="'+v.slug+'" data-s="'+esc((v.name+' '+v.address).toLowerCase())+'" data-c="'+v.cat+'"><div class="im'+(c?' skel':'')+'">'+(c?'<img loading="lazy" onload="this.parentNode.classList.add(\'ld\')" src="'+esc(c)+'" alt="'+esc(v.name)+'">':'<span class="np"><i data-i="camera"></i></span>')+'</div><button class="fav" data-fav="'+v.slug+'" aria-label="В избранное">★</button><div class="bd"><strong>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</strong><div class="meta">'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'</div></div></article>'};
-const VL=$('#vlist');VL.innerHTML=VENUES.map(card).join('');
+
+/* mall / address grouping (from venue data only) */
+const mallDetect=v=>{
+  const a=(v.address||'').trim();
+  const t=(a+' '+(v.hint||'')).toLowerCase().replace(/ё/g,'е');
+  if(/сити\s*молл/.test(t)||/мира,?\s*482/.test(t)||/пр\.?\s*мира\s*482/.test(t)) return {key:'g:citymall', title:'ТРК «Сити Молл»', addr:'Проспект Мира, 482'};
+  if(/фархутдинова,?\s*3\b/.test(t)||(/аллея/.test(t)&&/фархутдинова/.test(t))) return {key:'g:alleya', title:'ТРЦ «Аллея»', addr:'Фархутдинова, 3'};
+  if(/мегабер/.test(t)||(/сахалинская/.test(t)&&/\b89\b/.test(t))) return {key:'g:mega', title:'ТРЦ «МегаБерёзка»', addr:'Сахалинская улица, 89'};
+  // named mall in hint/address, but skip "напротив ТЦ …"
+  const named=[...t.matchAll(/(^|[^а-я])((?:тц|трк|трц|тк)\s*[«"]([^»"]+)[»"])/gi)];
+  for(const nm of named){
+    const idx=nm.index||0; const before=t.slice(Math.max(0,idx-16),idx);
+    if(/напротив\s*$/.test(before)) continue;
+    const kind=nm[2].match(/тц|трк|трц|тк/i)[0].toUpperCase(), name=nm[3].trim();
+    return {key:'g:n:'+name.toLowerCase(), title:kind+' «'+name+'»', addr:a||''};
+  }
+  if(!a) return {key:'g:s:'+v.slug, title:'', addr:'', solo:true};
+  const na=a.toLowerCase().replace(/ё/g,'е').replace(/\s+/g,' ').trim();
+  return {key:'g:a:'+na, title:a, addr:a, byAddr:true};
+};
+VENUES.forEach(v=>{v._g=mallDetect(v)});
+const GROUP_MAP=(()=>{const m=new Map(); VENUES.forEach(v=>{if(!m.has(v._g.key)) m.set(v._g.key,{...v._g,items:[]}); m.get(v._g.key).items.push(v);});
+  for(const g of m.values()){ g.grouped=(!g.solo)&&((g.byAddr?g.items.length>=2:true)&&g.items.length>=2 || (!g.byAddr&&!g.solo&&g.items.length>=2)); if(g.byAddr&&g.items.length<2) g.grouped=false; if(!g.byAddr&&!g.solo&&g.items.length>=2) g.grouped=true; if(!g.byAddr&&!g.solo&&g.items.length===1) g.grouped=false; }
+  return m})();
+const renderList=()=>{const done=new Set(),parts=[];
+  VENUES.forEach(v=>{const g=GROUP_MAP.get(v._g.key); if(done.has(g.key))return; done.add(g.key);
+    if(g.grouped) parts.push('<section class="mall" data-gk="'+esc(g.key)+'" data-s="'+esc((g.title+' '+g.addr+' '+g.items.map(x=>x.name+' '+x.address).join(' ')).toLowerCase())+'" data-c="mall"><div class="mall-h"><span class="mi"><i data-i="store"></i></span><div class="mt"><b>'+esc(g.title)+'</b><small>'+esc(g.addr||'')+'</small></div><span class="mcnt">'+g.items.length+'</span></div><div class="mall-g">'+g.items.map(card).join('')+'</div></section>');
+    else parts.push(g.items.map(card).join(''));
+  }); return parts.join('')};
+const VL=$('#vlist');VL.innerHTML=renderList();icons(VL);
+
 const FAV=new Set(JSON.parse(localStorage.fav||'[]'));
 function favSort(){VL.querySelectorAll('.vc').forEach(c=>c.classList.toggle('isfav',FAV.has(c.dataset.v)));[...VL.children].sort((a,b)=>(FAV.has(b.dataset.v)-FAV.has(a.dataset.v))||(+a.dataset.o-+b.dataset.o)).forEach(c=>VL.appendChild(c))}
 [...VL.children].forEach((c,i)=>c.dataset.o=i);favSort();
 VL.addEventListener('click',e=>{const f=e.target.closest('[data-fav]');if(!f)return;e.stopPropagation();e.preventDefault();const s=f.dataset.fav;FAV.has(s)?FAV.delete(s):FAV.add(s);localStorage.fav=JSON.stringify([...FAV]);f.classList.remove('pop');void f.offsetWidth;f.classList.add('pop');setTimeout(favSort,350)},true);
 $('#chips').innerHTML=CATS.map(([k,l],j)=>'<button class="chip'+(j?'':' on')+'" data-f="'+k+'">'+l+'<span>'+(k=='all'?VENUES.filter(v=>v.cat!='own').length:VENUES.filter(v=>v.cat==k).length)+'</span></button>').join('');
 let F='all';const vq=$('#vq');
-const apply=()=>{const t=vq.value.trim().toLowerCase();let n=0;let k=0;VL.querySelectorAll('.vc').forEach(c=>{const m=(!t||c.dataset.s.includes(t))&&(F=='all'?c.dataset.c!='own':c.dataset.c==F);if(m){n++;if(c.style.display=='none'||c.classList.contains('out')){clearTimeout(c._t);c.classList.remove('out','sin');c.style.display='';c.style.setProperty('--k',k++);void c.offsetWidth;c.classList.add('sin','rv')}}else if(c.style.display!='none'&&!c.classList.contains('out')){c.classList.add('out');c._t=setTimeout(()=>{c.style.display='none';c.classList.remove('out')},180)}});$('#vnone').style.display=n?'none':'block';$('#vcount').textContent=(t||F!='all'?'Нашлось ':'')+n+' '+nm(n)};
-vq.oninput=apply;$('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;F=b.dataset.f;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==b));moveInd();apply()};
+const apply=()=>{const t=vq.value.trim().toLowerCase();let n=0;let k=0;
+VL.querySelectorAll('.mall').forEach(m=>{
+  let any=0; m.querySelectorAll('.vc').forEach(c=>{
+    const ok=(!t||c.dataset.s.includes(t)||(m.dataset.s||'').includes(t))&&(F=='all'?c.dataset.c!='own':c.dataset.c==F);
+    c.style.display=ok?'':'none'; if(ok){any++;n++;c.style.setProperty('--k',k++);}
+  });
+  m.style.display=any?'':'none';
+});
+VL.querySelectorAll(':scope > .vc').forEach(c=>{
+  const ok=(!t||c.dataset.s.includes(t))&&(F=='all'?c.dataset.c!='own':c.dataset.c==F);
+  if(ok){n++;c.style.display='';c.style.setProperty('--k',k++);} else c.style.display='none';
+});
+$('#vnone').style.display=n?'none':'';$('#vcount').textContent=n+' '+nm(n);};
+
+vq.oninput=apply;apply();$('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;F=b.dataset.f;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==b));moveInd();apply()};
 VL.querySelectorAll('.vc').forEach(c=>{if(c.dataset.c=='own')c.style.display='none'});
 const ind=document.createElement('i');ind.className='ind';$('#chips').prepend(ind);
 function moveInd(){const b=$('#chips .chip.on');if(!b||!b.offsetWidth)return;ind.style.width=b.offsetWidth+'px';ind.style.transform='translateX('+b.offsetLeft+'px)';const l=$('#chips .chip:last-child');$('#chips').style.setProperty('--cw',(l.offsetLeft+l.offsetWidth-2)+'px')}
@@ -1262,16 +1351,62 @@ const io=new IntersectionObserver(es=>{let k=0;es.forEach(e=>{if(e.isIntersectin
 VL.querySelectorAll('.vc').forEach(c=>io.observe(c));
 if(matchMedia('(hover:hover)').matches)document.querySelectorAll('.tile').forEach(el=>{el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform='perspective(600px) rotateX('+(-y*10)+'deg) rotateY('+(x*12)+'deg) translateY(-4px)'});el.addEventListener('pointerleave',()=>{el.style.transform=''})});
 /* detail */
+function bindVoice(v,st){
+  const btn=$('#vbtn'), tip=$('#vtip'); if(!btn)return;
+  const stop=()=>{try{speechSynthesis.cancel()}catch(e){} btn.classList.remove('on'); const l=btn.querySelector('.vlbl'); if(l)l.textContent='Озвучить'};
+  if(!('speechSynthesis' in window)){ tip.hidden=false; tip.textContent='Озвучка не поддерживается'; btn.disabled=true; return}
+  btn.onclick=()=>{
+    if(btn.classList.contains('on')){stop();return}
+    tip.hidden=true;
+    const parts=[v.name.replace(/\s*\|\s*/g,' · '), v.address||''].concat((st&&st.length?st:['Подсказка скоро появится']).map((s,i)=>'Шаг '+(i+1)+'. '+s));
+    const u=new SpeechSynthesisUtterance(parts.filter(Boolean).join('. '));
+    u.lang='ru-RU'; u.rate=1; u.onend=stop; u.onerror=()=>{stop(); tip.hidden=false; tip.textContent='Включи звук'};
+    const voices=speechSynthesis.getVoices().filter(x=>/ru/i.test(x.lang)); if(voices[0]) u.voice=voices[0];
+    btn.classList.add('on'); const l=btn.querySelector('.vlbl'); if(l)l.textContent='Стоп';
+    try{speechSynthesis.cancel(); speechSynthesis.speak(u)}catch(e){stop(); tip.hidden=false; tip.textContent='Включи звук'}
+  };
+}
+
 function detail(v){const a=phs(v),c=cover(v),st=steps(v.hint);
 $('#s-venue').innerHTML='<div class="dh sak-dh" id="dh"><button class="back" aria-label="Назад"><i data-i="back"></i></button>'+(a.length>1?'<span class="cnt"><i data-i="camera"></i>'+a.length+'</span>':'')+(c?'<img style="view-transition-name:hero" src="'+esc(c)+'" alt="Вход: '+esc(v.name)+'">':'<span class="np" style="align-content:center;gap:8px;padding-bottom:90px"><i data-i="camera"></i><small style="font-size:14px;color:#ffffffcc;line-height:1.35;text-align:center;padding:0 16px">Фото входа скоро добавим</small></span>')+'</div>'+
-'<div class="dbody sak-dbody"><div class="sak-sheet"><div class="sak-handle"></div>'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'<h1>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</h1><p class="sak-addr"><i data-i="pin"></i>'+(v.address?esc(v.address):'Адрес уточняется')+'</p><h2>Как пройти</h2><ol class="steps'+(st.length?'':' empty')+'">'+(st.length?st.map((s,k)=>'<li style="--k:'+k+'"><span class="n">'+(k+1)+'</span><span>'+esc(s)+'</span></li>').join(''):'<li style="--k:0"><span class="n">?</span><span>Подсказка скоро появится. Пока ориентируйся по 2ГИС.</span></li>')+'</ol>'+
+'<div class="dbody sak-dbody"><div class="sak-sheet"><div class="sak-handle"></div>'+(v.fl?'<span class="badge">'+v.fl+'</span>':'')+'<h1>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</h1><p class="sak-addr"><i data-i="pin"></i>'+(v.address?esc(v.address):'Адрес уточняется')+'</p><h2>Как пройти</h2><div class="voice-bar"><button type="button" class="btn voice" id="vbtn"><span>🔊</span> <span class="vlbl">Озвучить</span></button><span class="voice-tip" id="vtip" hidden>Включи звук</span></div><ol class="steps'+(st.length?'':' empty')+'">'+(st.length?st.map((s,k)=>'<li style="--k:'+k+'"><span class="n">'+(k+1)+'</span><span>'+esc(s)+'</span></li>').join(''):'<li style="--k:0"><span class="n">?</span><span>Подсказка скоро появится. Пока ориентируйся по 2ГИС.</span></li>')+'</ol>'+
 '<a class="btn gis" href="'+gis(v)+'" target="_blank" rel="noopener"><i data-i="map"></i>Открыть в 2ГИС</a><div class="rt"><span class="rtl">Маршрут</span><a class="btn ghost" href="'+r2g(v)+'" target="_blank" rel="noopener">2ГИС</a><a class="btn ghost" href="'+rya(v)+'" target="_blank" rel="noopener">Яндекс Карты</a></div>'+(v.lat!=null?'<button class="btn ghost" data-onmap="'+v.i+'"><i data-i="pin"></i>На карте</button>':'')+'</div></div>';
-icons($('#s-venue'));if(a.length)$('#dh').onclick=e=>{if(!e.target.closest('.back'))openLB(a,0)}}
+icons($('#s-venue'));if(a.length)$('#dh').onclick=e=>{if(!e.target.closest('.back')&&!e.target.closest('.back *'))openLB(a,0)}; bindVoice(v,st)}
 /* lightbox */
 const LB=$('#lb'),lbt=LB.querySelector('.lbt'),lbc=LB.querySelector('.lbc');
-function openLB(a,k){lbt.innerHTML=a.map(p=>'<figure>'+(p.video?'<video controls playsinline muted preload="metadata" poster="'+esc(p.poster)+'" src="'+esc(p.video)+'"></video>':'<img src="'+esc(p.src)+'" alt="">')+(p.caption?'<figcaption>'+esc(p.caption)+'</figcaption>':'')+'</figure>').join('');LB.classList.add('show');document.body.style.overflow='hidden';requestAnimationFrame(()=>{lbt.scrollLeft=k*lbt.clientWidth;lbc.textContent=a.length>1?(k+1)+'/'+a.length:''})}
-lbt.addEventListener('scroll',()=>{const n=lbt.children.length;if(n>1)lbc.textContent=(Math.round(lbt.scrollLeft/lbt.clientWidth)+1)+'/'+n});
-const lbClose=()=>{LB.querySelectorAll('video').forEach(x=>x.pause());LB.classList.remove('show');document.body.style.overflow=''};LB.querySelector('.lbx').onclick=lbClose;LB.addEventListener('click',e=>{if(e.target.tagName!=='IMG'&&e.target.tagName!=='VIDEO')lbClose()});addEventListener('keydown',e=>{if(e.key==='Escape'){lbClose();sheet.classList.remove('on')}});
+
+let lbZ=1,lbIdx=0,lbA=[];
+function lbShow(i){lbIdx=i;const n=lbA.length;lbt.scrollTo({left:i*lbt.clientWidth,behavior:'smooth'});lbc.textContent=(n>1?(i+1)+'/'+n:'')+(lbA[i]&&lbA[i].caption?' · '+lbA[i].caption:'');
+  LB.querySelectorAll('.lbt img').forEach(im=>{im.style.transform='';im.dataset.z='1'});lbZ=1;
+  LB.querySelector('.lbprv').style.display=n>1?'grid':'none';LB.querySelector('.lbn').style.display=n>1?'grid':'none'}
+function openLB(a,k){lbA=a;lbIdx=k||0;lbt.innerHTML=a.map(p=>'<figure>'+(p.video?'<video controls playsinline muted preload="metadata" poster="'+esc(p.poster)+'" src="'+esc(p.video)+'"></video>':'<img src="'+esc(p.src)+'" alt="" draggable="false">')+(p.caption?'<figcaption>'+esc(p.caption)+'</figcaption>':'')+'</figure>').join('');
+  LB.classList.add('show');document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>{lbt.scrollLeft=lbIdx*lbt.clientWidth;lbShow(lbIdx);lbBindZoom()})}
+lbt.addEventListener('scroll',()=>{const n=lbt.children.length;if(n>1){const i=Math.round(lbt.scrollLeft/Math.max(1,lbt.clientWidth));if(i!==lbIdx){lbIdx=i;lbShow(i)}}});
+const lbClose=()=>{LB.querySelectorAll('video').forEach(x=>x.pause());LB.classList.remove('show');document.body.style.overflow='';lbZ=1};
+LB.querySelector('.lbx').onclick=lbClose;
+LB.querySelector('.lbn').onclick=e=>{e.stopPropagation();if(lbIdx<lbA.length-1)lbShow(lbIdx+1)};
+LB.querySelector('.lbprv').onclick=e=>{e.stopPropagation();if(lbIdx>0)lbShow(lbIdx-1)};
+LB.addEventListener('click',e=>{if(e.target===LB||e.target.classList.contains('lbt'))lbClose()});
+addEventListener('keydown',e=>{if(!LB.classList.contains('show'))return;if(e.key==='Escape'){lbClose();sheet.classList.remove('on')} if(e.key==='ArrowRight')LB.querySelector('.lbn').click(); if(e.key==='ArrowLeft')LB.querySelector('.lbprv').click()});
+/* pinch + double-tap zoom + swipe down close */
+function lbBindZoom(){
+  const imgs=[...LB.querySelectorAll('.lbt img')];
+  imgs.forEach(img=>{
+    let z=1,lx=0,ly=0,sx=0,sy=0,mode=null,startDist=0,startZ=1,dy=0;
+    img.ondblclick=e=>{e.preventDefault();z=z>1?1:2.2;img.dataset.z=z;img.style.transform=z>1?'scale('+z+')':'';lbZ=z};
+    img.addEventListener('touchstart',e=>{
+      if(e.touches.length===2){mode='pinch';const dx=e.touches[0].clientX-e.touches[1].clientX,dy2=e.touches[0].clientY-e.touches[1].clientY;startDist=Math.hypot(dx,dy2)||1;startZ=z;e.preventDefault()}
+      else if(e.touches.length===1){mode='pan';sx=e.touches[0].clientX;sy=e.touches[0].clientY;dy=0}
+    },{passive:false});
+    img.addEventListener('touchmove',e=>{
+      if(mode==='pinch'&&e.touches.length===2){const dx=e.touches[0].clientX-e.touches[1].clientX,dy2=e.touches[0].clientY-e.touches[1].clientY;z=Math.min(4,Math.max(1,startZ*(Math.hypot(dx,dy2)/startDist)));img.style.transform='scale('+z+')';e.preventDefault()}
+      else if(mode==='pan'&&e.touches.length===1&&z<=1){dy=e.touches[0].clientY-sy; if(dy>0){LB.style.transform='translateY('+dy+'px)';LB.style.opacity=String(Math.max(.3,1-dy/280))}}
+    },{passive:false});
+    img.addEventListener('touchend',()=>{if(mode==='pan'&&z<=1){if(dy>110)lbClose(); LB.style.transform='';LB.style.opacity='';} mode=null;dy=0});
+  });
+}
+
 /* map */
 const sheet=$('#sheet');let map,mk={},pend=null;
 function openSheet(i,fly){const v=VENUES[i],c=cover(v);sheet.innerHTML='<div class="mc" data-v="'+v.slug+'">'+(c?'<img src="'+esc(c)+'" alt="">':'<span class="np"><i data-i="camera"></i></span>')+'<div><strong>'+esc(v.name.replace(/\s*\|\s*/g,' · '))+'</strong><span>'+esc(v.address||'')+'</span></div><span class="go"><i data-i="chev"></i></span></div>';icons(sheet);sheet.classList.add('on');if(fly&&map)map.setView([v.lat,v.lng],17)}
@@ -1283,7 +1418,7 @@ if(pts.length)map.fitBounds(pts,{padding:[30,30],maxZoom:15});map.on('click',()=
 const off=VENUES.length-pts.length;$('#mapnote').textContent='На карте '+pts.length+' из '+VENUES.length+'.'+(off?' Остальные ищи в «Заведениях».':'')}
 /* routing */
 const go=h=>{location.hash=h};
-function routeNow(){const h=decodeURIComponent(location.hash.slice(1));let id='home';sheet.classList.remove('on');lbClose();
+function routeNow(){const h=decodeURIComponent(location.hash.slice(1));let id='home';sheet.classList.remove('on');lbClose();try{speechSynthesis.cancel()}catch(e){};try{closeQr()}catch(e){};
 if(h.startsWith('v/')){const v=VENUES.find(x=>x.slug==h.slice(2));if(v){detail(v);id='venue'}}else if(['rules','venues','bag','map','oops','check','emerg'].includes(h))id=h;
 document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id=='s-'+id));
 if(id=='venues'&&route.y!=null&&route.last=='venue')scrollTo(0,route.y);else scrollTo(0,0);
@@ -1307,6 +1442,14 @@ if(document.startViewTransition&&route.nav&&!matchMedia('(prefers-reduced-motion
 }else{routeNow();fin()}
 if(nid=='venue')route.slug=h.slice(2)}
 addEventListener('hashchange',()=>{route.nav=1;route()});icons(document);route();
+
+/* QR share */
+const qrbig=$('#qrbig');
+const openQr=()=>{if(!qrbig)return; qrbig.classList.add('show'); document.body.style.overflow='hidden'};
+const closeQr=()=>{if(!qrbig)return; qrbig.classList.remove('show'); document.body.style.overflow=''};
+if(qrbig){ qrbig.querySelector('.lbx').onclick=closeQr; qrbig.onclick=e=>{if(e.target===qrbig)closeQr()}; }
+const qrc=$('#qrshare'); if(qrc){ qrc.onclick=openQr; qrc.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openQr()}} }
+addEventListener('keydown',e=>{if(e.key==='Escape'&&qrbig&&qrbig.classList.contains('show'))closeQr()});
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer onload="if(document.getElementById('s-map').classList.contains('on'))initMap()"></script>
 <script>
